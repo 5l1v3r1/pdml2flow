@@ -2,10 +2,10 @@
 _Aggregates wireshark pdml to flows_
 
 ## Prerequisites
-* [python] verion 3
+* [python] version 3
 
 ## Installation
-    sudo python setup.py installation
+    sudo python setup.py install
 
 ## Usage
     $ pdml2flow.py -h
