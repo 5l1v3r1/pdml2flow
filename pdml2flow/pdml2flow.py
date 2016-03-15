@@ -100,6 +100,8 @@ def merge(a, b, path=None):
                     a[key] = [a[key]] + b[key]
                 elif type(a[key]) is not list and type(b[key]) is not list:
                     a[key] = [a[key]] + [b[key]]
+                # remove double entries from list
+                a[key] = list(set(a[key]))
         else:
             a[key] = b[key]
     return a
@@ -255,7 +257,12 @@ def main():
     # override the default ContextHandler
     handler = PdmlHandler()
     parser.setContentHandler(handler)
-    parser.parse(sys.stdin)
+    try:
+        parser.parse(sys.stdin)
+    except xml.sax._exceptions.SAXParseException as e:
+        # this might happen when a pdml file is malformed
+        warning('Parser returned exception: {}'.format(e))
+        handler.endDocument()
 
 if ( __name__ == '__main__'):
-    mainloop()
+    main()
