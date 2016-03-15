@@ -8,8 +8,8 @@ _Aggregates wireshark pdml to flows_
     $ sudo python setup.py install
 
 ## Usage
-    $ pdml2flow.py -h
-    usage: pdml2flow.py [-h] [-f FLOWDEF] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN]
+    $ pdml2flow -h
+    usage: pdml2flow [-h] [-f FLOWDEF] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN]
                     [-s] [-d]
     
     Aggregates wireshark pdml to flows
@@ -31,23 +31,23 @@ _Aggregates wireshark pdml to flows_
 ## Example
 Sniff from interface:
 
-    $ tshark -i interface -Tpdml | pdml2flow.py
+    $ tshark -i interface -Tpdml | pdml2flow
 
 Write xml output
 
-    $ tshark -i interface -Tpdml | pdml2flow.py -x
+    $ tshark -i interface -Tpdml | pdml2flow -x
 
 Read a .pcap file
 
-    $ tshark -r pcap_file -Tpdml | pdml2flow.py
+    $ tshark -r pcap_file -Tpdml | pdml2flow
 
 Aggregate based on ethernet source and ethernet destination address
 
-    $ tshark -i interface -Tpdml | pdml2flow.py -f eth.src -f eth.dst
+    $ tshark -i interface -Tpdml | pdml2flow -f eth.src -f eth.dst
 
 Pretty print flows using jq
 
-    $ tshark -i interface -Tpdml | pdml2flow.py | jq
+    $ tshark -i interface -Tpdml | pdml2flow | jq
 
 [python]: https://www.python.org/
 [wireshark]: https://www.wireshark.org/
