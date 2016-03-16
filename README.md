@@ -45,10 +45,16 @@ Aggregate based on ethernet source and ethernet destination address
 
     $ tshark -i interface -Tpdml | pdml2flow -f eth.src -f eth.dst
 
-Pretty print flows using jq
+Pretty print flows using [jq]
 
     $ tshark -i interface -Tpdml | pdml2flow | jq
+
+Post-process flows using [FluentFlow]
+
+    $ tshark -i interface -Tpdml | pdml2flow | fluentflow rules.js
 
 [python]: https://www.python.org/
 [wireshark]: https://www.wireshark.org/
 [dict2xml]: https://github.com/delfick/python-dict2xml
+[jq]: https://stedolan.github.io/jq/
+[FluentFlow]: https://github.com/Enteee/FluentFlow
