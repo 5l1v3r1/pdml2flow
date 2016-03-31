@@ -21,10 +21,11 @@ FLOW_DEF=[
 DATA_MAXLEN = 200
 DATA_TOO_LONG = 'Data too long'
 PDML_NESTCHAR = '.'
-FLOW_BUFFER_TIME = 3
+FLOW_BUFFER_TIME = 180
 EXTRACT_SHOW = False
 STANDALONE = False
 XML_OUTPUT = False
+COMPRESS_DATA = False
 DEBUG = False
 
 parser = argparse.ArgumentParser(description='Aggregates wireshark pdml to flows')
@@ -58,6 +59,12 @@ parser.add_argument('-x',
                     action='store_true',
                     help='Switch to xml output [default: {}]'.format(XML_OUTPUT)
                     )
+parser.add_argument('-c',
+                    default=COMPRESS_DATA,
+                    dest='compress_data',
+                    action='store_true',
+                    help='Removes duplicate data when merging objects, will not preserve order of leaves [default: {}]'.format(COMPRESS_DATA)
+                    )
 parser.add_argument('-d',
                     default=DEBUG,
                     dest='debug',
@@ -89,8 +96,6 @@ def merge(a, b, path=None):
         if key in a:
             if isinstance(a[key], dict) and isinstance(b[key], dict):
                 merge(a[key], b[key], path + [str(key)])
-            elif a[key] == b[key]:
-                pass # same leaf value
             else:
                 if type(a[key]) is list and type(b[key]) is list:
                     a[key] += b[key]
@@ -100,8 +105,9 @@ def merge(a, b, path=None):
                     a[key] = [a[key]] + b[key]
                 elif type(a[key]) is not list and type(b[key]) is not list:
                     a[key] = [a[key]] + [b[key]]
-                # remove double entries from list
-                a[key] = list(set(a[key]))
+                if args.compress_data:
+                    # remove duplicates
+                    a[key] = list(set(a[key]))
         else:
             a[key] = b[key]
     return a
@@ -168,16 +174,14 @@ class Flow():
         frame_time = frame['frame']['time_epoch']['raw'][0]
         self.__first_frame_time = min(self.__first_frame_time, frame_time) 
         self.__newest_frame_time = max(self.__newest_frame_time, frame_time)
-        Flow.newest_overall_frame_time = max(Flow.newest_overall_frame_time, frame_time)
         self.__framecount += 1
         # Extract data
         self.__frames = merge(self.__frames, frame)
-
         # Print flow duration
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 
     def not_expired(self):
-        return self.__newest_frame_time > Flow.newest_overall_frame_time - args.flow_buffer_time
+        return self.__newest_frame_time > (Flow.newest_overall_frame_time - args.flow_buffer_time)
 
 class PdmlHandler(xml.sax.ContentHandler):
     def __init__(self):
@@ -218,12 +222,17 @@ class PdmlHandler(xml.sax.ContentHandler):
 
     # Call when an elements ends
     def endElement(self, tag):
-        # clean up expired flows
-        for (flowid, flow) in self.__flows.items():
-            if not flow.not_expired():
-                print(flow)
-        self.__flows = { flowid: flow for (flowid, flow) in self.__flows.items() if flow.not_expired() }
         if tag == 'packet':
+            # advance time
+            Flow.newest_overall_frame_time = max(Flow.newest_overall_frame_time, self.__frame['frame']['time_epoch']['raw'][0])
+            # write out expired flows
+            new_flows = {}
+            for (flowid, flow) in self.__flows.items():
+                if flow.not_expired():
+                    new_flows[flowid] = flow
+                else:
+                    print(flow)
+            self.__flows = new_flows
             # the flow definition
             flowid = Flow.get_flow_id(self.__frame)
             # ignore frames without a flowid
