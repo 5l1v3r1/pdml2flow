@@ -29,6 +29,8 @@ COMPRESS_DATA = False
 FRAMES_ARRAY = False
 DEBUG = False
 
+DEFAULT = object();
+
 parser = argparse.ArgumentParser(description='Aggregates wireshark pdml to flows')
 parser.add_argument('-f',
                     default=FLOW_DEF,
@@ -80,16 +82,36 @@ parser.add_argument('-d',
                     )
 
 class AutoVivification(dict):
+
+    """
+    Returns a copy of this object without empty leaves
+    see: https://stackoverflow.com/questions/27973988/python-how-to-remove-all-empty-fields-in-a-nested-dict/35263074
+    """
+    def clean_empty(self, d=DEFAULT):
+        if d is DEFAULT:
+            d = self
+        #debug('checking: {}'.format(d))
+        if not isinstance(d, (dict, list)):
+            return d
+        if isinstance(d, list):
+            return [v for v in (self.clean_empty(v) for v in d) if v]
+        return type(self)({k: v for k, v in ((k, self.clean_empty(v)) for k, v in d.items()) if v})
+
     """
     Implementation of perl's autovivification feature.
     see: https://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python
     """
     def __getitem__(self, item):
-        try:
-            return dict.__getitem__(self, item)
-        except KeyError:
-            value = self[item] = type(self)()
-            return value
+        # if the item is a list we autoexpand it
+        if type(item) is list:
+            return functools.reduce(lambda d, k: d[k], item, self)
+        else:
+            try:
+                return dict.__getitem__(self, item)
+            except KeyError:
+                value = self[item] = type(self)()
+                return value
+
 
 # merges b into a recursively
 # also merges lists and :
@@ -118,9 +140,6 @@ def merge(a, b, path=None):
         else:
             a[key] = b[key]
     return a
-
-def get_from_dict(dataDict, mapList):
-    return functools.reduce(lambda d, k: d[k], mapList, dataDict)
 
 def boolify(string):
     if string == 'True':
@@ -162,6 +181,8 @@ class Flow():
         self.add_frame(first_frame)
 
     def __repr__(self):
+        # clean the frame data
+        self.__frames = self.__frames.clean_empty()
         if args.xml:
             return dict2xml.dict2xml(self.__dict__, wrap='flow')
         else:
@@ -172,8 +193,8 @@ class Flow():
 
     @staticmethod
     def get_flow_id(frame):
-        flowid = [get_from_dict(frame, d)['raw'] for d in args.flowdef]
-        valid = any([ type(i) is not AutoVivification for i in flowid])
+        flowid = [frame[d] for d in args.flowdef]
+        valid = any([type(i) is not AutoVivification for i in flowid])
         # check if flowid is empty
         if not valid:
             return None
@@ -262,6 +283,7 @@ class PdmlHandler(xml.sax.ContentHandler):
     def endDocument(self):
         # print all flows @ end
         for (flowid, flow) in self.__flows.items():
+            # before printing clean all empty laves
             print(flow)
 
 def main():
@@ -271,7 +293,7 @@ def main():
     if(len(FLOW_DEF) < len(args.flowdef)):
         args.flowdef = args.flowdef[len(FLOW_DEF):]
     # split each flowdef to a path
-    args.flowdef = [ path.split(FLOW_DEF_NESTCHAR) for path in args.flowdef ]
+    args.flowdef = [ path.split(FLOW_DEF_NESTCHAR) + ['raw'] for path in args.flowdef ]
     # create an XMLReader
     parser = xml.sax.make_parser()
     # turn off namepsaces
