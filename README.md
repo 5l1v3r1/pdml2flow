@@ -9,23 +9,27 @@ _Aggregates wireshark pdml to flows_
 
 ## Usage
     $ pdml2flow -h
-    usage: pdml2flow [-h] [-f FLOWDEF] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN]
-                    [-s] [-d]
-    
+    usage: pdml2flow.py [-h] [-f FLOWDEF] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN]
+                        [-s] [-x] [-c] [-a] [-d]
+
     Aggregates wireshark pdml to flows
-    
+
     optional arguments:
       -h, --help           show this help message and exit
       -f FLOWDEF           Fields which define the flow, nesting with: . [default:
                            ['vlan.id', 'ip.src', 'ip.dst', 'ipv6.src', 'ipv6.dst',
                            'udp.stream', 'tcp.stream']]
       -t FLOW_BUFFER_TIME  Lenght (in seconds) to buffer a flow before writing the
-                           packets [default: 3]
+                           packets [default: 180]
       -l DATA_MAXLEN       Maximum lenght of data in tshark pdml-field [default:
                            200]
       -s                   Extract show names, every data leave will now look like
                            { raw : [] , show: [] } [default: False]
       -x                   Switch to xml output [default: False]
+      -c                   Removes duplicate data when merging objects, will not
+                           preserve order of leaves [default: False]
+      -a                   Instaead of merging the frames will append them to an
+                           array [default: False]
       -d                   Debug mode [default: False]
 
 ## Example
