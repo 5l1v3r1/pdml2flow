@@ -26,6 +26,7 @@ EXTRACT_SHOW = False
 STANDALONE = False
 XML_OUTPUT = False
 COMPRESS_DATA = False
+FRAMES_ARRAY = False
 DEBUG = False
 
 parser = argparse.ArgumentParser(description='Aggregates wireshark pdml to flows')
@@ -64,6 +65,12 @@ parser.add_argument('-c',
                     dest='compress_data',
                     action='store_true',
                     help='Removes duplicate data when merging objects, will not preserve order of leaves [default: {}]'.format(COMPRESS_DATA)
+                    )
+parser.add_argument('-a',
+                    default=FRAMES_ARRAY,
+                    dest='frames_array',
+                    action='store_true',
+                    help='Instaead of merging the frames will append them to an array [default: {}]'.format(FRAMES_ARRAY)
                     )
 parser.add_argument('-d',
                     default=DEBUG,
@@ -147,7 +154,10 @@ class Flow():
         first_frame_time = first_frame['frame']['time_epoch']['raw'][0]
         self.__newest_frame_time = self.__first_frame_time = first_frame_time
         self.__id = self.get_flow_id(first_frame)
-        self.__frames = AutoVivification()
+        if args.frames_array:
+            self.__frames = []
+        else:
+            self.__frames = AutoVivification()
         self.__framecount = 0
         self.add_frame(first_frame)
 
@@ -176,7 +186,10 @@ class Flow():
         self.__newest_frame_time = max(self.__newest_frame_time, frame_time)
         self.__framecount += 1
         # Extract data
-        self.__frames = merge(self.__frames, frame)
+        if args.frames_array:
+            self.__frames.append(frame)
+        else:
+            self.__frames = merge(self.__frames, frame)
         # Print flow duration
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 
