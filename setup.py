@@ -11,7 +11,9 @@ setup(
     # other arguments here...
     entry_points={
         'console_scripts': [
-            'pdml2flow = pdml2flow:main',
+            'pdml2flow = pdml2flow:pdml2flow',
+            'pdml2json = pdml2flow:pdml2json',
+            'pdml2xml = pdml2flow:pdml2xml',
         ]
     },
     # metadata

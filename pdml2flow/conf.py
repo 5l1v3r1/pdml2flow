@@ -28,6 +28,7 @@ class Conf():
     COMPRESS_DATA = False
     FRAMES_ARRAY = False
     DEBUG = False
+    METADATA = False
 
     """
     Applies a configuration to the global config object
