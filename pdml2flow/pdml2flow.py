@@ -9,80 +9,10 @@ import xml.sax
 import functools
 from .autovivification import AutoVivification
 from .utils import autoconvert
-
-FLOW_DEF_NESTCHAR = '.'
-FLOW_DEF=[
-            'vlan{}id'.format(FLOW_DEF_NESTCHAR),
-            'ip{}src'.format(FLOW_DEF_NESTCHAR),
-            'ip{}dst'.format(FLOW_DEF_NESTCHAR),
-            'ipv6{}src'.format(FLOW_DEF_NESTCHAR),
-            'ipv6{}dst'.format(FLOW_DEF_NESTCHAR),
-            'udp{}stream'.format(FLOW_DEF_NESTCHAR),
-            'tcp{}stream'.format(FLOW_DEF_NESTCHAR),
-]
-DATA_MAXLEN = 200
-DATA_TOO_LONG = 'Data too long'
-PDML_NESTCHAR = '.'
-FLOW_BUFFER_TIME = 180
-EXTRACT_SHOW = False
-STANDALONE = False
-XML_OUTPUT = False
-COMPRESS_DATA = False
-FRAMES_ARRAY = False
-DEBUG = False
-
-parser = argparse.ArgumentParser(description='Aggregates wireshark pdml to flows')
-parser.add_argument('-f',
-                    default=FLOW_DEF,
-                    dest='flowdef',
-                    action='append',
-                    help='Fields which define the flow, nesting with: {} [default: {}]'.format(FLOW_DEF_NESTCHAR, FLOW_DEF)
-                    )
-parser.add_argument('-t',
-                    default=FLOW_BUFFER_TIME,
-                    type=int,
-                    dest='flow_buffer_time',
-                    help='Lenght (in seconds) to buffer a flow before writing the packets [default: {}]'.format(FLOW_BUFFER_TIME)
-                    )
-parser.add_argument('-l',
-                    default=DATA_MAXLEN,
-                    type=int,
-                    dest='data_maxlen',
-                    help='Maximum lenght of data in tshark pdml-field [default: {}]'.format(DATA_MAXLEN)
-                    )
-parser.add_argument('-s',
-                    default=EXTRACT_SHOW,
-                    dest='extract_show',
-                    action='store_true',
-                    help='Extract show names, every data leave will now look like {{ raw : [] , show: [] }} [default: {}]'.format(EXTRACT_SHOW)
-                    )
-parser.add_argument('-x',
-                    default=XML_OUTPUT,
-                    dest='xml',
-                    action='store_true',
-                    help='Switch to xml output [default: {}]'.format(XML_OUTPUT)
-                    )
-parser.add_argument('-c',
-                    default=COMPRESS_DATA,
-                    dest='compress_data',
-                    action='store_true',
-                    help='Removes duplicate data when merging objects, will not preserve order of leaves [default: {}]'.format(COMPRESS_DATA)
-                    )
-parser.add_argument('-a',
-                    default=FRAMES_ARRAY,
-                    dest='frames_array',
-                    action='store_true',
-                    help='Instaead of merging the frames will append them to an array [default: {}]'.format(FRAMES_ARRAY)
-                    )
-parser.add_argument('-d',
-                    default=DEBUG,
-                    dest='debug',
-                    action='store_true',
-                    help='Debug mode [default: {}]'.format(DEBUG)
-                    )
+from .conf import Conf
 
 def debug(*objs):
-    if args.debug:
+    if Conf.DEBUG:
         print("[Debug: {}] ".format(Flow.newest_overall_frame_time), *objs, file=sys.stderr)
 
 def warning(*objs):
@@ -97,7 +27,7 @@ class Flow():
         first_frame_time = first_frame['frame']['time_epoch']['raw'][0]
         self.__newest_frame_time = self.__first_frame_time = first_frame_time
         self.__id = self.get_flow_id(first_frame)
-        if args.frames_array:
+        if Conf.FRAMES_ARRAY:
             self.__frames = []
         else:
             self.__frames = AutoVivification()
@@ -107,7 +37,7 @@ class Flow():
     def __repr__(self):
         # clean the frame data
         self.__frames = self.__frames.clean_empty()
-        if args.xml:
+        if Conf.XML_OUTPUT:
             return dict2xml.dict2xml(self.__dict__, wrap='flow')
         else:
             return json.dumps(self.__dict__)
@@ -117,7 +47,7 @@ class Flow():
 
     @staticmethod
     def get_flow_id(frame):
-        flowid = [frame[d] for d in args.flowdef]
+        flowid = [frame[d] for d in Conf.FLOW_DEF]
         valid = any([type(i) is not AutoVivification for i in flowid])
         # check if flowid is empty
         if not valid:
@@ -131,15 +61,15 @@ class Flow():
         self.__newest_frame_time = max(self.__newest_frame_time, frame_time)
         self.__framecount += 1
         # Extract data
-        if args.frames_array:
+        if Conf.FRAMES_ARRAY:
             self.__frames.append(frame)
         else:
-            self.__frames.merge(frame, compress_data=args.compress_data)
+            self.__frames.merge(frame, compress_data=Conf.COMPRESS_DATA)
         # Print flow duration
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 
     def not_expired(self):
-        return self.__newest_frame_time > (Flow.newest_overall_frame_time - args.flow_buffer_time)
+        return self.__newest_frame_time > (Flow.newest_overall_frame_time - Conf.FLOW_BUFFER_TIME)
 
 class PdmlHandler(xml.sax.ContentHandler):
     def __init__(self):
@@ -156,7 +86,7 @@ class PdmlHandler(xml.sax.ContentHandler):
                 if len(name) > 0:
                     # Build object tree
                     name_access = functools.reduce(
-                        lambda x,y: x[y], [self.__frame] + name.split(PDML_NESTCHAR)
+                        lambda x,y: x[y], [self.__frame] + name.split(Conf.PDML_NESTCHAR)
                     )
                     new = {
                         'raw': [],
@@ -165,18 +95,18 @@ class PdmlHandler(xml.sax.ContentHandler):
                     # Extract raw data
                     if 'show' in attributes:
                         show = attributes.getValue('show')
-                        if len(show) > args.data_maxlen:
-                            show = DATA_TOO_LONG
+                        if len(show) > Conf.DATA_MAXLEN:
+                            show = Conf.DATA_TOO_LONG
                         new['raw'] += [autoconvert(show)]
                     # Extract showname
                     if 'showname' in attributes:
                         showname = attributes.getValue('showname')
-                        if len(showname) > args.data_maxlen:
-                            showname = DATA_TOO_LONG
+                        if len(showname) > Conf.DATA_MAXLEN:
+                            showname = Conf.DATA_TOO_LONG
                         new['show'] += [showname]
-                    if not args.extract_show:
+                    if not Conf.EXTRACT_SHOW:
                         del new['show']
-                    name_access.merge(new, compress_data=args.compress_data)
+                    name_access.merge(new, compress_data=Conf.COMPRESS_DATA)
 
     # Call when an elements ends
     def endElement(self, tag):
@@ -211,13 +141,64 @@ class PdmlHandler(xml.sax.ContentHandler):
             print(flow)
 
 def main():
-    global args, parser
-    args = parser.parse_args()
-    # remove default flowdef if other flowdef was given
-    if(len(FLOW_DEF) < len(args.flowdef)):
-        args.flowdef = args.flowdef[len(FLOW_DEF):]
+    parser = argparse.ArgumentParser(description='Aggregates wireshark pdml to flows')
+    parser.add_argument('-f',
+                        default=Conf.FLOW_DEF_STR,
+                        dest='FLOW_DEF_STR',
+                        action='append',
+                        help='Fields which define the flow, nesting with: \'{}\' [default: {}]'.format(Conf.FLOW_DEF_NESTCHAR, Conf.FLOW_DEF_STR)
+                        )
+    parser.add_argument('-t',
+                        default=Conf.FLOW_BUFFER_TIME,
+                        type=int,
+                        dest='FLOW_BUFFER_TIME',
+                        help='Lenght (in seconds) to buffer a flow before writing the packets [default: {}]'.format(Conf.FLOW_BUFFER_TIME)
+                        )
+    parser.add_argument('-l',
+                        default=Conf.DATA_MAXLEN,
+                        type=int,
+                        dest='DATA_MAXLEN',
+                        help='Maximum lenght of data in tshark pdml-field [default: {}]'.format(Conf.DATA_MAXLEN)
+                        )
+    parser.add_argument('-s',
+                        default=Conf.EXTRACT_SHOW,
+                        dest='EXTRACT_SHOW',
+                        action='store_true',
+                        help='Extract show names, every data leave will now look like {{ raw : [] , show: [] }} [default: {}]'.format(Conf.EXTRACT_SHOW)
+                        )
+    parser.add_argument('-x',
+                        default=Conf.XML_OUTPUT,
+                        dest='XML_OUTPUT',
+                        action='store_true',
+                        help='Switch to xml output [default: {}]'.format(Conf.XML_OUTPUT)
+                        )
+    parser.add_argument('-c',
+                        default=Conf.COMPRESS_DATA,
+                        dest='COMPRESS_DATA',
+                        action='store_true',
+                        help='Removes duplicate data when merging objects, will not preserve order of leaves [default: {}]'.format(Conf.COMPRESS_DATA)
+                        )
+    parser.add_argument('-a',
+                        default=Conf.FRAMES_ARRAY,
+                        dest='FRAMES_ARRAY',
+                        action='store_true',
+                        help='Instaead of merging the frames will append them to an array [default: {}]'.format(Conf.FRAMES_ARRAY)
+                        )
+    parser.add_argument('-d',
+                        default=Conf.DEBUG,
+                        dest='DEBUG',
+                        action='store_true',
+                        help='Debug mode [default: {}]'.format(Conf.DEBUG)
+                        )
+    conf = vars(parser.parse_args())
     # split each flowdef to a path
-    args.flowdef = [ path.split(FLOW_DEF_NESTCHAR) + ['raw'] for path in args.flowdef ]
+    try:
+        if(conf.FLOW_DEF_STR):
+            conf.FLOW_DEF = Conf.get_real_paths(conf.FLOW_DEF_STR, Conf.FLOW_DEF_NESTCHAR)
+    except AttributeError:
+        pass
+    # apply configuration
+    Conf.set(conf)
     # create an XMLReader
     parser = xml.sax.make_parser()
     # turn off namepsaces
