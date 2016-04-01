@@ -25,7 +25,10 @@ class Flow():
 
     def __repr__(self):
         # clean the frame data
-        self.__frames = self.__frames.clean_empty()
+        if Conf.FRAMES_ARRAY:
+            self.__frames = [ f.clean_empty() for f in self.__frames ]
+        else:
+            self.__frames = self.__frames.clean_empty()
         if Conf.METADATA:
             to_repr = self.__dict__
         else:
