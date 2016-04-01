@@ -7,6 +7,8 @@ import dict2xml
 import argparse
 import xml.sax
 import functools
+from .autovivification import AutoVivification
+from .utils import autoconvert
 
 FLOW_DEF_NESTCHAR = '.'
 FLOW_DEF=[
@@ -28,8 +30,6 @@ XML_OUTPUT = False
 COMPRESS_DATA = False
 FRAMES_ARRAY = False
 DEBUG = False
-
-DEFAULT = object();
 
 parser = argparse.ArgumentParser(description='Aggregates wireshark pdml to flows')
 parser.add_argument('-f',
@@ -80,82 +80,6 @@ parser.add_argument('-d',
                     action='store_true',
                     help='Debug mode [default: {}]'.format(DEBUG)
                     )
-
-class AutoVivification(dict):
-
-    """
-    Returns a copy of this object without empty leaves
-    see: https://stackoverflow.com/questions/27973988/python-how-to-remove-all-empty-fields-in-a-nested-dict/35263074
-    """
-    def clean_empty(self, d=DEFAULT):
-        if d is DEFAULT:
-            d = self
-        #debug('checking: {}'.format(d))
-        if not isinstance(d, (dict, list)):
-            return d
-        if isinstance(d, list):
-            return [v for v in (self.clean_empty(v) for v in d) if v]
-        return type(self)({k: v for k, v in ((k, self.clean_empty(v)) for k, v in d.items()) if v})
-
-    """
-    Implementation of perl's autovivification feature.
-    see: https://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python
-    """
-    def __getitem__(self, item):
-        # if the item is a list we autoexpand it
-        if type(item) is list:
-            return functools.reduce(lambda d, k: d[k], item, self)
-        else:
-            try:
-                return dict.__getitem__(self, item)
-            except KeyError:
-                value = self[item] = type(self)()
-                return value
-
-
-# merges b into a recursively
-# also merges lists and :
-# * merge({a:a},{a:b}) = {a:[a,b]}
-# * merge({a:[a]},{a:b}) = {a:[a,b]}
-# * merge({a:a},{a:[b]}) = {a:[a,b]}
-# * merge({a:[a]},{a:[b]}) = {a:[a,b]}
-def merge(a, b, path=None):
-    if path is None: path = []
-    for key in b:
-        if key in a:
-            if isinstance(a[key], dict) and isinstance(b[key], dict):
-                merge(a[key], b[key], path + [str(key)])
-            else:
-                if type(a[key]) is list and type(b[key]) is list:
-                    a[key] += b[key]
-                elif type(a[key]) is list and type(b[key]) is not list:
-                    a[key] += [b[key]]
-                elif type(a[key]) is not list and type(b[key]) is list:
-                    a[key] = [a[key]] + b[key]
-                elif type(a[key]) is not list and type(b[key]) is not list:
-                    a[key] = [a[key]] + [b[key]]
-                if args.compress_data:
-                    # remove duplicates
-                    a[key] = list(set(a[key]))
-        else:
-            a[key] = b[key]
-    return a
-
-def boolify(string):
-    if string == 'True':
-        return True
-    if string == 'False':
-        return False
-    raise ValueError('Not a bool')
-
-# Try to convert variables into datatypes
-def autoconvert(string):
-    for fn in (boolify, int, float):
-        try:
-            return fn(string)
-        except ValueError:
-            pass
-    return string
 
 def debug(*objs):
     if args.debug:
@@ -210,7 +134,7 @@ class Flow():
         if args.frames_array:
             self.__frames.append(frame)
         else:
-            self.__frames = merge(self.__frames, frame)
+            self.__frames.merge(frame, compress_data=args.compress_data)
         # Print flow duration
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 
@@ -252,7 +176,7 @@ class PdmlHandler(xml.sax.ContentHandler):
                         new['show'] += [showname]
                     if not args.extract_show:
                         del new['show']
-                    merge(name_access, new)
+                    name_access.merge(new, compress_data=args.compress_data)
 
     # Call when an elements ends
     def endElement(self, tag):
