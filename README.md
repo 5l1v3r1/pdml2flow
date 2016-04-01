@@ -76,7 +76,7 @@ _Converts pdml to json_
 ### Usage
 ```shell
 $ pdml2json -h
-usage: pdml2json.py [-h] [-s] [-c] [-d]
+usage: pdml2json.py [-h] [-s] [-d]
 
 Converts wireshark pdml to json
 
@@ -84,8 +84,6 @@ optional arguments:
   -h, --help  show this help message and exit
   -s          Extract show names, every data leave will now look like { raw :
               [] , show: [] } [default: False]
-  -c          Removes duplicate data when merging objects, will not preserve
-              order of leaves [default: False]
   -d          Debug mode [default: False]
 ```
 
@@ -95,7 +93,7 @@ _Converts pdml to xml_
 ### Usage
 ```shell
 $ pdml2xml -h
-usage: pdml2xml.py [-h] [-s] [-c] [-d]
+usage: pdml2xml.py [-h] [-s] [-d]
 
 Converts wireshark pdml to json
 
@@ -103,8 +101,6 @@ optional arguments:
   -h, --help  show this help message and exit
   -s          Extract show names, every data leave will now look like { raw :
               [] , show: [] } [default: False]
-  -c          Removes duplicate data when merging objects, will not preserve
-              order of leaves [default: False]
   -d          Debug mode [default: False]
 ```
 

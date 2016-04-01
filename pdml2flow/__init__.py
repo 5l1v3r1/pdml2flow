@@ -92,12 +92,6 @@ def pdml2frame():
                         action='store_true',
                         help='Extract show names, every data leave will now look like {{ raw : [] , show: [] }} [default: {}]'.format(Conf.EXTRACT_SHOW)
                         )
-    parser.add_argument('-c',
-                        default=Conf.COMPRESS_DATA,
-                        dest='COMPRESS_DATA',
-                        action='store_true',
-                        help='Removes duplicate data when merging objects, will not preserve order of leaves [default: {}]'.format(Conf.COMPRESS_DATA)
-                        )
     parser.add_argument('-d',
                         default=Conf.DEBUG,
                         dest='DEBUG',
