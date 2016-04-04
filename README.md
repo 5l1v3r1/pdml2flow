@@ -95,7 +95,7 @@ _Converts pdml to xml_
 $ pdml2xml -h
 usage: pdml2xml.py [-h] [-s] [-d]
 
-Converts wireshark pdml to json
+Converts wireshark pdml to xml
 
 optional arguments:
   -h, --help  show this help message and exit

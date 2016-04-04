@@ -75,13 +75,13 @@ def pdml2flow():
 
 def pdml2xml():
     Conf.XML_OUTPUT = True
-    pdml2frame()
+    pdml2frame('xml')
 
 def pdml2json():
-    pdml2frame()
+    pdml2frame('json')
 
-def pdml2frame():
-    parser = argparse.ArgumentParser(description='Converts wireshark pdml to json')
+def pdml2frame(output_type):
+    parser = argparse.ArgumentParser(description='Converts wireshark pdml to {}'.format(output_type))
     Conf.DATA_MAXLEN = sys.maxsize
     Conf.FLOW_BUFFER_TIME = 0
     Conf.FLOW_DEF_STR = [ 'frame.number' ]
