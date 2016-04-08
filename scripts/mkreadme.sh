@@ -1,9 +1,14 @@
 #!/bin/bash
 TOPLEVEL=$(git rev-parse --show-toplevel)
 
+# install pdml2flow
+sudo pip install -e "${TOPLEVEL}"
+
 cat <<EOF > "${TOPLEVEL}/README.md"
 # pdml2flow
 _Aggregates wireshark pdml to flows_
+
+[![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow)
 
 ## Prerequisites
 * [python] version 3
@@ -14,7 +19,7 @@ _Aggregates wireshark pdml to flows_
 ## Usage
 \`\`\`shell
 $ pdml2flow -h
-$(${TOPLEVEL}/pdml2flow.py -h)
+$(pdml2flow -h)
 \`\`\`
 ## Example
 Sniff from interface:
@@ -58,7 +63,7 @@ _Converts pdml to json_
 ### Usage
 \`\`\`shell
 $ pdml2json -h
-$(${TOPLEVEL}/pdml2json.py -h)
+$(pdml2json -h)
 \`\`\`
 
 ### pdml2xml
@@ -67,7 +72,7 @@ _Converts pdml to xml_
 ### Usage
 \`\`\`shell
 $ pdml2xml -h
-$(${TOPLEVEL}/pdml2xml.py -h)
+$(pdml2xml -h)
 \`\`\`
 
 [python]: https://www.python.org/

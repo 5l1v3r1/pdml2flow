@@ -1,6 +1,8 @@
 # pdml2flow
 _Aggregates wireshark pdml to flows_
 
+[![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow)
+
 ## Prerequisites
 * [python] version 3
 
@@ -10,8 +12,8 @@ _Aggregates wireshark pdml to flows_
 ## Usage
 ```shell
 $ pdml2flow -h
-usage: pdml2flow.py [-h] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME]
-                    [-l DATA_MAXLEN] [-s] [-x] [-c] [-a] [-m] [-d]
+usage: pdml2flow [-h] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN]
+                 [-s] [-x] [-c] [-a] [-m] [-d]
 
 Aggregates wireshark pdml to flows
 
@@ -76,7 +78,7 @@ _Converts pdml to json_
 ### Usage
 ```shell
 $ pdml2json -h
-usage: pdml2json.py [-h] [-s] [-d]
+usage: pdml2json [-h] [-s] [-d]
 
 Converts wireshark pdml to json
 
@@ -93,7 +95,7 @@ _Converts pdml to xml_
 ### Usage
 ```shell
 $ pdml2xml -h
-usage: pdml2xml.py [-h] [-s] [-d]
+usage: pdml2xml [-h] [-s] [-d]
 
 Converts wireshark pdml to xml
 
