@@ -1,7 +1,6 @@
-# pdml2flow
+# pdml2flow [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow)
 _Aggregates wireshark pdml to flows_
 
-[![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow)
 
 ## Prerequisites
 * [python] version 3
