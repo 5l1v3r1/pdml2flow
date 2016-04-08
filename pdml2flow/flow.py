@@ -25,15 +25,18 @@ class Flow():
 
     def __repr__(self):
         # clean the frame data
-        if Conf.FRAMES_ARRAY:
+        if Conf.FRAMES_ARRAY and Conf.COMPRESS_DATA:
+            self.__frames = [ f.clean_empty().compress() for f in self.__frames ]
+        elif Conf.FRAMES_ARRAY and not Conf.COMPRESS_DATA:
             self.__frames = [ f.clean_empty() for f in self.__frames ]
-        else:
+        elif not Conf.FRAMES_ARRAY and Conf.COMPRESS_DATA:
+            self.__frames = self.__frames.clean_empty().compress()
+        elif not Conf.FRAMES_ARRAY and not Conf.COMPRESS_DATA:
             self.__frames = self.__frames.clean_empty()
         if Conf.METADATA:
             to_repr = self.__dict__
         else:
             to_repr = self.__frames
-
         if Conf.XML_OUTPUT:
             return dict2xml.dict2xml(to_repr, wrap='flow')
         else:
@@ -61,7 +64,7 @@ class Flow():
         if Conf.FRAMES_ARRAY:
             self.__frames.append(frame)
         else:
-            self.__frames.merge(frame, compress_data=Conf.COMPRESS_DATA)
+            self.__frames.merge(frame)
         # Print flow duration
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 

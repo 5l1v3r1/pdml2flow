@@ -44,7 +44,7 @@ class PdmlHandler(xml.sax.ContentHandler):
                         new['show'] += [showname]
                     if not Conf.EXTRACT_SHOW:
                         del new['show']
-                    name_access.merge(new, compress_data=Conf.COMPRESS_DATA)
+                    name_access.merge(new)
 
     # Call when an elements ends
     def endElement(self, tag):

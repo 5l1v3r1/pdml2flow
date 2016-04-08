@@ -22,4 +22,6 @@ setup(
     description = "Aggregates wireshark pdml to flows",
     license = "Apache 2.0",
     url = "https://github.com/Enteee/pdml2flow",
+    # testing
+    test_suite="test",
 )
