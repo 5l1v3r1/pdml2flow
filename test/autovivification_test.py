@@ -242,6 +242,7 @@ class TestAutoVivification(unittest.TestCase):
 
         self.assertEqual(
             AutoVivification({
+                -1: 0,
                 0: 0,
                 1: 1,
                 2: [0, 1],
@@ -253,6 +254,8 @@ class TestAutoVivification(unittest.TestCase):
                 8: False,
                 9: 0.1,
                 10: None,
+                11: [0, 1, 2],
+                12: 0
             }).merge({
                 0: 0,
                 1: 1,
@@ -265,8 +268,11 @@ class TestAutoVivification(unittest.TestCase):
                 8: False,
                 9: 0.1,
                 10: None,
+                11: 0,
+                12: [0, 1, 2],
             }),
             {
+                -1: 0,
                 0: [0, 0],
                 1: [1, 1],
                 2: [0, 1, 0, 1],
@@ -278,6 +284,8 @@ class TestAutoVivification(unittest.TestCase):
                 8: [False, False],
                 9: [0.1, 0.1],
                 10: [None, None],
+                11: [0, 1, 2, 0],
+                12: [0, 0, 1, 2],
             }
         )
 
@@ -290,6 +298,21 @@ class TestAutoVivification(unittest.TestCase):
             ),
             AutoVivification
         )
+
+    def test___getitem__(self):
+        a = AutoVivification()
+        a['this']['is']['a']['get']['chain'][0][0.0][True]['with']['different'] = 'hashables'
+        self.assertEqual(
+            a['this']['is']['a']['get']['chain'][0][0.0][True]['with']['different'], 
+            'hashables'
+        )
+        self.assertEqual(
+            type(
+                AutoVivification()['this']['should']['not']['exist']['yet']
+            ),
+            AutoVivification
+        )
+
 
 if __name__ == '__main__':
     unittest.main()
