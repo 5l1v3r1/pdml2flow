@@ -257,6 +257,7 @@ class TestAutoVivification(unittest.TestCase):
                 11: [0, 1, 2],
                 12: 0
             }).merge({
+                -2: 0,
                 0: 0,
                 1: 1,
                 2: [0, 1],
@@ -272,6 +273,7 @@ class TestAutoVivification(unittest.TestCase):
                 12: [0, 1, 2],
             }),
             {
+                -2: 0,
                 -1: 0,
                 0: [0, 0],
                 1: [1, 1],
@@ -304,6 +306,10 @@ class TestAutoVivification(unittest.TestCase):
         a['this']['is']['a']['get']['chain'][0][0.0][True]['with']['different'] = 'hashables'
         self.assertEqual(
             a['this']['is']['a']['get']['chain'][0][0.0][True]['with']['different'], 
+            'hashables'
+        )
+        self.assertEqual(
+            a[['this', 'is', 'a', 'get', 'chain', 0, 0.0, True, 'with', 'different']], 
             'hashables'
         )
         self.assertEqual(
