@@ -28,7 +28,6 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(out.getvalue(), '[Warning: 0]  test\n')
 
         out.close()
-        pass
 
 if __name__ == '__main__':
     unittest.main()
