@@ -22,7 +22,7 @@ class PdmlHandler(xml.sax.ContentHandler):
             if 'name' in  attributes:
                 name = attributes.getValue('name')
                 if len(name) > 0:
-                    debug('field: {}'.format(name)
+                    debug('field: {}'.format(name))
                     # Build object tree
                     name_access = functools.reduce(
                         lambda x,y: x[y], [self.__frame] + name.split(Conf.PDML_NESTCHAR)
