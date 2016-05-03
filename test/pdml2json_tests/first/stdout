@@ -1,0 +1,453 @@
+{
+  "ip": {
+    "dst": {
+      "raw": [
+        "71.19.149.209"
+      ]
+    },
+    "id": {
+      "raw": [
+        "0x000096ab"
+      ]
+    },
+    "host": {
+      "raw": [
+        "10.20.5.161",
+        "71.19.149.209"
+      ]
+    },
+    "checksum_good": {
+      "raw": [
+        0
+      ]
+    },
+    "frag_offset": {
+      "raw": [
+        0
+      ]
+    },
+    "ttl": {
+      "raw": [
+        64
+      ]
+    },
+    "src": {
+      "raw": [
+        "10.20.5.161"
+      ]
+    },
+    "checksum_bad": {
+      "raw": [
+        0
+      ]
+    },
+    "len": {
+      "raw": [
+        52
+      ]
+    },
+    "addr": {
+      "raw": [
+        "10.20.5.161",
+        "71.19.149.209"
+      ]
+    },
+    "hdr_len": {
+      "raw": [
+        5
+      ]
+    },
+    "proto": {
+      "raw": [
+        6
+      ]
+    },
+    "dst_host": {
+      "raw": [
+        "71.19.149.209"
+      ]
+    },
+    "src_host": {
+      "raw": [
+        "10.20.5.161"
+      ]
+    },
+    "dsfield": {
+      "raw": [
+        "0x00000000"
+      ],
+      "ecn": {
+        "raw": [
+          0
+        ]
+      },
+      "dscp": {
+        "raw": [
+          0
+        ]
+      }
+    },
+    "flags": {
+      "raw": [
+        "0x00000002"
+      ],
+      "rb": {
+        "raw": [
+          0
+        ]
+      },
+      "mf": {
+        "raw": [
+          0
+        ]
+      },
+      "df": {
+        "raw": [
+          1
+        ]
+      }
+    },
+    "checksum": {
+      "raw": [
+        "0x0000b77f"
+      ]
+    },
+    "version": {
+      "raw": [
+        4
+      ]
+    }
+  },
+  "timestamp": {
+    "raw": [
+      "May  3, 2016 12:08:03.644608216 CEST"
+    ]
+  },
+  "tcp": {
+    "seq": {
+      "raw": [
+        1
+      ]
+    },
+    "option_kind": {
+      "raw": [
+        8
+      ]
+    },
+    "ack": {
+      "raw": [
+        1
+      ]
+    },
+    "checksum_good": {
+      "raw": [
+        0
+      ]
+    },
+    "stream": {
+      "raw": [
+        0
+      ]
+    },
+    "checksum_bad": {
+      "raw": [
+        0
+      ]
+    },
+    "window_size_value": {
+      "raw": [
+        360
+      ]
+    },
+    "len": {
+      "raw": [
+        0
+      ]
+    },
+    "hdr_len": {
+      "raw": [
+        32
+      ]
+    },
+    "window_size_scalefactor": {
+      "raw": [
+        -1
+      ]
+    },
+    "option_len": {
+      "raw": [
+        10
+      ]
+    },
+    "port": {
+      "raw": [
+        42852,
+        9630
+      ]
+    },
+    "dstport": {
+      "raw": [
+        9630
+      ]
+    },
+    "options": {
+      "raw": [
+        "01:01:08:0a:01:7a:e6:87:d9:e9:a5:3f"
+      ],
+      "timestamp": {
+        "tsecr": {
+          "raw": [
+            3655968063
+          ]
+        },
+        "tsval": {
+          "raw": [
+            24831623
+          ]
+        }
+      },
+      "type": {
+        "raw": [
+          1,
+          1
+        ],
+        "class": {
+          "raw": [
+            0,
+            0
+          ]
+        },
+        "copy": {
+          "raw": [
+            0,
+            0
+          ]
+        },
+        "number": {
+          "raw": [
+            1,
+            1
+          ]
+        }
+      }
+    },
+    "srcport": {
+      "raw": [
+        42852
+      ]
+    },
+    "flags": {
+      "raw": [
+        "0x00000010"
+      ],
+      "res": {
+        "raw": [
+          0
+        ]
+      },
+      "ecn": {
+        "raw": [
+          0
+        ]
+      },
+      "fin": {
+        "raw": [
+          0
+        ]
+      },
+      "cwr": {
+        "raw": [
+          0
+        ]
+      },
+      "push": {
+        "raw": [
+          0
+        ]
+      },
+      "str": {
+        "raw": [
+          "*******A****"
+        ]
+      },
+      "syn": {
+        "raw": [
+          0
+        ]
+      },
+      "reset": {
+        "raw": [
+          0
+        ]
+      },
+      "ack": {
+        "raw": [
+          1
+        ]
+      },
+      "ns": {
+        "raw": [
+          0
+        ]
+      },
+      "urg": {
+        "raw": [
+          0
+        ]
+      }
+    },
+    "checksum": {
+      "raw": [
+        "0x00007c69"
+      ]
+    },
+    "window_size": {
+      "raw": [
+        360
+      ]
+    },
+    "urgent_pointer": {
+      "raw": [
+        0
+      ]
+    }
+  },
+  "num": {
+    "raw": [
+      1
+    ]
+  },
+  "caplen": {
+    "raw": [
+      66
+    ]
+  },
+  "eth": {
+    "addr": {
+      "raw": [
+        "00:00:5e:00:01:11",
+        "10:bf:48:ba:a3:9f"
+      ]
+    },
+    "dst": {
+      "raw": [
+        "00:00:5e:00:01:11"
+      ]
+    },
+    "dst_resolved": {
+      "raw": [
+        "IETF-VRRP-VRID_11"
+      ]
+    },
+    "type": {
+      "raw": [
+        "0x00000800"
+      ]
+    },
+    "src": {
+      "raw": [
+        "10:bf:48:ba:a3:9f"
+      ]
+    },
+    "ig": {
+      "raw": [
+        0,
+        0
+      ]
+    },
+    "addr_resolved": {
+      "raw": [
+        "IETF-VRRP-VRID_11",
+        "AsustekC_ba:a3:9f"
+      ]
+    },
+    "lg": {
+      "raw": [
+        0,
+        0
+      ]
+    },
+    "src_resolved": {
+      "raw": [
+        "AsustekC_ba:a3:9f"
+      ]
+    }
+  },
+  "frame": {
+    "encap_type": {
+      "raw": [
+        1
+      ]
+    },
+    "time_delta": {
+      "raw": [
+        0
+      ]
+    },
+    "interface_id": {
+      "raw": [
+        0
+      ]
+    },
+    "time": {
+      "raw": [
+        "May  3, 2016 12:08:03.644608216 CEST"
+      ]
+    },
+    "time_epoch": {
+      "raw": [
+        1462270083.6446083
+      ]
+    },
+    "ignored": {
+      "raw": [
+        0
+      ]
+    },
+    "time_relative": {
+      "raw": [
+        0
+      ]
+    },
+    "marked": {
+      "raw": [
+        0
+      ]
+    },
+    "time_delta_displayed": {
+      "raw": [
+        0
+      ]
+    },
+    "offset_shift": {
+      "raw": [
+        0
+      ]
+    },
+    "number": {
+      "raw": [
+        1
+      ]
+    },
+    "protocols": {
+      "raw": [
+        "eth:ethertype:ip:tcp"
+      ]
+    },
+    "cap_len": {
+      "raw": [
+        66
+      ]
+    },
+    "len": {
+      "raw": [
+        66
+      ]
+    }
+  },
+  "len": {
+    "raw": [
+      66
+    ]
+  }
+}
