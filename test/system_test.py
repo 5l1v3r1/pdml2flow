@@ -29,6 +29,8 @@ class TestSystem(TestCase):
 
 def get_test(run, directory, test):
     def system_test(self):
+        if os.path.isfile('{}/{}/skip'.format(directory, test)):
+            self.skipTest('Skipfile found')
         with    open('{}/{}/stdin'.format(directory, test)) as f_stdin, \
                 io.StringIO() as f_stdout, \
                 io.StringIO() as f_stderr:
@@ -62,9 +64,6 @@ def get_test(run, directory, test):
 
 def add_tests(run, directory):
     for test in os.listdir(directory):
-        if os.path.isfile('{}/{}/skip'.format(directory, test)):
-            # skip
-            continue
         # append test
         setattr(TestSystem, "test_system_{}".format(test), get_test(run, directory, test))
 
