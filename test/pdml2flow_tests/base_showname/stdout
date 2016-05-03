@@ -1,0 +1,28 @@
+{
+  "frame": {
+    "information": {
+      "show": [
+        "Some information"
+      ],
+      "raw": [
+        123
+      ]
+    },
+    "time_epoch": {
+      "show": [
+        "Epoch Time: 0.0 seconds"
+      ],
+      "raw": [
+        0
+      ]
+    },
+    "flowid": {
+      "show": [
+        "Flow Id"
+      ],
+      "raw": [
+        1
+      ]
+    }
+  }
+}
