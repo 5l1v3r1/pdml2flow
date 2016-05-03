@@ -46,6 +46,6 @@ class TestPdml2Flow(TestCase):
         self.system_test(pdml2flow.pdml2flow, TEST_DIR_PDML2FLOW)
 
     def test_pdml2json(self):
-        self.system_test(pdml2flow.pdml2flow, TEST_DIR_PDML2FLOW)
+        self.system_test(pdml2flow.pdml2json, TEST_DIR_PDML2JSON)
 if __name__ == '__main__':
     unittest.main()
