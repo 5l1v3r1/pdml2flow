@@ -1,4 +1,4 @@
-# pdml2flow [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow) [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=master)](https://coveralls.io/github/Enteee/pdml2flow?branch=master)
+# pdml2flow [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow) [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=master)](https://coveralls.io/github/Enteee/pdml2flow?branch=master) [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow)
 _Aggregates wireshark pdml to flows_
 
 
