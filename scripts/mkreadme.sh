@@ -10,7 +10,12 @@ _Aggregates wireshark pdml to flows_
 
 
 ## Prerequisites
-* [python] version 3
+$( cat "${TOPLEVEL}/.travis.yml" | 
+    sed -n -e '/# VERSION START/,/# VERSION END/ p' |
+    sed -e '1d;$d' |
+    tr -d \"  |
+    sed -e 's/python/\[python\]/g'
+)
 
 ## Installation
     $ sudo python setup.py install

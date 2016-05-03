@@ -1,9 +1,11 @@
 language: python
+# VERSION START
 python:
   - "3.4"
   - "3.5"
   - "3.5-dev" # 3.5 development branch
   - "nightly" # currently points to 3.6-dev
+# VERSION END
 # command to install dependencies
 install: 
   - pip install -r requirements.txt

@@ -3,7 +3,11 @@ _Aggregates wireshark pdml to flows_
 
 
 ## Prerequisites
-* [python] version 3
+[python]:
+  - 3.4
+  - 3.5
+  - 3.5-dev # 3.5 development branch
+  - nightly # currently points to 3.6-dev
 
 ## Installation
     $ sudo python setup.py install
