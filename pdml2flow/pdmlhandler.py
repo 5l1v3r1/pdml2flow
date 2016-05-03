@@ -12,7 +12,7 @@ from .logging import *
 class PdmlHandler(xml.sax.ContentHandler):
 
     def __init__(self):
-        self.__frame = {}
+        self.__frame = AutoVivification()
         self.__flows = {}
 
     # Call when an element starts
@@ -25,28 +25,23 @@ class PdmlHandler(xml.sax.ContentHandler):
                 if len(name) > 0:
                     debug('field: {}'.format(name))
                     # Build object tree
+                    new = AutoVivification()
                     name_access = functools.reduce(
-                        lambda x,y: x[y], [self.__frame] + name.split(Conf.PDML_NESTCHAR)
+                        lambda x,y: x[y], [new] + name.split(Conf.PDML_NESTCHAR)
                     )
-                    new = {
-                        'raw': [],
-                        'show': [],
-                    }
                     # Extract raw data
                     if 'show' in attributes:
                         show = attributes.getValue('show')
                         if len(show) > Conf.DATA_MAXLEN:
                             show = Conf.DATA_TOO_LONG
-                        new['raw'] += [autoconvert(show)]
+                        name_access['raw'] = [autoconvert(show)]
                     # Extract showname
-                    if 'showname' in attributes:
+                    if 'showname' in attributes and Conf.EXTRACT_SHOW:
                         showname = attributes.getValue('showname')
                         if len(showname) > Conf.DATA_MAXLEN:
                             showname = Conf.DATA_TOO_LONG
-                        new['show'] += [showname]
-                    if not Conf.EXTRACT_SHOW:
-                        del new['show']
-                    name_access.merge(new)
+                        name_access['show'] = [showname]
+                    self.__frame.merge(new)
 
     # Call when an elements ends
     def endElement(self, tag):
