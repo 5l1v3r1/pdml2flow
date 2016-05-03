@@ -18,8 +18,9 @@ $( cat "${TOPLEVEL}/.travis.yml" |
     sed -n -e '/# VERSION START/,/# VERSION END/ p' |
     sed -e '1d;$d' |
     tr -d \"  |
-    sed -e 's/python/\[python\]/g'
+    sed -e 's/python/\* [python\]/g'
 )
+* [pip](https://pypi.python.org/pypi/pip)
 
 ## Installation
     $ sudo pip install pdml2flow
