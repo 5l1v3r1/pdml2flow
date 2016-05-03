@@ -42,10 +42,11 @@ class Conf():
     def set(conf):
         """Applies a configuration to the global config object"""
         for name, value in conf.items():
-            setattr(Conf, name.upper(), value)
+            if value is not None:
+                setattr(Conf, name.upper(), value)
 
     @staticmethod
     def get():
         """Gets the configuration as a dict"""
-        return {attr: getattr(Conf, attr) for attr in dir(Conf()) if not callable(attr) and not attr.startswith("__")}
+        return {attr: getattr(Conf, attr) for attr in dir(Conf()) if not callable(getattr(Conf, attr)) and not attr.startswith("__")}
 

@@ -3,6 +3,7 @@
 import unittest
 
 from pdml2flow.conf import Conf
+from pdml2flow.flow import Flow
 
 class TestCase(unittest.TestCase):
     """Class used as base object for all tests
@@ -11,8 +12,11 @@ class TestCase(unittest.TestCase):
     """
 
     def setUp(self):
+        # save
         self.__conf = Conf.get()
 
     def tearDown(self):
+        # reset
         Conf.set(self.__conf)
+        Flow.newest_overall_frame_time = 0
 
