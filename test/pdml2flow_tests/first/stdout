@@ -1,1 +1,453 @@
-{"len": {"raw": [66]}, "timestamp": {"raw": ["May  3, 2016 12:08:03.644608216 CEST"]}, "caplen": {"raw": [66]}, "tcp": {"len": {"raw": [0]}, "checksum_good": {"raw": [0]}, "ack": {"raw": [1]}, "window_size_value": {"raw": [360]}, "urgent_pointer": {"raw": [0]}, "seq": {"raw": [1]}, "options": {"type": {"class": {"raw": [0, 0]}, "copy": {"raw": [0, 0]}, "raw": [1, 1], "number": {"raw": [1, 1]}}, "raw": ["01:01:08:0a:01:7a:e6:87:d9:e9:a5:3f"], "timestamp": {"tsval": {"raw": [24831623]}, "tsecr": {"raw": [3655968063]}}}, "dstport": {"raw": [9630]}, "hdr_len": {"raw": [32]}, "port": {"raw": [42852, 9630]}, "option_kind": {"raw": [8]}, "option_len": {"raw": [10]}, "stream": {"raw": [0]}, "window_size_scalefactor": {"raw": [-1]}, "checksum": {"raw": ["0x00007c69"]}, "window_size": {"raw": [360]}, "flags": {"ack": {"raw": [1]}, "urg": {"raw": [0]}, "res": {"raw": [0]}, "push": {"raw": [0]}, "cwr": {"raw": [0]}, "fin": {"raw": [0]}, "raw": ["0x00000010"], "ecn": {"raw": [0]}, "str": {"raw": ["*******A****"]}, "ns": {"raw": [0]}, "syn": {"raw": [0]}, "reset": {"raw": [0]}}, "srcport": {"raw": [42852]}, "checksum_bad": {"raw": [0]}}, "frame": {"len": {"raw": [66]}, "marked": {"raw": [0]}, "number": {"raw": [1]}, "offset_shift": {"raw": [0.0]}, "time_delta": {"raw": [0.0]}, "cap_len": {"raw": [66]}, "time_delta_displayed": {"raw": [0.0]}, "interface_id": {"raw": [0]}, "time": {"raw": ["May  3, 2016 12:08:03.644608216 CEST"]}, "time_relative": {"raw": [0.0]}, "ignored": {"raw": [0]}, "time_epoch": {"raw": [1462270083.6446083]}, "encap_type": {"raw": [1]}, "protocols": {"raw": ["eth:ethertype:ip:tcp"]}}, "eth": {"dst_resolved": {"raw": ["IETF-VRRP-VRID_11"]}, "addr_resolved": {"raw": ["IETF-VRRP-VRID_11", "AsustekC_ba:a3:9f"]}, "type": {"raw": ["0x00000800"]}, "ig": {"raw": [0, 0]}, "addr": {"raw": ["00:00:5e:00:01:11", "10:bf:48:ba:a3:9f"]}, "src_resolved": {"raw": ["AsustekC_ba:a3:9f"]}, "dst": {"raw": ["00:00:5e:00:01:11"]}, "src": {"raw": ["10:bf:48:ba:a3:9f"]}, "lg": {"raw": [0, 0]}}, "ip": {"len": {"raw": [52]}, "checksum_good": {"raw": [0]}, "frag_offset": {"raw": [0]}, "addr": {"raw": ["10.20.5.161", "71.19.149.209"]}, "ttl": {"raw": [64]}, "hdr_len": {"raw": [5]}, "dst": {"raw": ["71.19.149.209"]}, "version": {"raw": [4]}, "dsfield": {"raw": ["0x00000000"], "dscp": {"raw": [0]}, "ecn": {"raw": [0]}}, "dst_host": {"raw": ["71.19.149.209"]}, "src_host": {"raw": ["10.20.5.161"]}, "checksum": {"raw": ["0x0000b77f"]}, "id": {"raw": ["0x000096ab"]}, "flags": {"mf": {"raw": [0]}, "df": {"raw": [1]}, "rb": {"raw": [0]}, "raw": ["0x00000002"]}, "src": {"raw": ["10.20.5.161"]}, "checksum_bad": {"raw": [0]}, "proto": {"raw": [6]}, "host": {"raw": ["10.20.5.161", "71.19.149.209"]}}, "num": {"raw": [1]}}
+{
+  "eth": {
+    "src_resolved": {
+      "raw": [
+        "AsustekC_ba:a3:9f"
+      ]
+    },
+    "dst": {
+      "raw": [
+        "00:00:5e:00:01:11"
+      ]
+    },
+    "lg": {
+      "raw": [
+        0,
+        0
+      ]
+    },
+    "src": {
+      "raw": [
+        "10:bf:48:ba:a3:9f"
+      ]
+    },
+    "addr_resolved": {
+      "raw": [
+        "IETF-VRRP-VRID_11",
+        "AsustekC_ba:a3:9f"
+      ]
+    },
+    "type": {
+      "raw": [
+        "0x00000800"
+      ]
+    },
+    "dst_resolved": {
+      "raw": [
+        "IETF-VRRP-VRID_11"
+      ]
+    },
+    "addr": {
+      "raw": [
+        "00:00:5e:00:01:11",
+        "10:bf:48:ba:a3:9f"
+      ]
+    },
+    "ig": {
+      "raw": [
+        0,
+        0
+      ]
+    }
+  },
+  "frame": {
+    "offset_shift": {
+      "raw": [
+        0
+      ]
+    },
+    "time_delta_displayed": {
+      "raw": [
+        0
+      ]
+    },
+    "number": {
+      "raw": [
+        1
+      ]
+    },
+    "cap_len": {
+      "raw": [
+        66
+      ]
+    },
+    "time": {
+      "raw": [
+        "May  3, 2016 12:08:03.644608216 CEST"
+      ]
+    },
+    "time_relative": {
+      "raw": [
+        0
+      ]
+    },
+    "encap_type": {
+      "raw": [
+        1
+      ]
+    },
+    "interface_id": {
+      "raw": [
+        0
+      ]
+    },
+    "ignored": {
+      "raw": [
+        0
+      ]
+    },
+    "time_epoch": {
+      "raw": [
+        1462270083.6446083
+      ]
+    },
+    "protocols": {
+      "raw": [
+        "eth:ethertype:ip:tcp"
+      ]
+    },
+    "len": {
+      "raw": [
+        66
+      ]
+    },
+    "marked": {
+      "raw": [
+        0
+      ]
+    },
+    "time_delta": {
+      "raw": [
+        0
+      ]
+    }
+  },
+  "num": {
+    "raw": [
+      1
+    ]
+  },
+  "caplen": {
+    "raw": [
+      66
+    ]
+  },
+  "len": {
+    "raw": [
+      66
+    ]
+  },
+  "timestamp": {
+    "raw": [
+      "May  3, 2016 12:08:03.644608216 CEST"
+    ]
+  },
+  "tcp": {
+    "checksum_bad": {
+      "raw": [
+        0
+      ]
+    },
+    "checksum_good": {
+      "raw": [
+        0
+      ]
+    },
+    "option_len": {
+      "raw": [
+        10
+      ]
+    },
+    "urgent_pointer": {
+      "raw": [
+        0
+      ]
+    },
+    "port": {
+      "raw": [
+        42852,
+        9630
+      ]
+    },
+    "flags": {
+      "ecn": {
+        "raw": [
+          0
+        ]
+      },
+      "reset": {
+        "raw": [
+          0
+        ]
+      },
+      "ns": {
+        "raw": [
+          0
+        ]
+      },
+      "urg": {
+        "raw": [
+          0
+        ]
+      },
+      "raw": [
+        "0x00000010"
+      ],
+      "fin": {
+        "raw": [
+          0
+        ]
+      },
+      "ack": {
+        "raw": [
+          1
+        ]
+      },
+      "syn": {
+        "raw": [
+          0
+        ]
+      },
+      "res": {
+        "raw": [
+          0
+        ]
+      },
+      "push": {
+        "raw": [
+          0
+        ]
+      },
+      "str": {
+        "raw": [
+          "*******A****"
+        ]
+      },
+      "cwr": {
+        "raw": [
+          0
+        ]
+      }
+    },
+    "window_size_scalefactor": {
+      "raw": [
+        -1
+      ]
+    },
+    "dstport": {
+      "raw": [
+        9630
+      ]
+    },
+    "stream": {
+      "raw": [
+        0
+      ]
+    },
+    "options": {
+      "raw": [
+        "01:01:08:0a:01:7a:e6:87:d9:e9:a5:3f"
+      ],
+      "timestamp": {
+        "tsecr": {
+          "raw": [
+            3655968063
+          ]
+        },
+        "tsval": {
+          "raw": [
+            24831623
+          ]
+        }
+      },
+      "type": {
+        "copy": {
+          "raw": [
+            0,
+            0
+          ]
+        },
+        "raw": [
+          1,
+          1
+        ],
+        "class": {
+          "raw": [
+            0,
+            0
+          ]
+        },
+        "number": {
+          "raw": [
+            1,
+            1
+          ]
+        }
+      }
+    },
+    "checksum": {
+      "raw": [
+        "0x00007c69"
+      ]
+    },
+    "option_kind": {
+      "raw": [
+        8
+      ]
+    },
+    "ack": {
+      "raw": [
+        1
+      ]
+    },
+    "window_size_value": {
+      "raw": [
+        360
+      ]
+    },
+    "window_size": {
+      "raw": [
+        360
+      ]
+    },
+    "srcport": {
+      "raw": [
+        42852
+      ]
+    },
+    "len": {
+      "raw": [
+        0
+      ]
+    },
+    "seq": {
+      "raw": [
+        1
+      ]
+    },
+    "hdr_len": {
+      "raw": [
+        32
+      ]
+    }
+  },
+  "ip": {
+    "checksum_bad": {
+      "raw": [
+        0
+      ]
+    },
+    "dst": {
+      "raw": [
+        "71.19.149.209"
+      ]
+    },
+    "checksum_good": {
+      "raw": [
+        0
+      ]
+    },
+    "ttl": {
+      "raw": [
+        64
+      ]
+    },
+    "proto": {
+      "raw": [
+        6
+      ]
+    },
+    "src_host": {
+      "raw": [
+        "10.20.5.161"
+      ]
+    },
+    "src": {
+      "raw": [
+        "10.20.5.161"
+      ]
+    },
+    "frag_offset": {
+      "raw": [
+        0
+      ]
+    },
+    "checksum": {
+      "raw": [
+        "0x0000b77f"
+      ]
+    },
+    "dsfield": {
+      "ecn": {
+        "raw": [
+          0
+        ]
+      },
+      "raw": [
+        "0x00000000"
+      ],
+      "dscp": {
+        "raw": [
+          0
+        ]
+      }
+    },
+    "version": {
+      "raw": [
+        4
+      ]
+    },
+    "dst_host": {
+      "raw": [
+        "71.19.149.209"
+      ]
+    },
+    "host": {
+      "raw": [
+        "10.20.5.161",
+        "71.19.149.209"
+      ]
+    },
+    "flags": {
+      "raw": [
+        "0x00000002"
+      ],
+      "df": {
+        "raw": [
+          1
+        ]
+      },
+      "mf": {
+        "raw": [
+          0
+        ]
+      },
+      "rb": {
+        "raw": [
+          0
+        ]
+      }
+    },
+    "len": {
+      "raw": [
+        52
+      ]
+    },
+    "addr": {
+      "raw": [
+        "10.20.5.161",
+        "71.19.149.209"
+      ]
+    },
+    "hdr_len": {
+      "raw": [
+        5
+      ]
+    },
+    "id": {
+      "raw": [
+        "0x000096ab"
+      ]
+    }
+  }
+}
