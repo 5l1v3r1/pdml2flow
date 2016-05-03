@@ -101,7 +101,7 @@ def pdml2frame(output_type):
     conf = vars(parser.parse_args())
     start_parser(conf)
 
-def start_parser(conf):
+def start_parser(conf={}):
     # apply configuration
     Conf.set(conf)
     # create an XMLReader
@@ -112,7 +112,7 @@ def start_parser(conf):
     handler = PdmlHandler()
     parser.setContentHandler(handler)
     try:
-        parser.parse(sys.stdin)
+        parser.parse(Conf.PARSE_SOURCE)
     except xml.sax._exceptions.SAXParseException as e:
         # this might happen when a pdml file is malformed
         warning('Parser returned exception: {}'.format(e))

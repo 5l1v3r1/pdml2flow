@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
+import sys
 
 class Conf():
 
@@ -29,6 +30,7 @@ class Conf():
     FRAMES_ARRAY = False
     DEBUG = False
     METADATA = False
+    PARSE_SOURCE = sys.stdin
 
     """
     Applies a configuration to the global config object

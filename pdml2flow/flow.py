@@ -9,7 +9,7 @@ from .logging import *
 
 class Flow():
 
-    """ The overall packet time """
+    """ The overall frame time """
     newest_overall_frame_time = 0
 
     def __init__(self, first_frame):
@@ -55,7 +55,7 @@ class Flow():
         return str(flowid)
 
     def add_frame(self, frame):
-        # check if packet expands flow length
+        # check if frame expands flow length
         frame_time = frame['frame']['time_epoch']['raw'][0]
         self.__first_frame_time = min(self.__first_frame_time, frame_time) 
         self.__newest_frame_time = max(self.__newest_frame_time, frame_time)
