@@ -5,17 +5,22 @@ TOPLEVEL=$(git rev-parse --show-toplevel)
 sudo pip install -e "${TOPLEVEL}"
 
 cat <<EOF > "${TOPLEVEL}/README.md"
-# pdml2flow [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow) [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=master)](https://coveralls.io/github/Enteee/pdml2flow?branch=master)
+# pdml2flow [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow) 
 _Aggregates wireshark pdml to flows_
 
+| Branch  | Build  | Coverage |
+| ------- | ------ | -------- |
+| master  | [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow) |  [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=master)](https://coveralls.io/github/Enteee/pdml2flow?branch=master) |
+| develop  | [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=develop)](https://travis-ci.org/Enteee/pdml2flow) |  [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=develop)](https://coveralls.io/github/Enteee/pdml2flow?branch=develop) |
 
 ## Prerequisites
 $( cat "${TOPLEVEL}/.travis.yml" | 
     sed -n -e '/# VERSION START/,/# VERSION END/ p' |
     sed -e '1d;$d' |
     tr -d \"  |
-    sed -e 's/python/\[python\]/g'
+    sed -e 's/python/\* [python\]/g'
 )
+* [pip](https://pypi.python.org/pypi/pip)
 
 ## Installation
     $ sudo pip install pdml2flow

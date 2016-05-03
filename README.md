@@ -1,13 +1,18 @@
-# pdml2flow [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow) [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=master)](https://coveralls.io/github/Enteee/pdml2flow?branch=master)
+# pdml2flow [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow) 
 _Aggregates wireshark pdml to flows_
 
+| Branch  | Build  | Coverage |
+| ------- | ------ | -------- |
+| master  | [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow) |  [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=master)](https://coveralls.io/github/Enteee/pdml2flow?branch=master) |
+| develop  | [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=develop)](https://travis-ci.org/Enteee/pdml2flow) |  [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=develop)](https://coveralls.io/github/Enteee/pdml2flow?branch=develop) |
 
 ## Prerequisites
-[python]:
+* [python]:
   - 3.4
   - 3.5
   - 3.5-dev # 3.5 development branch
   - nightly # currently points to 3.6-dev
+* [pip](https://pypi.python.org/pypi/pip)
 
 ## Installation
     $ sudo pip install pdml2flow
