@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
-import unittest
+from .testcase import TestCase
 
 from pdml2flow.autovivification import AutoVivification
 
-class TestAutoVivification(unittest.TestCase):
+class TestAutoVivification(TestCase):
 
     def test_clean_empty(self):
         # sutff not to clean
@@ -273,6 +273,7 @@ class TestAutoVivification(unittest.TestCase):
                 12: [0, 1, 2],
             }),
             {
+                -2: 0,
                 -1: 0,
                 -2: 0,
                 0: [0, 0],
@@ -302,12 +303,6 @@ class TestAutoVivification(unittest.TestCase):
         )
 
     def test___getitem__(self):
-        self.assertEqual(
-            type(
-                AutoVivification()['this']['should']['not']['exist']['yet']
-            ),
-            AutoVivification
-        )
         a = AutoVivification()
         a['this']['is']['a']['get']['chain'][0][0.0][True]['with']['different'] = 'hashables'
         self.assertEqual(
@@ -315,8 +310,14 @@ class TestAutoVivification(unittest.TestCase):
             'hashables'
         )
         self.assertEqual(
-            a[['this', 'is', 'a', 'get', 'chain', 0, 0.0, True, 'with', 'different']],
+            a[['this', 'is', 'a', 'get', 'chain', 0, 0.0, True, 'with', 'different']], 
             'hashables'
+        )
+        self.assertEqual(
+            type(
+                AutoVivification()['this']['should']['not']['exist']['yet']
+            ),
+            AutoVivification
         )
 
 if __name__ == '__main__':

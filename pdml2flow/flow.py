@@ -9,7 +9,7 @@ from .logging import *
 
 class Flow():
 
-    """ The overall frame time """
+    #  The overall frame time
     newest_overall_frame_time = 0
 
     def __init__(self, first_frame):

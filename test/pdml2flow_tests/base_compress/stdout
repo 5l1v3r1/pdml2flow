@@ -1,0 +1,38 @@
+{
+  "frame": {
+    "information": {
+      "raw": [
+        123
+      ]
+    },
+    "flowid": {
+      "raw": [
+        2
+      ]
+    },
+    "time_epoch": {
+      "raw": [
+        0
+      ]
+    }
+  }
+}
+{
+  "frame": {
+    "information": {
+      "raw": [
+        123
+      ]
+    },
+    "flowid": {
+      "raw": [
+        1
+      ]
+    },
+    "time_epoch": {
+      "raw": [
+        0
+      ]
+    }
+  }
+}

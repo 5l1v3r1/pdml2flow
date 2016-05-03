@@ -3,10 +3,17 @@
 import sys
 
 class Conf():
+    """The global configuration class"""
 
     @staticmethod
     def get_real_paths(paths, nestchar):
         return [ path.split(nestchar) + ['raw'] for path in paths ]
+
+    ARGS = sys.argv[1:]
+    IN = sys.stdin
+    OUT = sys.stdout
+    OUT_DEBUG = sys.stderr
+    OUT_WARNING = sys.stderr
 
     FLOW_DEF_NESTCHAR = '.'
     FLOW_DEF_STR = [
@@ -32,11 +39,15 @@ class Conf():
     METADATA = False
     PARSE_SOURCE = sys.stdin
 
-    """
-    Applies a configuration to the global config object
-    """
     @staticmethod
     def set(conf):
+        """Applies a configuration to the global config object"""
         for name, value in conf.items():
-            setattr(Conf, name.upper(), value)
+            if value is not None:
+                setattr(Conf, name.upper(), value)
+
+    @staticmethod
+    def get():
+        """Gets the configuration as a dict"""
+        return {attr: getattr(Conf, attr) for attr in dir(Conf()) if not callable(getattr(Conf, attr)) and not attr.startswith("__")}
 

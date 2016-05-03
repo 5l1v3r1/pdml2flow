@@ -10,6 +10,7 @@ from .flow import Flow
 from .logging import *
 
 class PdmlHandler(xml.sax.ContentHandler):
+
     def __init__(self):
         self.__frame = {}
         self.__flows = {}
@@ -22,6 +23,7 @@ class PdmlHandler(xml.sax.ContentHandler):
             if 'name' in  attributes:
                 name = attributes.getValue('name')
                 if len(name) > 0:
+                    debug('field: {}'.format(name))
                     # Build object tree
                     name_access = functools.reduce(
                         lambda x,y: x[y], [self.__frame] + name.split(Conf.PDML_NESTCHAR)
@@ -57,7 +59,7 @@ class PdmlHandler(xml.sax.ContentHandler):
                 if flow.not_expired():
                     new_flows[flowid] = flow
                 else:
-                    print(flow)
+                    print(flow, file=Conf.OUT)
             self.__flows = new_flows
             # the flow definition
             flowid = Flow.get_flow_id(self.__frame)
@@ -66,14 +68,14 @@ class PdmlHandler(xml.sax.ContentHandler):
                 try: 
                     flow = self.__flows[flowid]
                     self.__flows[flowid].add_frame(self.__frame)
-                    debug('oldflow: {}'.format(flowid))
+                    debug('old flow: {}'.format(flowid))
                 except KeyError:
                     # flow unknown add new flow
                     self.__flows[flowid] = Flow(self.__frame)
-                    debug('newflow: {}'.format(flowid))
+                    debug('new flow: {}'.format(flowid))
 
     def endDocument(self):
         # print all flows @ end
         for (flowid, flow) in self.__flows.items():
             # before printing clean all empty laves
-            print(flow)
+            print(flow, file=Conf.OUT)

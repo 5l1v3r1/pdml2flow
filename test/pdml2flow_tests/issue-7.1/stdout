@@ -1,0 +1,26 @@
+{
+  "frame": {
+    "information": {
+      "raw": [
+        123,
+        {
+          "raw": [
+            321
+          ]
+        }
+      ]
+    },
+    "time_epoch": {
+      "raw": [
+        0,
+        0
+      ]
+    },
+    "flowid": {
+      "raw": [
+        1,
+        1
+      ]
+    }
+  }
+}
