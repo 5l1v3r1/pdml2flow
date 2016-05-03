@@ -18,7 +18,7 @@ $( cat "${TOPLEVEL}/.travis.yml" |
 )
 
 ## Installation
-    $ sudo python setup.py install
+    $ sudo pip install pdml2flow
 
 ## Usage
 \`\`\`shell

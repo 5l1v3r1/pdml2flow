@@ -10,7 +10,7 @@ _Aggregates wireshark pdml to flows_
   - nightly # currently points to 3.6-dev
 
 ## Installation
-    $ sudo python setup.py install
+    $ sudo pip install pdml2flow
 
 ## Usage
 ```shell
