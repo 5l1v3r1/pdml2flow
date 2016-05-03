@@ -1,33 +1,32 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
-import unittest
+from .testcase import TestCase
 import io
 
 from pdml2flow.logging import *
 from pdml2flow.conf import Conf
 
-class TestLogging(unittest.TestCase):
+class TestLogging(TestCase):
 
     def test_debug(self):
-        out = io.StringIO()
+        with io.StringIO() as out:
+            Conf.OUT_DEBUG = out
 
-        Conf.DEBUG = False
-        debug('test', file=out)
-        self.assertEqual(out.getvalue(), '')
+            Conf.DEBUG = False
+            debug('test')
+            self.assertEqual(out.getvalue(), '')
 
-        Conf.DEBUG = True
-        debug('test', file=out)
-        self.assertEqual(out.getvalue(), '[Debug: 0]  test\n')
+            Conf.DEBUG = True
+            debug('test')
+            self.assertIn('test', out.getvalue())
 
-        out.close()
 
     def test_warning(self):
-        out = io.StringIO()
+        with io.StringIO() as out:
+            Conf.OUT_WARNING = out
 
-        warning('test', file=out)
-        self.assertEqual(out.getvalue(), '[Warning: 0]  test\n')
-
-        out.close()
+            warning('test')
+            self.assertIn('test', out.getvalue())
 
 if __name__ == '__main__':
     unittest.main()

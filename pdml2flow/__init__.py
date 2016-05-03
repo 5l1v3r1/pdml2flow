@@ -63,14 +63,13 @@ def pdml2flow():
                         action='store_true',
                         help='Debug mode [default: {}]'.format(Conf.DEBUG)
                         )
-    conf = vars(parser.parse_args())
+    conf = vars(parser.parse_args(args=Conf.ARGS))
     # split each flowdef to a path
     try:
         if(conf.FLOW_DEF_STR):
             conf.FLOW_DEF = Conf.get_real_paths(conf.FLOW_DEF_STR, Conf.FLOW_DEF_NESTCHAR)
     except AttributeError:
         pass
-    # apply configuration
     start_parser(conf)
 
 def pdml2xml():
@@ -98,21 +97,14 @@ def pdml2frame(output_type):
                         action='store_true',
                         help='Debug mode [default: {}]'.format(Conf.DEBUG)
                         )
-    conf = vars(parser.parse_args())
+    conf = vars(parser.parse_args(args=Conf.ARGS))
     start_parser(conf)
 
-def start_parser(conf):
+def start_parser(conf = {}):
     # apply configuration
     Conf.set(conf)
-    # create an XMLReader
-    parser = xml.sax.make_parser()
-    # turn off namepsaces
-    parser.setFeature(xml.sax.handler.feature_namespaces, 0)
-    # override the default ContextHandler
-    handler = PdmlHandler()
-    parser.setContentHandler(handler)
     try:
-        parser.parse(sys.stdin)
+        xml.sax.parse(Conf.IN, PdmlHandler())
     except xml.sax._exceptions.SAXParseException as e:
         # this might happen when a pdml file is malformed
         warning('Parser returned exception: {}'.format(e))

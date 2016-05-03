@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
-import unittest
+from .testcase import TestCase
 
 from pdml2flow.autovivification import AutoVivification
 
-class TestAutoVivification(unittest.TestCase):
+class TestAutoVivification(TestCase):
 
     def test_clean_empty(self):
         # sutff not to clean

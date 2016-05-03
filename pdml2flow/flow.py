@@ -9,7 +9,7 @@ from .logging import *
 
 class Flow():
 
-    """ The overall packet time """
+    # The overall packet time
     newest_overall_frame_time = 0
 
     def __init__(self, first_frame):

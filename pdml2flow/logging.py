@@ -4,14 +4,14 @@ import sys
 
 from .conf import Conf
 
-def debug(*objs, file=sys.stderr):
+def debug(*objs):
     # import here because of circular dependencies
     from .flow import Flow
     if Conf.DEBUG:
-        print("[Debug: {}] ".format(Flow.newest_overall_frame_time), *objs, file=file)
+        print("[Debug: {}] ".format(Flow.newest_overall_frame_time), *objs, file=Conf.OUT_DEBUG)
 
-def warning(*objs, file=sys.stderr):
+def warning(*objs):
     # import here because of circular dependencies
     from .flow import Flow
-    print("[Warning: {}] ".format(Flow.newest_overall_frame_time), *objs, file=file)
+    print("[Warning: {}] ".format(Flow.newest_overall_frame_time), *objs, file=Conf.OUT_WARNING)
 

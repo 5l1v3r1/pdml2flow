@@ -1,0 +1,453 @@
+{
+  "len": {
+    "raw": [
+      66
+    ]
+  },
+  "eth": {
+    "src": {
+      "raw": [
+        "10:bf:48:ba:a3:9f"
+      ]
+    },
+    "type": {
+      "raw": [
+        "0x00000800"
+      ]
+    },
+    "ig": {
+      "raw": [
+        0,
+        0
+      ]
+    },
+    "src_resolved": {
+      "raw": [
+        "AsustekC_ba:a3:9f"
+      ]
+    },
+    "dst_resolved": {
+      "raw": [
+        "IETF-VRRP-VRID_11"
+      ]
+    },
+    "addr_resolved": {
+      "raw": [
+        "IETF-VRRP-VRID_11",
+        "AsustekC_ba:a3:9f"
+      ]
+    },
+    "dst": {
+      "raw": [
+        "00:00:5e:00:01:11"
+      ]
+    },
+    "addr": {
+      "raw": [
+        "00:00:5e:00:01:11",
+        "10:bf:48:ba:a3:9f"
+      ]
+    },
+    "lg": {
+      "raw": [
+        0,
+        0
+      ]
+    }
+  },
+  "caplen": {
+    "raw": [
+      66
+    ]
+  },
+  "ip": {
+    "src": {
+      "raw": [
+        "10.20.5.161"
+      ]
+    },
+    "dsfield": {
+      "ecn": {
+        "raw": [
+          0
+        ]
+      },
+      "raw": [
+        "0x00000000"
+      ],
+      "dscp": {
+        "raw": [
+          0
+        ]
+      }
+    },
+    "proto": {
+      "raw": [
+        6
+      ]
+    },
+    "len": {
+      "raw": [
+        52
+      ]
+    },
+    "id": {
+      "raw": [
+        "0x000096ab"
+      ]
+    },
+    "version": {
+      "raw": [
+        4
+      ]
+    },
+    "checksum_good": {
+      "raw": [
+        0
+      ]
+    },
+    "frag_offset": {
+      "raw": [
+        0
+      ]
+    },
+    "flags": {
+      "df": {
+        "raw": [
+          1
+        ]
+      },
+      "raw": [
+        "0x00000002"
+      ],
+      "mf": {
+        "raw": [
+          0
+        ]
+      },
+      "rb": {
+        "raw": [
+          0
+        ]
+      }
+    },
+    "dst": {
+      "raw": [
+        "71.19.149.209"
+      ]
+    },
+    "hdr_len": {
+      "raw": [
+        5
+      ]
+    },
+    "ttl": {
+      "raw": [
+        64
+      ]
+    },
+    "src_host": {
+      "raw": [
+        "10.20.5.161"
+      ]
+    },
+    "checksum": {
+      "raw": [
+        "0x0000b77f"
+      ]
+    },
+    "dst_host": {
+      "raw": [
+        "71.19.149.209"
+      ]
+    },
+    "host": {
+      "raw": [
+        "10.20.5.161",
+        "71.19.149.209"
+      ]
+    },
+    "checksum_bad": {
+      "raw": [
+        0
+      ]
+    },
+    "addr": {
+      "raw": [
+        "10.20.5.161",
+        "71.19.149.209"
+      ]
+    }
+  },
+  "tcp": {
+    "stream": {
+      "raw": [
+        0
+      ]
+    },
+    "flags": {
+      "reset": {
+        "raw": [
+          0
+        ]
+      },
+      "fin": {
+        "raw": [
+          0
+        ]
+      },
+      "cwr": {
+        "raw": [
+          0
+        ]
+      },
+      "ack": {
+        "raw": [
+          1
+        ]
+      },
+      "str": {
+        "raw": [
+          "*******A****"
+        ]
+      },
+      "urg": {
+        "raw": [
+          0
+        ]
+      },
+      "ecn": {
+        "raw": [
+          0
+        ]
+      },
+      "raw": [
+        "0x00000010"
+      ],
+      "push": {
+        "raw": [
+          0
+        ]
+      },
+      "syn": {
+        "raw": [
+          0
+        ]
+      },
+      "res": {
+        "raw": [
+          0
+        ]
+      },
+      "ns": {
+        "raw": [
+          0
+        ]
+      }
+    },
+    "srcport": {
+      "raw": [
+        42852
+      ]
+    },
+    "window_size": {
+      "raw": [
+        360
+      ]
+    },
+    "len": {
+      "raw": [
+        0
+      ]
+    },
+    "seq": {
+      "raw": [
+        1
+      ]
+    },
+    "checksum_good": {
+      "raw": [
+        0
+      ]
+    },
+    "window_size_value": {
+      "raw": [
+        360
+      ]
+    },
+    "options": {
+      "type": {
+        "raw": [
+          1,
+          1
+        ],
+        "number": {
+          "raw": [
+            1,
+            1
+          ]
+        },
+        "copy": {
+          "raw": [
+            0,
+            0
+          ]
+        },
+        "class": {
+          "raw": [
+            0,
+            0
+          ]
+        }
+      },
+      "raw": [
+        "01:01:08:0a:01:7a:e6:87:d9:e9:a5:3f"
+      ],
+      "timestamp": {
+        "tsecr": {
+          "raw": [
+            3655968063
+          ]
+        },
+        "tsval": {
+          "raw": [
+            24831623
+          ]
+        }
+      }
+    },
+    "hdr_len": {
+      "raw": [
+        32
+      ]
+    },
+    "urgent_pointer": {
+      "raw": [
+        0
+      ]
+    },
+    "dstport": {
+      "raw": [
+        9630
+      ]
+    },
+    "checksum": {
+      "raw": [
+        "0x00007c69"
+      ]
+    },
+    "option_len": {
+      "raw": [
+        10
+      ]
+    },
+    "port": {
+      "raw": [
+        42852,
+        9630
+      ]
+    },
+    "ack": {
+      "raw": [
+        1
+      ]
+    },
+    "checksum_bad": {
+      "raw": [
+        0
+      ]
+    },
+    "window_size_scalefactor": {
+      "raw": [
+        -1
+      ]
+    },
+    "option_kind": {
+      "raw": [
+        8
+      ]
+    }
+  },
+  "frame": {
+    "interface_id": {
+      "raw": [
+        0
+      ]
+    },
+    "time_delta": {
+      "raw": [
+        0
+      ]
+    },
+    "number": {
+      "raw": [
+        1
+      ]
+    },
+    "marked": {
+      "raw": [
+        0
+      ]
+    },
+    "protocols": {
+      "raw": [
+        "eth:ethertype:ip:tcp"
+      ]
+    },
+    "len": {
+      "raw": [
+        66
+      ]
+    },
+    "encap_type": {
+      "raw": [
+        1
+      ]
+    },
+    "cap_len": {
+      "raw": [
+        66
+      ]
+    },
+    "offset_shift": {
+      "raw": [
+        0
+      ]
+    },
+    "time": {
+      "raw": [
+        "May  3, 2016 12:08:03.644608216 CEST"
+      ]
+    },
+    "time_delta_displayed": {
+      "raw": [
+        0
+      ]
+    },
+    "time_epoch": {
+      "raw": [
+        1462270083.6446083
+      ]
+    },
+    "ignored": {
+      "raw": [
+        0
+      ]
+    },
+    "time_relative": {
+      "raw": [
+        0
+      ]
+    }
+  },
+  "num": {
+    "raw": [
+      1
+    ]
+  },
+  "timestamp": {
+    "raw": [
+      "May  3, 2016 12:08:03.644608216 CEST"
+    ]
+  }
+}
