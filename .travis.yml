@@ -15,6 +15,8 @@ script:
 after_success:
 - coveralls
 before_deploy:
+- sudo apt-get -qq update
+- sudo apt-get install -y pandoc
 - pip install pypandoc
 deploy:
   provider: pypi
