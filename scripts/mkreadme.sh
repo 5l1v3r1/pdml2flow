@@ -17,7 +17,8 @@ _Aggregates wireshark pdml to flows_
 $( cat "${TOPLEVEL}/.travis.yml" | 
     sed -n -e '/# VERSION START/,/# VERSION END/ p' |
     sed -e '1d;$d' |
-    tr -d \"  |
+    tr -d \'\"  |
+    sed -e 's/\s*-\(.*\)/  -\1/g' |
     sed -e 's/python/\* [python\]/g'
 )
 * [pip](https://pypi.python.org/pypi/pip)
