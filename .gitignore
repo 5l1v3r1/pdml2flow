@@ -63,3 +63,6 @@ target/
 
 # vim
 *.swp
+
+# pypi readme
+README.rst

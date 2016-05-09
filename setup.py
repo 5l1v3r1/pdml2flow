@@ -6,18 +6,19 @@ try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst', 'md')
     long_description = long_description.replace('\r','')
+    with open('README.rst', 'w') as f:
+        f.write(long_description)
 except (OSError, ImportError):
     print('Pandoc not found. Long_description conversion failure.')
-    import io
     # pandoc is not installed, fallback to using raw contents
-    with io.open('README.md', encoding='utf-8') as f:
+    with open('README.md', 'r') as f:
         long_description = f.read()
 
 # Setup the project
 setup(
     name = 'pdml2flow',
     keywords = 'wireshark pdml flow aggregation',
-    version = '1.3',
+    version = '1.4',
     packages = find_packages(),
     install_requires = [
         'dict2xml'
