@@ -1,9 +1,11 @@
 language: python
+# VERSION START
 python:
 - '3.4'
 - '3.5'
 - 3.5-dev
 - nightly
+# VERSION END
 install:
 - pip install -r requirements.txt
 - pip install coveralls
@@ -12,6 +14,8 @@ script:
 - coverage run --source=pdml2flow setup.py test
 after_success:
 - coveralls
+before_deploy:
+- pip install pypandoc
 deploy:
   provider: pypi
   user: Ente

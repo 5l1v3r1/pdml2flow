@@ -10,8 +10,8 @@ _Aggregates wireshark pdml to flows_
 * [python]:
   - 3.4
   - 3.5
-  - 3.5-dev # 3.5 development branch
-  - nightly # currently points to 3.6-dev
+  - 3.5-dev
+  - nightly
 * [pip](https://pypi.python.org/pypi/pip)
 
 ## Installation
