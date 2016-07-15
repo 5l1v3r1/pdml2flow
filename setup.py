@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 # from: https://coderwall.com/p/qawuyq/use-markdown-readme-s-in-python-modules
 try:
     import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst', format='markdown_github')
+    long_description = pypandoc.convert('README.md', 'rst', format='markdown')
     long_description = long_description.replace('\r','')
     with open('README.rst', 'w') as f:
         f.write(long_description)
