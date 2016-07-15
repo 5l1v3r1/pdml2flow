@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst', format='markdown_github')
-    long_description = long_description.replace("\r","")
+    long_description = long_description.replace('\r','')
     with open('README.rst', 'w') as f:
         f.write(long_description)
 except (OSError, ImportError):
