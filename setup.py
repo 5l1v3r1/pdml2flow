@@ -18,7 +18,7 @@ except (OSError, ImportError):
 setup(
     name = 'pdml2flow',
     keywords = 'wireshark pdml flow aggregation',
-    version = '2.3',
+    version = '2.4',
     packages = find_packages(),
     install_requires = [
         'dict2xml'
