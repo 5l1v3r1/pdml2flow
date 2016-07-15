@@ -3,8 +3,8 @@ _Aggregates wireshark pdml to flows_
 
 | Branch  | Build  | Coverage |
 | ------- | ------ | -------- |
-| master  | [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=master)](https://travis-ci.org/Enteee/pdml2flow) |  [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=master)](https://coveralls.io/github/Enteee/pdml2flow?branch=master) |
-| develop  | [![Build Status](https://travis-ci.org/Enteee/pdml2flow.svg?branch=develop)](https://travis-ci.org/Enteee/pdml2flow) |  [![Coverage Status](https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=develop)](https://coveralls.io/github/Enteee/pdml2flow?branch=develop) |
+| master  | [![Build Status master]](https://travis-ci.org/Enteee/pdml2flow) | [![Coverage Status master]](https://coveralls.io/github/Enteee/pdml2flow?branch=master) |
+| develop  | [![Build Status develop]](https://travis-ci.org/Enteee/pdml2flow) | [![Coverage Status develop]](https://coveralls.io/github/Enteee/pdml2flow?branch=develop) |
 
 ## Prerequisites
 * [python]:
@@ -15,7 +15,9 @@ _Aggregates wireshark pdml to flows_
 * [pip](https://pypi.python.org/pypi/pip)
 
 ## Installation
+```shell
     $ sudo pip install pdml2flow
+```
 
 ## Usage
 ```shell
@@ -44,9 +46,9 @@ optional arguments:
   -m                   Appends flow metadata [default: False]
   -d                   Debug mode [default: False]
 ```
+
 ## Example
 Sniff from interface:
-
 ```shell
 $ tshark -i interface -Tpdml | pdml2flow
 ```
@@ -119,3 +121,8 @@ optional arguments:
 [dict2xml]: https://github.com/delfick/python-dict2xml
 [jq]: https://stedolan.github.io/jq/
 [FluentFlow]: https://github.com/t-moe/FluentFlow
+
+[Build Status master]: https://travis-ci.org/Enteee/pdml2flow.svg?branch=master
+[Coverage Status master]: https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=master
+[Build Status develop]: https://travis-ci.org/Enteee/pdml2flow.svg?branch=develop
+[Coverage Status develop]: https://coveralls.io/repos/github/Enteee/pdml2flow/badge.svg?branch=develop

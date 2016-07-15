@@ -4,8 +4,8 @@ from setuptools import setup, find_packages
 # from: https://coderwall.com/p/qawuyq/use-markdown-readme-s-in-python-modules
 try:
     import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst', 'md')
-    long_description = long_description.replace('\r','')
+    long_description = pypandoc.convert('README.md', 'rst', format='markdown_github')
+    #long_description = long_description.replace("\r","")
     with open('README.rst', 'w') as f:
         f.write(long_description)
 except (OSError, ImportError):
@@ -18,7 +18,7 @@ except (OSError, ImportError):
 setup(
     name = 'pdml2flow',
     keywords = 'wireshark pdml flow aggregation',
-    version = '1.5',
+    version = '2.0',
     packages = find_packages(),
     install_requires = [
         'dict2xml'
