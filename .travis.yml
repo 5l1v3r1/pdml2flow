@@ -10,17 +10,16 @@ python:
 sudo: required
 dist: trusty
 install:
-- pip install -r requirements.txt
-- pip install coveralls
-- python setup.py -q install
+- pip install --user -r requirements.txt
+- pip install --user coveralls pypandoc
+- sudo apt-get -qq update
+- sudo apt-get install -y pandoc
 script:
+- python setup.py check --restructuredtext --metadata -s
 - coverage run --source=pdml2flow setup.py test
 after_success:
 - coveralls
 before_deploy:
-- sudo apt-get -qq update
-- sudo apt-get install -y pandoc
-- pip install pypandoc
 deploy:
   provider: pypi
   user: Ente

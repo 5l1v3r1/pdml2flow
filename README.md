@@ -85,7 +85,6 @@ The following utils are part of this project
 ### pdml2json
 _Converts pdml to json_
 
-### Usage
 ```shell
 $ pdml2json -h
 usage: pdml2json [-h] [-s] [-d]
@@ -102,7 +101,6 @@ optional arguments:
 ### pdml2xml
 _Converts pdml to xml_
 
-### Usage
 ```shell
 $ pdml2xml -h
 usage: pdml2xml [-h] [-s] [-d]
