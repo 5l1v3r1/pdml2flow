@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 try:
     import pypandoc
     long_description = pypandoc.convert('README.md', 'rst', format='markdown_github')
-    #long_description = long_description.replace("\r","")
+    long_description = long_description.replace("\r","")
     with open('README.rst', 'w') as f:
         f.write(long_description)
 except (OSError, ImportError):
@@ -18,7 +18,7 @@ except (OSError, ImportError):
 setup(
     name = 'pdml2flow',
     keywords = 'wireshark pdml flow aggregation',
-    version = '2.0',
+    version = '2.1',
     packages = find_packages(),
     install_requires = [
         'dict2xml'
