@@ -36,7 +36,7 @@ optional arguments:
                        packets [default: 180]
   -l DATA_MAXLEN       Maximum lenght of data in tshark pdml-field [default:
                        200]
-  -s                   Extract show names, every data leave will now look like
+  -s                   Extract show names, every data leaf will now look like
                        { raw : [] , show: [] } [default: False]
   -x                   Switch to xml output [default: False]
   -c                   Removes duplicate data when merging objects, will not
@@ -93,7 +93,7 @@ Converts wireshark pdml to json
 
 optional arguments:
   -h, --help  show this help message and exit
-  -s          Extract show names, every data leave will now look like { raw :
+  -s          Extract show names, every data leaf will now look like { raw :
               [] , show: [] } [default: False]
   -d          Debug mode [default: False]
 ```
@@ -109,7 +109,7 @@ Converts wireshark pdml to xml
 
 optional arguments:
   -h, --help  show this help message and exit
-  -s          Extract show names, every data leave will now look like { raw :
+  -s          Extract show names, every data leaf will now look like { raw :
               [] , show: [] } [default: False]
   -d          Debug mode [default: False]
 ```

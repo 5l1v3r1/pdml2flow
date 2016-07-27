@@ -28,7 +28,7 @@ def pdml2flow():
     parser.add_argument('-s',
                         dest='EXTRACT_SHOW',
                         action='store_true',
-                        help='Extract show names, every data leave will now look like {{ raw : [] , show: [] }} [default: {}]'.format(Conf.EXTRACT_SHOW)
+                        help='Extract show names, every data leaf will now look like {{ raw : [] , show: [] }} [default: {}]'.format(Conf.EXTRACT_SHOW)
                         )
     parser.add_argument('-x',
                         dest='XML_OUTPUT',
@@ -77,7 +77,7 @@ def pdml2frame(output_type):
     parser.add_argument('-s',
                         dest='EXTRACT_SHOW',
                         action='store_true',
-                        help='Extract show names, every data leave will now look like {{ raw : [] , show: [] }} [default: {}]'.format(Conf.EXTRACT_SHOW)
+                        help='Extract show names, every data leaf will now look like {{ raw : [] , show: [] }} [default: {}]'.format(Conf.EXTRACT_SHOW)
                         )
     parser.add_argument('-d',
                         dest='DEBUG',

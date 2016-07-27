@@ -2,7 +2,7 @@
 TOPLEVEL=$(git rev-parse --show-toplevel)
 
 # install pdml2flow
-sudo pip install -e "${TOPLEVEL}"
+sudo pip install --upgrade -e "${TOPLEVEL}"
 
 cat <<EOF > "${TOPLEVEL}/README.md"
 # pdml2flow [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow) 
