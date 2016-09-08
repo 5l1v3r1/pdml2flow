@@ -16,7 +16,7 @@ _Aggregates wireshark pdml to flows_
 
 ## Installation
 ```shell
-    $ sudo pip install pdml2flow
+    $ sudo pip3 install pdml2flow
 ```
 
 ## Usage
