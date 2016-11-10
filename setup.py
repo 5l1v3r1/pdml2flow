@@ -39,6 +39,4 @@ setup(
     include_package_data = True,
     license = 'Apache 2.0',
     url = 'https://github.com/Enteee/pdml2flow',
-    # testing
-    test_suite = 'test',
 )
