@@ -70,3 +70,6 @@ class Flow():
 
     def not_expired(self):
         return self.__newest_frame_time > (Flow.newest_overall_frame_time - Conf.FLOW_BUFFER_TIME)
+
+    def get_frames(self):
+        return self.__frames

@@ -54,6 +54,8 @@ class PdmlHandler(xml.sax.ContentHandler):
                 if flow.not_expired():
                     new_flows[flowid] = flow
                 else:
+                    for plugin in Conf.PLUGINS:
+                        plugin.flow_expired(flow)
                     print(flow, file=Conf.OUT)
             self.__flows = new_flows
             # the flow definition
@@ -66,8 +68,13 @@ class PdmlHandler(xml.sax.ContentHandler):
                     debug('old flow: {}'.format(flowid))
                 except KeyError:
                     # flow unknown add new flow
-                    self.__flows[flowid] = Flow(self.__frame)
+                    flow = self.__flows[flowid] = Flow(self.__frame)
                     debug('new flow: {}'.format(flowid))
+                    for plugin in Conf.PLUGINS:
+                        plugin.flow_new(self.__frame, self.__flows[flowid])
+
+                for plugin in Conf.PLUGINS:
+                    plugin.frame_new(self.__frame, flow)
 
     def endDocument(self):
         # print all flows @ end

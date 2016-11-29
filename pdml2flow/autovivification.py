@@ -6,11 +6,11 @@ DEFAULT = object();
 
 class AutoVivification(dict):
 
-    """
-    Returns a copy of d without empty leaves
-    see: https://stackoverflow.com/questions/27973988/python-how-to-remove-all-empty-fields-in-a-nested-dict/35263074
-    """
     def clean_empty(self, d=DEFAULT):
+        """
+        Returns a copy of d without empty leaves
+        see: https://stackoverflow.com/questions/27973988/python-how-to-remove-all-empty-fields-in-a-nested-dict/35263074
+        """
         if d is DEFAULT:
             d = self
         if isinstance(d, list):
@@ -21,10 +21,8 @@ class AutoVivification(dict):
             return {k: v for k, v in ((k, self.clean_empty(v)) for k, v in d.items()) if v or v == 0}
         return d
 
-    """
-    returns a copy of d with compressed leaves
-    """
     def compress(self, d=DEFAULT):
+        """Returns a copy of d with compressed leaves."""
         if d is DEFAULT:
             d = self
         if isinstance(d, list):
@@ -44,10 +42,8 @@ class AutoVivification(dict):
             return {k: v for k, v in ((k, self.compress(v)) for k, v in d.items())}
         return d
 
-    """
-    returns a copy of d with all dicts casted to type(self)
-    """
     def cast_dicts(self, d=DEFAULT):
+        """Returns a copy of d with all dicts casted to type(self).  """
         if d is DEFAULT:
             d = self
         if isinstance(d, list):
@@ -56,15 +52,15 @@ class AutoVivification(dict):
             return type(self)({k: v for k, v in ((k, self.cast_dicts(v)) for k, v in d.items())})
         return d
 
-    """
-    merges b into a recursively, if a is not given: merges into self
-    also merges lists and :
-        * merge({a:a},{a:b}) = {a:[a,b]}
-        * merge({a:[a]},{a:b}) = {a:[a,b]}
-        * merge({a:a},{a:[b]}) = {a:[a,b]}
-        * merge({a:[a]},{a:[b]}) = {a:[a,b]}
-    """
     def merge(self, b, a=DEFAULT):
+        """
+        merges b into a recursively, if a is not given: merges into self
+        also merges lists and :
+            * merge({a:a},{a:b}) = {a:[a,b]}
+            * merge({a:[a]},{a:b}) = {a:[a,b]}
+            * merge({a:a},{a:[b]}) = {a:[a,b]}
+            * merge({a:[a]},{a:[b]}) = {a:[a,b]}
+        """
         if a is DEFAULT:
             a = self
         for key in b:
@@ -84,11 +80,11 @@ class AutoVivification(dict):
                 a[key] = b[key]
         return a
 
-    """
-    Implementation of perl's autovivification feature.
-    see: https://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python
-    """
     def __getitem__(self, item):
+        """
+        Implementation of perl's autovivification feature.
+        see: https://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python
+        """
         # if the item is a list we autoexpand it
         if type(item) is list:
             return functools.reduce(lambda d, k: d[k], item, self)

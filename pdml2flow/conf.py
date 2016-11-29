@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
 import sys
+from .plugin import *
 
 class Conf():
     """The global configuration class"""
@@ -38,6 +39,9 @@ class Conf():
     DEBUG = False
     METADATA = False
     PARSE_SOURCE = sys.stdin
+    SUPPORTED_PLUGIN_INTERFACES = [Plugin1]
+    PLUGIN_FILES = []
+    PLUGINS = []
 
     @staticmethod
     def set(conf):
