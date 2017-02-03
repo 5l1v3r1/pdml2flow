@@ -62,9 +62,9 @@ class Flow():
         self.__framecount += 1
         # Extract data
         if Conf.FRAMES_ARRAY:
-            self.__frames.append(frame)
+            self.__frames.append(frame.clean_empty())
         else:
-            self.__frames.merge(frame)
+            self.__frames.merge(frame.clean_empty())
         # Print flow duration
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 
@@ -73,3 +73,4 @@ class Flow():
 
     def get_frames(self):
         return self.__frames
+

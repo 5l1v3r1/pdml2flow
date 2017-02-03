@@ -40,8 +40,10 @@ class Conf():
     METADATA = False
     PARSE_SOURCE = sys.stdin
     SUPPORTED_PLUGIN_INTERFACES = [Plugin1]
-    PLUGIN_FILES = []
+    PLUGIN_LOAD = []
     PLUGINS = []
+    PRINT_0 = False
+    PLUGIN_GROUP = 'pdml2flow.plugins'
 
     @staticmethod
     def set(conf):

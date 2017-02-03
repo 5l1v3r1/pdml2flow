@@ -7,6 +7,7 @@ import imp
 import inspect
 
 from os import path
+from pkg_resources import iter_entry_points
 
 from .logging import *
 from .conf import Conf
@@ -61,26 +62,31 @@ def pdml2flow():
                         help='Debug mode [default: {}]'.format(Conf.DEBUG)
                         )
     parser.add_argument('-p',
-                        dest='PLUGIN_FILES',
+                        dest='PLUGIN_LOAD',
                         action='append',
-                        help='Plguins to load [default: {}]'.format(Conf.PLUGIN_FILES)
+                        help='Plguins to load, installed: {} [default: {}]'.format([str(ep).split(' =',1)[0] for ep in iter_entry_points(group=Conf.PLUGIN_GROUP)], Conf.PLUGIN_LOAD)
+                        )
+    parser.add_argument('-0',
+                        dest='PRINT_0',
+                        action='store_true',
+                        help='Terminates lines with null character [default: {}]'.format(Conf.PRINT_0)
                         )
     conf = vars(parser.parse_args(args=Conf.ARGS))
     # split each flowdef to a path
     if conf['FLOW_DEF_STR'] is not None:
         conf['FLOW_DEF'] = Conf.get_real_paths(conf['FLOW_DEF_STR'], Conf.FLOW_DEF_NESTCHAR)
+
     # load plugins
     conf['PLUGINS'] = []
-    if conf['PLUGIN_FILES'] is not None:
-        for plugin_file in conf['PLUGIN_FILES']:
-            plugin = __import__(plugin_file)
-            for name, plugin in inspect.getmembers(sys.modules[plugin_file]):
+    if conf['PLUGIN_LOAD'] is not None:
+        for plugin_name in conf['PLUGIN_LOAD']:
+            for entry_point in iter_entry_points(group=Conf.PLUGIN_GROUP, name=plugin_name):
+                plugin = entry_point.load()
                 if inspect.isclass(plugin) and not plugin in Conf.SUPPORTED_PLUGIN_INTERFACES and any([
                     issubclass(plugin, supported_plugin_interface)
                         for supported_plugin_interface in Conf.SUPPORTED_PLUGIN_INTERFACES
                     ]):
                     conf['PLUGINS'].append(plugin())
-
     start_parser(conf)
 
 def pdml2xml():

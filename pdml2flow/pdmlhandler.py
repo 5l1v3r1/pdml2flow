@@ -23,7 +23,7 @@ class PdmlHandler(xml.sax.ContentHandler):
             if 'name' in  attributes:
                 name = attributes.getValue('name')
                 if len(name) > 0:
-                    debug('field: {}'.format(name))
+                    merge = False
                     # Build object tree
                     new = AutoVivification()
                     name_access = functools.reduce(
@@ -34,14 +34,21 @@ class PdmlHandler(xml.sax.ContentHandler):
                         show = attributes.getValue('show')
                         if len(show) > Conf.DATA_MAXLEN:
                             show = Conf.DATA_TOO_LONG
-                        name_access['raw'] = [autoconvert(show)]
+                        if len(show) > 0:
+                            debug('{}.raw: {}'.format(name, show))
+                            name_access['raw'] = [autoconvert(show)]
+                            merge = True
                     # Extract showname
                     if 'showname' in attributes and Conf.EXTRACT_SHOW:
                         showname = attributes.getValue('showname')
                         if len(showname) > Conf.DATA_MAXLEN:
                             showname = Conf.DATA_TOO_LONG
-                        name_access['show'] = [showname]
-                    self.__frame.merge(new)
+                        if len(showname) > 0:
+                            debug('{}.show: {}'.format(name, showname))
+                            name_access['show'] = [showname]
+                            merge = True
+                    if merge:
+                        self.__frame.merge(new)
 
     # Call when an elements ends
     def endElement(self, tag):
@@ -56,7 +63,7 @@ class PdmlHandler(xml.sax.ContentHandler):
                 else:
                     for plugin in Conf.PLUGINS:
                         plugin.flow_expired(flow)
-                    print(flow, file=Conf.OUT)
+                    print(flow, file=Conf.OUT, end=('\n' if not Conf.PRINT_0 else '\n\0'))
             self.__flows = new_flows
             # the flow definition
             flowid = Flow.get_flow_id(self.__frame)
@@ -80,4 +87,4 @@ class PdmlHandler(xml.sax.ContentHandler):
         # print all flows @ end
         for (flowid, flow) in self.__flows.items():
             # before printing clean all empty laves
-            print(flow, file=Conf.OUT)
+            print(flow, file=Conf.OUT, end=('\n' if not Conf.PRINT_0 else '\n\0'))
