@@ -1,7 +1,4 @@
 # vim: set fenc=utf8 ts=4 sw=4 et :
-import os
-import tarfile
-
 from setuptools import setup, find_packages
 
 # I really prefer Markdown to reStructuredText. PyPi does not.
@@ -20,29 +17,22 @@ except (OSError, ImportError):
 
 # Setup the project
 setup(
-    name = 'pdml2flow',
-    keywords = 'wireshark pdml flow aggregation',
-    version = '3.0',
-    packages = find_packages(exclude=['test', 'pdml2flow.plugin-skeleton.*']),
+    name = 'pdml2flow-plugin-skeleton',
+    keywords = 'pdml2flow plugin',
+    version = '0.1',
+    packages = find_packages(exclude=['test']),
     install_requires = [
-        'dict2xml'
+        'pdml2flow',
     ],
-    # other arguments here...
-    entry_points={
-        'console_scripts': [
-            'pdml2flow = pdml2flow:pdml2flow',
-            'pdml2json = pdml2flow:pdml2json',
-            'pdml2xml = pdml2flow:pdml2xml',
-            'pdml2flow-new-plugin = pdml2flow:pdml2flow_new_plugin',
-        ],
-        'pdml2flow.plugins': 'dnslink = pdml2flow.plugins.dnslink:DNSLink'
+    entry_points= {
+        'pdml2flow.plugins': 'plugin = plugin.plugin:Plugin'
     },
     # metadata
-    author = 'Mischa Lehmann',
-    author_email = 'ducksource@duckpond.ch',
-    description = 'Aggregates wireshark pdml to flows',
+    author = 'Author Name',
+    author_email = 'email@somwhere.com',
+    description = 'Plugin skeleton',
     long_description = long_description,
     include_package_data = True,
     license = 'Apache 2.0',
-    url = 'https://github.com/Enteee/pdml2flow',
+    url = 'https://github.com/Username/pdml2flow-plugin-skeleton',
 )
