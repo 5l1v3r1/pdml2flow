@@ -50,7 +50,7 @@ def pdml2flow():
     parser.add_argument('-a',
                         dest='FRAMES_ARRAY',
                         action='store_true',
-                        help='Instaead of merging the frames will append them to an array [default: {}]'.format(Conf.FRAMES_ARRAY)
+                        help='Instead of merging the frames will append them to an array [default: {}]'.format(Conf.FRAMES_ARRAY)
                         )
     parser.add_argument('-m',
                         dest='METADATA',

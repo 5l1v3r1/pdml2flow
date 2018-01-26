@@ -23,7 +23,7 @@ setup(
     name = 'pdml2flow',
     keywords = 'wireshark pdml flow aggregation',
     version = '3.0',
-    packages = find_packages(exclude=['test', 'pdml2flow.plugin-skeleton.*']),
+    packages = find_packages(exclude=['test']),
     install_requires = [
         'dict2xml'
     ],
@@ -35,7 +35,7 @@ setup(
             'pdml2xml = pdml2flow:pdml2xml',
             'pdml2flow-new-plugin = pdml2flow:pdml2flow_new_plugin',
         ],
-        'pdml2flow.plugins': 'dnslink = pdml2flow.plugins.dnslink:DNSLink'
+        #'pdml2flow.plugins': 'dnslink = pdml2flow.plugins.dnslink:DNSLink'
     },
     # metadata
     author = 'Mischa Lehmann',
