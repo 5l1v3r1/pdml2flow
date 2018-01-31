@@ -34,7 +34,7 @@ class Flow():
 
         # call plugins
         for plugin in Conf.PLUGINS:
-            plugin.flow_new(self, first_frame)
+            plugin.flow_new(self, first_frame.cast_dicts(dict))
 
         self.add_frame(first_frame)
 
@@ -82,7 +82,7 @@ class Flow():
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 
         for plugin in Conf.PLUGINS:
-            plugin.frame_new(frame, self)
+            plugin.frame_new(frame.cast_dicts(dict), self)
 
     def not_expired(self):
         return self.__newest_frame_time > (Flow.newest_overall_frame_time - Conf.FLOW_BUFFER_TIME)
