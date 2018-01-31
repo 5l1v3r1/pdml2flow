@@ -1,6 +1,10 @@
 # vim: set fenc=utf8 ts=4 sw=4 et :
+from os import environ
+from pdml2flow.plugin import Plugin1
 
-class Plugin1(object):
+CONFIGURATION = environ.get('CONFIGURATION', 'default value')
+
+class Plugin(Plugin1):
     """Version 1 plugin interface."""
 
     def flow_new(self, flow, frame):

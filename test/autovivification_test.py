@@ -210,6 +210,108 @@ class TestAutoVivification(TestCase):
         #self.assertEqual(type(a[10][0]), NoneType)
         #self.assertEqual(type(a[10][1]), NoneType)
 
+    def test_cast_dicts_to_dicts(self):
+        a = AutoVivification({
+            0: [0, 0],
+            1: [1, 1],
+            2: [0, 1, 0, 1],
+            3: {0: [0, 0], 1: [1, 1]},
+            4: [[0, 1], [0, 1], [0, 1], [0, 1]],
+            5: {0: {0: [0, 0], 1: [1, 1]}, 1: {0: [0, 0], 1: [1, 1]}},
+            6: ['string', 'string'],
+            7: [True, True],
+            8: [False, False],
+            9: [0.1, 0.1],
+            10: [None, None],
+            11: AutoVivification({0: [0, 0], 1: [1, 1]}),
+            12: AutoVivification({0: AutoVivification({0: 0}), 1: AutoVivification({1: 1})}),
+        }).cast_dicts(to=dict)
+        self.assertEqual(type(a), dict)
+
+        self.assertEqual(type(a[0]), list)
+        self.assertEqual(type(a[0][0]), int)
+        self.assertEqual(type(a[0][1]), int)
+
+        self.assertEqual(type(a[1]), list)
+        self.assertEqual(type(a[1][0]), int)
+        self.assertEqual(type(a[1][1]), int)
+
+        self.assertEqual(type(a[2]), list)
+        self.assertEqual(type(a[2][0]), int)
+        self.assertEqual(type(a[2][1]), int)
+        self.assertEqual(type(a[2][2]), int)
+        self.assertEqual(type(a[2][3]), int)
+
+        self.assertEqual(type(a[3]), dict)
+        self.assertEqual(type(a[3][0]), list)
+        self.assertEqual(type(a[3][0][0]), int)
+        self.assertEqual(type(a[3][0][1]), int)
+        self.assertEqual(type(a[3][1]), list)
+        self.assertEqual(type(a[3][1][0]), int)
+        self.assertEqual(type(a[3][1][1]), int)
+
+        self.assertEqual(type(a[4]), list) 
+        self.assertEqual(type(a[4][0]), list)
+        self.assertEqual(type(a[4][0][0]), int)
+        self.assertEqual(type(a[4][0][1]), int)
+        self.assertEqual(type(a[4][1]), list)
+        self.assertEqual(type(a[4][1][0]), int)
+        self.assertEqual(type(a[4][1][1]), int)
+        self.assertEqual(type(a[4][2]), list)
+        self.assertEqual(type(a[4][2][0]), int)
+        self.assertEqual(type(a[4][2][1]), int)
+        self.assertEqual(type(a[4][3]), list)
+        self.assertEqual(type(a[4][3][0]), int)
+        self.assertEqual(type(a[4][3][1]), int)
+
+        self.assertEqual(type(a[5]), dict)
+        self.assertEqual(type(a[5][0]), dict)
+        self.assertEqual(type(a[5][0][0]), list)
+        self.assertEqual(type(a[5][0][0][0]), int)
+        self.assertEqual(type(a[5][0][0][1]), int)
+        self.assertEqual(type(a[5][0][1][0]), int)
+        self.assertEqual(type(a[5][0][1][1]), int)
+        self.assertEqual(type(a[5][1]), dict)
+        self.assertEqual(type(a[5][1][0]), list)
+        self.assertEqual(type(a[5][1][0][0]), int)
+        self.assertEqual(type(a[5][1][0][1]), int)
+        self.assertEqual(type(a[5][1][1][0]), int)
+        self.assertEqual(type(a[5][1][1][1]), int)
+
+        self.assertEqual(type(a[6]), list)
+        self.assertEqual(type(a[6][0]), str)
+        self.assertEqual(type(a[6][1]), str)
+
+        self.assertEqual(type(a[7]), list)
+        self.assertEqual(type(a[7][0]), bool)
+        self.assertEqual(type(a[7][1]), bool)
+
+        self.assertEqual(type(a[8]), list)
+        self.assertEqual(type(a[8][0]), bool)
+        self.assertEqual(type(a[8][1]), bool)
+
+        self.assertEqual(type(a[9]), list)
+        self.assertEqual(type(a[9][0]), float)
+        self.assertEqual(type(a[9][1]), float)
+
+        self.assertEqual(type(a[10]), list)
+        #self.assertEqual(type(a[10][0]), NoneType)
+        #self.assertEqual(type(a[10][1]), NoneType)
+
+        self.assertEqual(type(a[11]), dict)
+        self.assertEqual(type(a[11][0]), list)
+        self.assertEqual(type(a[11][0][0]), int)
+        self.assertEqual(type(a[11][0][1]), int)
+        self.assertEqual(type(a[11][1]), list)
+        self.assertEqual(type(a[11][1][0]), int)
+        self.assertEqual(type(a[11][1][1]), int)
+
+        self.assertEqual(type(a[12]), dict)
+        self.assertEqual(type(a[12][0]), dict)
+        self.assertEqual(type(a[12][0][0]), int)
+        self.assertEqual(type(a[12][1]), dict)
+        self.assertEqual(type(a[12][1][1]), int)
+
     def test_merge(self):
         self.assertEqual(
             AutoVivification({

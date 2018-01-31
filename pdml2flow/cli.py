@@ -7,7 +7,8 @@ import imp
 import inspect
 
 from os import path
-from pkg_resources import iter_entry_points
+from pkg_resources import iter_entry_points, resource_filename
+from shutil import copytree
 
 from .logging import *
 from .conf import Conf
@@ -49,7 +50,7 @@ def pdml2flow():
     parser.add_argument('-a',
                         dest='FRAMES_ARRAY',
                         action='store_true',
-                        help='Instaead of merging the frames will append them to an array [default: {}]'.format(Conf.FRAMES_ARRAY)
+                        help='Instead of merging the frames will append them to an array [default: {}]'.format(Conf.FRAMES_ARRAY)
                         )
     parser.add_argument('-m',
                         dest='METADATA',
@@ -127,3 +128,23 @@ def start_parser(conf = {}):
         # this might happen when a pdml file is malformed
         warning('Parser returned exception: {}'.format(e))
         handler.endDocument()
+
+def pdml2flow_new_plugin():
+    print(resource_filename(__name__, '/plugin-skeleton'))
+
+    parser = argparse.ArgumentParser(
+        description='Initializes a new plugin'
+    )
+    parser.add_argument(
+        'dst',
+        type=str,
+        nargs='+',
+        help='Where to initialize the plugin, basename will become the plugin name'
+    )
+    conf = vars(parser.parse_args(args=Conf.ARGS))
+    for dst in conf['dst']:
+        plugin_name = path.basename(dst)
+        copytree(
+            resource_filename(__name__, '/plugin-skeleton'),
+            dst
+        )

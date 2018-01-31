@@ -16,14 +16,14 @@ _Aggregates wireshark pdml to flows_
 
 ## Installation
 ```shell
-    $ sudo pip3 install pdml2flow
+    $ sudo pip install pdml2flow
 ```
 
 ## Usage
 ```shell
 $ pdml2flow -h
 usage: pdml2flow [-h] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN]
-                 [-s] [-x] [-c] [-a] [-m] [-d]
+                 [-s] [-x] [-c] [-a] [-m] [-d] [-p PLUGIN_LOAD] [-0]
 
 Aggregates wireshark pdml to flows
 
@@ -45,6 +45,8 @@ optional arguments:
                        array [default: False]
   -m                   Appends flow metadata [default: False]
   -d                   Debug mode [default: False]
+  -p PLUGIN_LOAD       Plguins to load, installed: [] [default: []]
+  -0                   Terminates lines with null character [default: False]
 ```
 
 ## Example
