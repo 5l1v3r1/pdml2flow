@@ -41,7 +41,7 @@ optional arguments:
   -x                   Switch to xml output [default: False]
   -c                   Removes duplicate data when merging objects, will not
                        preserve order of leaves [default: False]
-  -a                   Instaead of merging the frames will append them to an
+  -a                   Instead of merging the frames will append them to an
                        array [default: False]
   -m                   Appends flow metadata [default: False]
   -d                   Debug mode [default: False]
