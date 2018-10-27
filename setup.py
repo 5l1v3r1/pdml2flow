@@ -36,7 +36,7 @@ setup(
             'pdml2flow-new-plugin = pdml2flow:pdml2flow_new_plugin',
         ],
         'pdml2flow.plugins': [
-            'test = pdml2flow.plugins.test:Plugin',
+            'noop = pdml2flow.plugins.noop:Plugin',
         ]
 
     },

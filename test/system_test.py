@@ -71,6 +71,5 @@ def add_tests(run, directory):
 add_tests(pdml2flow.pdml2flow, TEST_DIR_PDML2FLOW)
 add_tests(pdml2flow.pdml2json, TEST_DIR_PDML2JSON)
 
-
 if __name__ == '__main__':
     unittest.main()
