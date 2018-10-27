@@ -15,6 +15,7 @@ class Conf():
     OUT = sys.stdout
     OUT_DEBUG = sys.stderr
     OUT_WARNING = sys.stderr
+    OUT_ERROR = sys.stderr
 
     FLOW_DEF_NESTCHAR = '.'
     FLOW_DEF_STR = [
@@ -39,8 +40,7 @@ class Conf():
     DEBUG = False
     METADATA = False
     PARSE_SOURCE = sys.stdin
-    SUPPORTED_PLUGIN_INTERFACES = [Plugin1]
-    PLUGIN_LOAD = []
+    SUPPORTED_PLUGIN_INTERFACES = [Plugin2]
     PLUGINS = []
     PRINT_0 = False
     PLUGIN_GROUP = 'pdml2flow.plugins'

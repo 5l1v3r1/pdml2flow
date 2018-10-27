@@ -15,3 +15,8 @@ def warning(*objs):
     from .flow import Flow
     print("[Warning: {}] ".format(Flow.newest_overall_frame_time), *objs, file=Conf.OUT_WARNING)
 
+def error(*objs):
+    # import here because of circular dependencies
+    from .flow import Flow
+    print("[Error: {}] ".format(Flow.newest_overall_frame_time), *objs, file=Conf.OUT_ERROR)
+

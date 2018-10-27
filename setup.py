@@ -35,7 +35,10 @@ setup(
             'pdml2xml = pdml2flow:pdml2xml',
             'pdml2flow-new-plugin = pdml2flow:pdml2flow_new_plugin',
         ],
-        #'pdml2flow.plugins': 'dnslink = pdml2flow.plugins.dnslink:DNSLink'
+        'pdml2flow.plugins': [
+            'test = pdml2flow.plugins.test:Plugin',
+        ]
+
     },
     # metadata
     author = 'Mischa Lehmann',
