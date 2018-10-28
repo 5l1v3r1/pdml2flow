@@ -140,6 +140,12 @@ def pdml2flow():
             Conf.PRINT_0
         )
     )
+    parser.add_argument(
+        '--version',
+        dest='VERSION',
+        action='store_true',
+        help='Print version and exit'
+    )
 
     # Encode the next argument after +plugin
     # to ensure that it does not start with a
@@ -151,6 +157,14 @@ def pdml2flow():
             for i, v in enumerate(Conf.ARGS)
         ])
     )
+
+    if conf['VERSION']:
+        print(
+            'pdml2flow version {}'.format(
+                Conf.VERSION
+            )
+        )
+        sys.exit(0)
 
     # split each flowdef to a path
     if conf['FLOW_DEF_STR'] is not None:

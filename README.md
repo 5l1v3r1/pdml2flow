@@ -27,6 +27,7 @@ $ sudo pip install pdml2flow
 $ pdml2flow -h
 usage: pdml2flow [-h] [+noop [args]] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME]
                  [-l DATA_MAXLEN] [-s] [-x] [-c] [-a] [-m] [-d] [-0]
+                 [--version]
 
 Aggregates wireshark pdml to flows
 
@@ -49,6 +50,7 @@ optional arguments:
   -m                   Appends flow metadata [default: False]
   -d                   Debug mode [default: False]
   -0                   Terminates lines with null character [default: False]
+  --version            Print version and exit
 
 Plugins:
   +noop [args]         usage: A new plugin [-h] optional arguments: -h, --help

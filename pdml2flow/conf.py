@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
 import sys
+from pkg_resources import require
 from .plugin import *
 
 class Conf():
@@ -9,6 +10,8 @@ class Conf():
     @staticmethod
     def get_real_paths(paths, nestchar):
         return [ path.split(nestchar) + ['raw'] for path in paths ]
+
+    VERSION = require('pdml2flow')[0].version
 
     ARGS = sys.argv[1:]
     IN = sys.stdin

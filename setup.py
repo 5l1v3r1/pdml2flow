@@ -21,7 +21,7 @@ except (OSError, ImportError):
 # Setup the project
 setup(
     name = 'pdml2flow',
-    keywords = 'wireshark pdml flow aggregation',
+    keywords = 'wireshark pdml flow aggregation plugins',
     version = '4.0',
     packages = find_packages(exclude=['test']),
     install_requires = [
