@@ -7,7 +7,7 @@ import inspect
 
 from os import path
 from pkg_resources import iter_entry_points, resource_filename
-from shutil import copytree
+from shutil import copytree, ignore_patterns
 from shlex import split
 from base64 import b32encode, b32decode
 
@@ -237,10 +237,13 @@ def pdml2flow_new_plugin():
         nargs='+',
         help='Where to initialize the plugin, basename will become the plugin name'
     )
-    conf = vars(parser.parse_args(Conf.ARGS))
+    conf = vars(
+        parser.parse_args(Conf.ARGS)
+    )
     for dst in conf['dst']:
         plugin_name = path.basename(dst)
         copytree(
             resource_filename(__name__, '/plugin-skeleton'),
-            dst
+            dst,
+            ignore=ignore_patterns('__pycache__')
         )

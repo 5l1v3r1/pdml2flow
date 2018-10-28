@@ -21,7 +21,6 @@ class Flow():
             return None
         return str(flowid)
 
-
     def __init__(self, first_frame):
         first_frame_time = first_frame['frame']['time_epoch']['raw'][0]
         self.__newest_frame_time = self.__first_frame_time = first_frame_time
@@ -37,7 +36,6 @@ class Flow():
             plugin.flow_new(self, first_frame.cast_dicts(dict))
 
         self.add_frame(first_frame)
-
 
     def __repr__(self):
         # clean the frame data

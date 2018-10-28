@@ -23,15 +23,8 @@ $( cat "${TOPLEVEL}/.travis.yml" |
 
 ## Installation
 \`\`\`shell
-    $ sudo pip install pdml2flow-plugin-skeleton
+$ sudo pip install pdml2flow-plugin-skeleton
 \`\`\`
-
-## Configuration
-
-| Environment variable | Description |
-| ------- | ------ |
-| VAR | Does something |
-
 
 ## Example
 

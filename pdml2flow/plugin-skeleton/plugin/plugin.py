@@ -36,3 +36,5 @@ class Plugin(Plugin2):
         """Called for every new frame."""
         pass
 
+if __name__ == '__main__':
+    print(Plugin.help())
