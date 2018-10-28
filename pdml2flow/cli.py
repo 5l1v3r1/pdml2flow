@@ -10,6 +10,7 @@ from pkg_resources import iter_entry_points, resource_filename
 from shutil import copytree, ignore_patterns
 from shlex import split
 from base64 import b32encode, b32decode
+from configparser import ConfigParser
 
 from argparse import ArgumentParser
 
@@ -240,10 +241,18 @@ def pdml2flow_new_plugin():
     conf = vars(
         parser.parse_args(Conf.ARGS)
     )
+
+    plugin_conf = ConfigParser(conf)
     for dst in conf['dst']:
         plugin_name = path.basename(dst)
+        plugin_conf = ConfigParser({
+            **conf,
+            **{'plugin_name': plugin_name}
+        })
         copytree(
             resource_filename(__name__, '/plugin-skeleton'),
             dst,
             ignore=ignore_patterns('__pycache__')
         )
+        with open(path.join(dst, Conf.PLUGIN_CONF_NAME), mode='w') as fd:
+            plugin_conf.write(fd)

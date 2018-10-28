@@ -1,5 +1,9 @@
 # vim: set fenc=utf8 ts=4 sw=4 et :
+from configparser import ConfigParser
 from setuptools import setup, find_packages
+
+conf = ConfigParser()
+conf.read('conf.ini')
 
 # I really prefer Markdown to reStructuredText. PyPi does not.
 # from: https://coderwall.com/p/qawuyq/use-markdown-readme-s-in-python-modules
@@ -17,7 +21,9 @@ except (OSError, ImportError):
 
 # Setup the project
 setup(
-    name = 'pdml2flow-plugin-skeleton',
+    name = 'pdml2flow-{}'.format(
+        conf['DEFAULT']['plugin_name']
+    ),
     keywords = 'pdml2flow plugin',
     version = '0.1',
     packages = find_packages(exclude=['test']),
@@ -25,7 +31,9 @@ setup(
         'pdml2flow',
     ],
     entry_points= {
-        'pdml2flow.plugins': 'plugin = plugin.plugin:Plugin'
+        'pdml2flow.plugins': '{} = plugin.plugin:Plugin'.format(
+            conf['DEFAULT']['plugin_name']
+        ),
     },
     # metadata
     author = 'Author Name',

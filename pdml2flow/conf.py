@@ -44,6 +44,7 @@ class Conf():
     PLUGINS = []
     PRINT_0 = False
     PLUGIN_GROUP = 'pdml2flow.plugins'
+    PLUGIN_CONF_NAME = 'conf.ini'
 
     @staticmethod
     def set(conf):
