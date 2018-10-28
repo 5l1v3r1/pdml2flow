@@ -61,6 +61,12 @@ def pdml2flow():
             warning('Plugin not supported: {}'.format(name))
 
     parser.add_argument(
+        '--version',
+        dest='VERSION',
+        action='store_true',
+        help='Print version and exit'
+    )
+    parser.add_argument(
         '-f',
         dest='FLOW_DEF_STR',
         action='append',
@@ -139,12 +145,6 @@ def pdml2flow():
         help='Terminates lines with null character [default: {}]'.format(
             Conf.PRINT_0
         )
-    )
-    parser.add_argument(
-        '--version',
-        dest='VERSION',
-        action='store_true',
-        help='Print version and exit'
     )
 
     # Encode the next argument after +plugin
