@@ -13,21 +13,6 @@ class TestPlugin(TestCase):
     version.
     """
 
-    def test_methods(self):
-        self.assertEqual(
-            sorted([
-                (name, str(signature(method)))
-                for name, method in
-                getmembers(
-                    Plugin2,
-                    predicate=ismethod
-                )
-            ]),
-            sorted([
-                ('help', '()')
-            ])
-        )
-
     def test_functions(self):
         self.assertEqual(
             sorted([
@@ -39,6 +24,7 @@ class TestPlugin(TestCase):
                 )
             ]),
             sorted([
+                ('help', '()'),
                 ('__init__', '(self, *args)'),
                 ('__deinit__', '(self)'),
                 ('flow_end', '(self, flow)'),

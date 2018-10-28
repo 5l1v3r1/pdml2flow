@@ -22,7 +22,7 @@ class Flow():
         return str(flowid)
 
     def __init__(self, first_frame):
-        first_frame_time = first_frame['frame']['time_epoch']['raw'][0]
+        first_frame_time = first_frame[Conf.FRAME_TIME]
         self.__newest_frame_time = self.__first_frame_time = first_frame_time
         self.__id = self.get_flow_id(first_frame)
         if Conf.FRAMES_ARRAY:
@@ -64,7 +64,7 @@ class Flow():
 
     def add_frame(self, frame):
         # check if frame expands flow length
-        frame_time = frame['frame']['time_epoch']['raw'][0]
+        frame_time = frame[Conf.FRAME_TIME]
         self.__first_frame_time = min(self.__first_frame_time, frame_time) 
         self.__newest_frame_time = max(self.__newest_frame_time, frame_time)
         self.__framecount += 1

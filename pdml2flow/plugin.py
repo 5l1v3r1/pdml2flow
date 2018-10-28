@@ -4,9 +4,9 @@ from abc import ABC, abstractmethod
 class Plugin2(ABC):
     """Version 2 plugin interface."""
 
-    @classmethod
+    @staticmethod
     @abstractmethod
-    def help(cls):
+    def help():
         """Return a help string."""
         pass
 

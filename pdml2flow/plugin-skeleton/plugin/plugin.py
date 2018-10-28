@@ -6,8 +6,8 @@ argparser = ArgumentParser('A new plugin')
 
 class Plugin(Plugin2):
 
-    @classmethod
-    def help(cls):
+    @staticmethod
+    def help():
         """Return a help string."""
         return argparser.format_help()
 

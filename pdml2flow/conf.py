@@ -37,6 +37,7 @@ class Conf():
     XML_OUTPUT = False
     COMPRESS_DATA = False
     FRAMES_ARRAY = False
+    FRAME_TIME = ['frame', 'time_epoch', 'raw', 0]
     DEBUG = False
     METADATA = False
     PARSE_SOURCE = sys.stdin
