@@ -11,6 +11,9 @@ _Aggregates wireshark pdml to flows_
   - 3.4
   - 3.5
   - 3.5-dev
+  - 3.6
+  - 3.6-dev
+  - 3.7-dev
   - nightly
 * [pip](https://pypi.python.org/pypi/pip)
 
@@ -22,8 +25,8 @@ $ sudo pip install pdml2flow
 ## Usage
 ```shell
 $ pdml2flow -h
-usage: pdml2flow [-h] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN]
-                 [-s] [-x] [-c] [-a] [-m] [-d] [-p PLUGIN_LOAD] [-0]
+usage: pdml2flow [-h] [+noop [args]] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME]
+                 [-l DATA_MAXLEN] [-s] [-x] [-c] [-a] [-m] [-d] [-0]
 
 Aggregates wireshark pdml to flows
 
@@ -46,6 +49,10 @@ optional arguments:
   -m                   Appends flow metadata [default: False]
   -d                   Debug mode [default: False]
   -0                   Terminates lines with null character [default: False]
+
+Plugins:
+  +noop [args]         usage: A new plugin [-h] optional arguments: -h, --help
+                       show this help message and exit
 ```
 
 ## Example
