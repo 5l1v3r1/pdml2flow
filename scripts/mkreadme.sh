@@ -1,5 +1,5 @@
 #!/bin/bash
-TOPLEVEL=$(git rev-parse --show-toplevel)
+TOPLEVEL="$( cd "$(dirname "$0")" ; pwd -P )/../"
 
 # install pdml2flow
 sudo pip install --upgrade -e "${TOPLEVEL}"

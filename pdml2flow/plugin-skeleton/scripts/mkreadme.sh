@@ -1,5 +1,5 @@
 #!/bin/bash
-TOPLEVEL=$(git rev-parse --show-toplevel)
+TOPLEVEL="$( cd "$(dirname "$0")" ; pwd -P )/../"
 
 cat <<EOF > "${TOPLEVEL}/README.md"
 # pdml2flow-plugin-skeleton [![PyPI version](https://badge.fury.io/py/pdml2flow-plugin-skeleton.svg)](https://badge.fury.io/py/pdml2flow-plugin-skeleton) 
@@ -11,7 +11,6 @@ _[pdml2flow] plugin skeleton_
 | develop  | [![Build Status develop]](https://travis-ci.org/Username/pdml2flow-plugin-skeleton) | [![Coverage Status develop]](https://coveralls.io/github/Username/pdml2flow-plugin-skeleton?branch=develop) |
 
 ## Prerequisites
-
 $( cat "${TOPLEVEL}/.travis.yml" | 
     sed -n -e '/# VERSION START/,/# VERSION END/ p' |
     sed -e '1d;$d' |
@@ -26,9 +25,14 @@ $( cat "${TOPLEVEL}/.travis.yml" |
 $ sudo pip install pdml2flow-plugin-skeleton
 \`\`\`
 
+## Usage
+\`\`\`shell
+$(python "${TOPLEVEL}/plugin/plugin.py")
+\`\`\`
+
 ## Example
 
-[pdml2flow]: https://github.com/Username/pdml2flow
+[pdml2flow]: https://github.com/Enteee/pdml2flow
 [python]: https://www.python.org/
 [wireshark]: https://www.wireshark.org/
 

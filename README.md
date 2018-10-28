@@ -45,7 +45,6 @@ optional arguments:
                        array [default: False]
   -m                   Appends flow metadata [default: False]
   -d                   Debug mode [default: False]
-  -p PLUGIN_LOAD       Plguins to load, installed: [] [default: []]
   -0                   Terminates lines with null character [default: False]
 ```
 
