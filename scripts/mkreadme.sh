@@ -6,7 +6,7 @@ sudo pip install --upgrade -e "${TOPLEVEL}"
 
 cat <<EOF > "${TOPLEVEL}/README.md"
 # pdml2flow [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow) 
-_Aggregates wireshark pdml to flows_
+_Aggregates wireshark pdml to flows with plugins_
 
 | Branch  | Build  | Coverage |
 | ------- | ------ | -------- |

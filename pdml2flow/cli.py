@@ -43,7 +43,6 @@ def pdml2flow():
                 for supported_plugin_interface in Conf.SUPPORTED_PLUGIN_INTERFACES
             ]):
 
-            plugin.arguments(plugin_parser)
             plugin_parser.add_argument(
                 '+{}'.format(name),
                 dest='PLUGIN_{}'.format(name),

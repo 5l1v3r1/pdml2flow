@@ -5,7 +5,6 @@ from argparse import ArgumentParser
 argparser = ArgumentParser('A new plugin')
 
 class Plugin(Plugin2):
-    """Version 2 plugin interface."""
 
     @classmethod
     def help(cls):
