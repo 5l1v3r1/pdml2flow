@@ -19,6 +19,8 @@ from .conf import Conf
 from .plugin import *
 from .pdmlhandler import PdmlHandler
 
+DEFAULT = object()
+
 def pdml2flow():
 
     # initialize argument parsing
@@ -48,6 +50,7 @@ def pdml2flow():
                 dest='PLUGIN_{}'.format(name),
                 type=str,
                 nargs='?',
+                default = DEFAULT,
                 metavar='args'.format(name),
                 help=plugin.help()
             )
@@ -159,7 +162,7 @@ def pdml2flow():
     # load plugins
     conf['PLUGINS'] = []
     for conf_name, args in conf.items():
-        if conf_name.startswith('PLUGIN_'):
+        if conf_name.startswith('PLUGIN_') and args != DEFAULT:
             plugin_name = conf_name[7:]
             conf['PLUGINS'].append(
                 # instantiate plugin
