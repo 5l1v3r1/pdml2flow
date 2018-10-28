@@ -246,8 +246,7 @@ def pdml2flow_new_plugin():
     for dst in conf['dst']:
         plugin_name = path.basename(dst)
         plugin_conf = ConfigParser({
-            **conf,
-            **{'plugin_name': plugin_name}
+            'plugin_name': plugin_name
         })
         copytree(
             resource_filename(__name__, '/plugin-skeleton'),
