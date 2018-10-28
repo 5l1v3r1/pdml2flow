@@ -1,7 +1,7 @@
 # vim: set fenc=utf8 ts=4 sw=4 et :
 from abc import ABC, abstractmethod
 
-class Plugin2(ABC):
+class Plugin2(ABC): # pragma: no cover
     """Version 2 plugin interface."""
 
     @staticmethod
