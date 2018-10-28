@@ -88,6 +88,12 @@ Post-process flows using [FluentFlow]
 $ tshark -i interface -Tpdml | pdml2flow | fluentflow rules.js
 ```
 
+## Plugins
+
+### Create a New Plugin
+
+[![asciicast](https://asciinema.org/a/208963.png)](https://asciinema.org/a/208963)
+
 ## Utils
 
 The following utils are part of this project
