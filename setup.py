@@ -31,12 +31,12 @@ setup(
     entry_points={
         'console_scripts': [
             'pdml2flow = pdml2flow:pdml2flow',
-            'pdml2json = pdml2flow:pdml2json',
-            'pdml2xml = pdml2flow:pdml2xml',
+            'pdml2frame = pdml2flow:pdml2frame',
             'pdml2flow-new-plugin = pdml2flow:pdml2flow_new_plugin',
         ],
         'pdml2flow.plugins': [
-            'noop = pdml2flow.plugins.noop:Plugin',
+            'json = pdml2flow.plugins.json_output:JSONOutput',
+            'xml = pdml2flow.plugins.xml_output:XMLOutput',
         ]
     },
     # metadata

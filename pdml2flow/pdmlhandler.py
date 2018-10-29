@@ -62,7 +62,6 @@ class PdmlHandler(xml.sax.ContentHandler):
                     new_flows[flowid] = flow
                 else:
                     flow.expired()
-                    print(flow, file=Conf.OUT, end=('\n' if not Conf.PRINT_0 else '\n\0'))
             self.__flows = new_flows
             # the flow definition
             flowid = Flow.get_flow_id(self.__frame)
@@ -78,7 +77,5 @@ class PdmlHandler(xml.sax.ContentHandler):
                     debug('new flow: {}'.format(flowid))
 
     def endDocument(self):
-        # print all flows @ end
         for (flowid, flow) in self.__flows.items():
             flow.end()
-            print(flow, file=Conf.OUT, end=('\n' if not Conf.PRINT_0 else '\n\0'))

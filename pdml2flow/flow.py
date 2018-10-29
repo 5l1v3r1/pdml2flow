@@ -7,6 +7,31 @@ from .autovivification import AutoVivification
 from .conf import Conf
 from .logging import *
 
+DEFAULT=object()
+
+def call_plugins(f, *args, **kwargs):
+    """Calls out to plugin function f, skips plugins which do not implement f."""
+    ret = []
+    for plugin in Conf.PLUGINS:
+        try:
+            getattr(plugin, f)
+        except AttributeError:
+            continue
+        if kwargs:
+            ret.append(
+                getattr(plugin, f)(
+                    *args,
+                    **kwargs
+                )
+            )
+        else:
+            ret.append(
+                getattr(plugin, f)(
+                    *args
+                )
+            )
+    return ret
+
 class Flow():
 
     #  The overall frame time
@@ -31,13 +56,33 @@ class Flow():
             self.__frames = AutoVivification()
         self.__framecount = 0
 
-        # call plugins
-        for plugin in Conf.PLUGINS:
-            plugin.flow_new(self, first_frame.cast_dicts(dict))
+        call_plugins(
+            'flow_new',
+            self,
+            first_frame.cast_dicts(dict)
+        )
 
         self.add_frame(first_frame)
 
     def __repr__(self):
+        return '{}(frames={})'.format(
+            self.__class__.__name__,
+            self.frames
+        )
+
+    def __str__(self):
+        return '{}'.format(
+            self.frames
+        )
+
+    def __hash__(self):
+        return hash(self.__id)
+
+    def __eq__(self, other):
+        return self.__id == other.__id
+
+    @property
+    def frames(self):
         # clean the frame data
         if Conf.FRAMES_ARRAY:
             self.__frames = [ f.clean_empty() for f in self.__frames ]
@@ -45,22 +90,8 @@ class Flow():
             self.__frames = self.__frames.clean_empty()
 
         if Conf.METADATA:
-            to_repr = self.__dict__
-        else:
-            to_repr = self.__frames
-        if Conf.XML_OUTPUT:
-            return dict2xml.dict2xml(to_repr, wrap='flow')
-        else:
-            return json.dumps(to_repr)
-
-    def __str__(self):
-        return '{}'.format(self.__repr__())
-
-    def __hash__(self):
-        return hash(self.__id)
-
-    def __eq__(self, other):
-        return self.__id == other.__id
+            return self.__dict__
+        return self.__frames
 
     def add_frame(self, frame):
         # check if frame expands flow length
@@ -70,30 +101,40 @@ class Flow():
         self.__framecount += 1
         # Extract data
         if Conf.FRAMES_ARRAY:
-            self.__frames.append(frame.clean_empty())
+            self.__frames.append(
+                frame.clean_empty()
+            )
         else:
-            self.__frames.merge(frame.clean_empty())
+            self.__frames.merge(
+                frame.clean_empty()
+            )
 
         if Conf.COMPRESS_DATA:
             self.__frames = self.__frames.compress()
 
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 
-        for plugin in Conf.PLUGINS:
-            plugin.frame_new(frame.cast_dicts(dict), self)
+        call_plugins(
+            'frame_new',
+            frame.cast_dicts(dict),
+            self
+        )
 
     def not_expired(self):
         return self.__newest_frame_time > (Flow.newest_overall_frame_time - Conf.FLOW_BUFFER_TIME)
 
     def expired(self):
-        for plugin in Conf.PLUGINS:
-            plugin.flow_expired(self)
+        call_plugins(
+            'flow_expired',
+            self
+        )
         self.end()
 
     def end(self):
-        for plugin in Conf.PLUGINS:
-            plugin.flow_end(self)
-        print(self, file=Conf.OUT)
+        call_plugins(
+            'flow_end',
+            self
+        )
 
     def get_frames(self):
         return self.__frames
