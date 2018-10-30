@@ -118,12 +118,12 @@ def pdml2frame():
         )
 
     def postprocess_conf_cb(conf):
-        conf.DATA_MAXLEN = sys.maxsize
-        conf.FLOW_BUFFER_TIME = 0
-        conf.FLOW_DEF_STR = [ 'frame.number' ]
-        conf.FLOW_DEF = conf.get_real_paths(
-            conf.FLOW_DEF_STR,
-            conf.FLOW_DEF_NESTCHAR
+        conf['DATA_MAXLEN'] = sys.maxsize
+        conf['FLOW_BUFFER_TIME'] = 0
+        conf['FLOW_DEF_STR'] = [ 'frame.number' ]
+        conf['FLOW_DEF'] = Conf.get_real_paths(
+            conf['FLOW_DEF_STR'],
+            Conf.FLOW_DEF_NESTCHAR
         )
 
     Conf.load(

@@ -1,5 +1,6 @@
 # vim: set fenc=utf8 ts=4 sw=4 et :
 from pdml2flow.plugin import Plugin2
+from pdml2flow.conf import Conf
 from pdml2flow.logging import *
 from argparse import ArgumentParser
 
@@ -34,7 +35,8 @@ class XMLOutput(Plugin2):
     def flow_end(self, flow):
         print(
             dict2xml(flow.frames),
-            end=('\n' if not self.conf['PRINT_0'] else '\n\0')
+            end=('\n' if not self.conf['PRINT_0'] else '\n\0'),
+            file=Conf.OUT
         )
 
 if __name__ == '__main__':
