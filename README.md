@@ -25,9 +25,9 @@ $ sudo pip install pdml2flow
 ## Usage
 ```shell
 $ pdml2flow -h
-usage: pdml2flow [-h] [+noop [args]] [--version] [-f FLOW_DEF_STR]
-                 [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN] [-s] [-x] [-c] [-a]
-                 [-m] [-d] [-0]
+usage: pdml2flow [-h] [--version] [+json [args]] [+xml [args]]
+                 [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN] [-s]
+                 [-c] [-a] [-m] [-d]
 
 Aggregates wireshark pdml to flows
 
@@ -43,18 +43,20 @@ optional arguments:
                        200]
   -s                   Extract show names, every data leaf will now look like
                        { raw : [] , show: [] } [default: False]
-  -x                   Switch to xml output [default: False]
   -c                   Removes duplicate data when merging objects, will not
                        preserve order of leaves [default: False]
   -a                   Instead of merging the frames will append them to an
                        array [default: False]
   -m                   Appends flow metadata [default: False]
   -d                   Debug mode [default: False]
-  -0                   Terminates lines with null character [default: False]
 
 Plugins:
-  +noop [args]         usage: A new plugin [-h] optional arguments: -h, --help
-                       show this help message and exit
+  +json [args]         usage: JSON output [-h] [-0] optional arguments: -h,
+                       --help show this help message and exit -0 Terminates
+                       lines with null character
+  +xml [args]          usage: XML output [-h] [-0] optional arguments: -h,
+                       --help show this help message and exit -0 Terminates
+                       lines with null character
 ```
 
 ## Example
@@ -98,36 +100,29 @@ $ tshark -i interface -Tpdml | pdml2flow | fluentflow rules.js
 
 The following utils are part of this project
 
-### pdml2json
-_Converts pdml to json_
+### pdml2frame
+_Wireshark pdml to frames, with plugins_
 
 ```shell
-$ pdml2json -h
-usage: pdml2json [-h] [-s] [-d]
+$ pdml2frame -h
+usage: pdml2frame [-h] [--version] [+json [args]] [+xml [args]] [-s] [-d]
 
-Converts wireshark pdml to json
-
-optional arguments:
-  -h, --help  show this help message and exit
-  -s          Extract show names, every data leaf will now look like { raw :
-              [] , show: [] } [default: False]
-  -d          Debug mode [default: False]
-```
-
-### pdml2xml
-_Converts pdml to xml_
-
-```shell
-$ pdml2xml -h
-usage: pdml2xml [-h] [-s] [-d]
-
-Converts wireshark pdml to xml
+Converts wireshark pdml to frames
 
 optional arguments:
-  -h, --help  show this help message and exit
-  -s          Extract show names, every data leaf will now look like { raw :
-              [] , show: [] } [default: False]
-  -d          Debug mode [default: False]
+  -h, --help    show this help message and exit
+  --version     Print version and exit
+  -s            Extract show names, every data leaf will now look like { raw :
+                [] , show: [] } [default: False]
+  -d            Debug mode [default: False]
+
+Plugins:
+  +json [args]  usage: JSON output [-h] [-0] optional arguments: -h, --help
+                show this help message and exit -0 Terminates lines with null
+                character
+  +xml [args]   usage: XML output [-h] [-0] optional arguments: -h, --help
+                show this help message and exit -0 Terminates lines with null
+                character
 ```
 
 [python]: https://www.python.org/

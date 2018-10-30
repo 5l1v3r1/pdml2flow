@@ -75,20 +75,12 @@ $ tshark -i interface -Tpdml | pdml2flow | fluentflow rules.js
 
 The following utils are part of this project
 
-### pdml2json
-_Converts pdml to json_
+### pdml2frame
+_Wireshark pdml to frames, with plugins_
 
 \`\`\`shell
-$ pdml2json -h
-$(pdml2json -h)
-\`\`\`
-
-### pdml2xml
-_Converts pdml to xml_
-
-\`\`\`shell
-$ pdml2xml -h
-$(pdml2xml -h)
+$ pdml2frame -h
+$(pdml2frame -h)
 \`\`\`
 
 [python]: https://www.python.org/
