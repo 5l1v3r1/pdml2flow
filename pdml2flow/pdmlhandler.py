@@ -4,7 +4,7 @@ import xml.sax
 import functools
 
 from .autovivification import AutoVivification
-from .utils import autoconvert
+from .utils import autoconvert, call_plugin
 from .conf import Conf
 from .flow import Flow
 from .logging import *
@@ -79,3 +79,9 @@ class PdmlHandler(xml.sax.ContentHandler):
     def endDocument(self):
         for (flowid, flow) in self.__flows.items():
             flow.end()
+
+        for plugin in Conf.PLUGINS:
+            call_plugin(
+                plugin,
+                '__deinit__'
+            )

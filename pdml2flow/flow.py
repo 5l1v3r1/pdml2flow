@@ -5,32 +5,8 @@ import dict2xml
 
 from .autovivification import AutoVivification
 from .conf import Conf
+from .utils import call_plugin
 from .logging import *
-
-DEFAULT=object()
-
-def call_plugins(f, *args, **kwargs):
-    """Calls out to plugin function f, skips plugins which do not implement f."""
-    ret = []
-    for plugin in Conf.PLUGINS:
-        try:
-            getattr(plugin, f)
-        except AttributeError:
-            continue
-        if kwargs:
-            ret.append(
-                getattr(plugin, f)(
-                    *args,
-                    **kwargs
-                )
-            )
-        else:
-            ret.append(
-                getattr(plugin, f)(
-                    *args
-                )
-            )
-    return ret
 
 class Flow():
 
@@ -56,11 +32,13 @@ class Flow():
             self.__frames = AutoVivification()
         self.__framecount = 0
 
-        call_plugins(
-            'flow_new',
-            self,
-            first_frame.cast_dicts(dict)
-        )
+        for plugin in Conf.PLUGINS:
+            call_plugin(
+                plugin,
+                'flow_new',
+                self,
+                first_frame.cast_dicts(dict)
+            )
 
         self.add_frame(first_frame)
 
@@ -114,27 +92,33 @@ class Flow():
 
         debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
 
-        call_plugins(
-            'frame_new',
-            frame.cast_dicts(dict),
-            self
-        )
+        for plugin in Conf.PLUGINS:
+            call_plugin(
+                plugin,
+                'frame_new',
+                frame.cast_dicts(dict),
+                self
+            )
 
     def not_expired(self):
         return self.__newest_frame_time > (Flow.newest_overall_frame_time - Conf.FLOW_BUFFER_TIME)
 
     def expired(self):
-        call_plugins(
-            'flow_expired',
-            self
-        )
+        for plugin in Conf.PLUGINS:
+            call_plugin(
+                plugin,
+                'flow_expired',
+                self
+            )
         self.end()
 
     def end(self):
-        call_plugins(
-            'flow_end',
-            self
-        )
+        for plugin in Conf.PLUGINS:
+            call_plugin(
+                plugin,
+                'flow_end',
+                self
+            )
 
     def get_frames(self):
         return self.__frames

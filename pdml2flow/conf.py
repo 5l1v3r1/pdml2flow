@@ -10,6 +10,7 @@ from pkg_resources import iter_entry_points, resource_filename
 from inspect import isclass
 
 from .plugin import Plugin2
+from .utils import call_plugin
 
 DEFAULT = object()
 
@@ -80,7 +81,7 @@ class Conf():
         }
 
     @staticmethod
-    def load(description, add_arguments_cb=lambda x: None, postprocess_conf_cb=lambda x: None):
+    def load(description, add_arguments_cb = lambda x: None, postprocess_conf_cb = lambda x: None):
         """Loads the global Conf object from command line arguments.
 
         Encode the next argument after +plugin to ensure that
@@ -88,22 +89,22 @@ class Conf():
         """
 
         argparser = ArgumentParser(
-            description=description,
-            prefix_chars='-+'
+            description = description,
+            prefix_chars = '-+'
         )
 
         argparser.add_argument(
             '--version',
-            dest='PRINT_VERSION',
-            action='store_true',
-            help='Print version and exit'
+            dest = 'PRINT_VERSION',
+            action = 'store_true',
+            help = 'Print version and exit'
         )
 
         # set up plugin argument argparser
         plugin_argparser = argparser.add_argument_group('Plugins')
 
         plugins = {}
-        for entry_point in iter_entry_points(group=Conf.PLUGIN_GROUP):
+        for entry_point in iter_entry_points(group = Conf.PLUGIN_GROUP):
             name = str(entry_point).split(' =',1)[0]
             plugin = entry_point.load()
             if isclass(plugin) \
@@ -115,12 +116,15 @@ class Conf():
 
                 plugin_argparser.add_argument(
                     '+{}'.format(name),
-                    dest='PLUGIN_{}'.format(name),
-                    type=str,
-                    nargs='?',
+                    dest = 'PLUGIN_{}'.format(name),
+                    type = str,
+                    nargs = '?',
                     default = DEFAULT,
-                    metavar='args'.format(name),
-                    help=plugin.help()
+                    metavar = 'args'.format(name),
+                    help = call_plugin(
+                        plugin,
+                        'help'
+                    )
                 )
 
                 # register plugin
@@ -148,7 +152,7 @@ class Conf():
                 'pdml2flow version {}'.format(
                     Conf.VERSION
                 ),
-                file=Conf.OUT
+                file = Conf.OUT
             )
             sys.exit(0)
 

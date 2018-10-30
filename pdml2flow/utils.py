@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
-from .conf import Conf
 
 def boolify(string):
     if string == 'True':
@@ -9,11 +8,27 @@ def boolify(string):
         return False
     raise ValueError('Not a bool')
 
-# Try to convert variables into datatypes
 def autoconvert(string):
+    """Try to convert variables into datatypes."""
     for fn in (boolify, int, float):
         try:
             return fn(string)
         except ValueError:
             pass
     return string
+
+def call_plugin(plugin, f, *args, **kwargs):
+    """Calls function f from plugin, returns None if plugin does not implement f."""
+    try:
+        getattr(plugin, f)
+    except AttributeError:
+        return None
+    if kwargs:
+        getattr(plugin, f)(
+            *args,
+            **kwargs
+        )
+    else:
+        return getattr(plugin, f)(
+            *args
+        )

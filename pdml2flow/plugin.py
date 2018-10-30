@@ -1,11 +1,9 @@
 # vim: set fenc=utf8 ts=4 sw=4 et :
-from abc import ABC, abstractmethod
 
-class Plugin2(ABC): # pragma: no cover
+class Plugin2(object): # pragma: no cover
     """Version 2 plugin interface."""
 
     @staticmethod
-    @abstractmethod
     def help():
         """Return a help string."""
         pass
