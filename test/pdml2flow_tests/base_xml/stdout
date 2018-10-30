@@ -1,0 +1,29 @@
+<flow>
+  <frame>
+    <flowid>
+      <raw>1</raw>
+      <raw>1</raw>
+    </flowid>
+    <information>
+      <raw>123</raw>
+      <raw>123</raw>
+    </information>
+    <time_epoch>
+      <raw>0.0</raw>
+      <raw>0.0</raw>
+    </time_epoch>
+  </frame>
+</flow>
+<flow>
+  <frame>
+    <flowid>
+      <raw>2</raw>
+    </flowid>
+    <information>
+      <raw>123</raw>
+    </information>
+    <time_epoch>
+      <raw>0.0</raw>
+    </time_epoch>
+  </frame>
+</flow>

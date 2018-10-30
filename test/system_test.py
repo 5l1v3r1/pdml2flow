@@ -49,16 +49,23 @@ def get_test(run, directory, test):
 
             # run
             run()
+
             # compare stdout
-            objs = self.read_json(
-                f_stdout.getvalue()
-            )
+            objs_raw =f_stdout.getvalue()
+            objs = self.read_json(objs_raw)
+
             with open('{}/{}/stdout'.format(directory, test)) as f:
-                expected = self.read_json(f.read())
+                expected_raw = f.read()
+                expected = self.read_json(expected_raw)
             for e in expected:
                 self.assertIn(e, objs)
             for o in objs:
                 self.assertIn(o, expected)
+
+            # if no object loaded, fall back to raw comparison
+            if len(expected) == 0 or len(objs) == 0:
+                self.assertEqual(expected_raw, objs_raw)
+
             try:
                 # try compare stderr
                 with open('{}/{}/stderr'.format(directory, test)) as f:

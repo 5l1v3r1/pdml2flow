@@ -34,7 +34,9 @@ class XMLOutput(Plugin2):
 
     def flow_end(self, flow):
         print(
-            dict2xml(flow.frames),
+            dict2xml({
+                'flow': flow.frames
+            }),
             end=('\n' if not self.conf['PRINT_0'] else '\n\0'),
             file=Conf.OUT
         )
