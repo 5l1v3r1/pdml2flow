@@ -34,7 +34,11 @@ class TestUtils(TestCase):
             ),
             1
         )
-        plugin.interface_function.assert_called_once()
+        try:
+            # This does not work in python < 3.6
+            plugin.interface_function.assert_called_once()
+        except AttributeError:
+            pass
 
     def test_call_plugin_function_not_implemented(self):
         from pdml2flow.plugin import Plugin2
