@@ -60,34 +60,29 @@ Plugins:
 ```
 
 ## Example
-Sniff from interface:
+Sniff from interface and write json:
 ```shell
-$ tshark -i interface -Tpdml | pdml2flow
-```
-
-Write xml output
-```shell
-$ tshark -i interface -Tpdml | pdml2flow -x
+$ tshark -i interface -Tpdml | pdml2flow +json
 ```
 
 Read a .pcap file
 ```shell
-$ tshark -r pcap_file -Tpdml | pdml2flow
+$ tshark -r pcap_file -Tpdml | pdml2flow +json
 ```
 
 Aggregate based on ethernet source and ethernet destination address
 ```shell
-$ tshark -i interface -Tpdml | pdml2flow -f eth.src -f eth.dst
+$ tshark -i interface -Tpdml | pdml2flow -f eth.src -f eth.dst +json
 ```
 
 Pretty print flows using [jq]
 ```shell
-$ tshark -i interface -Tpdml | pdml2flow | jq
+$ tshark -i interface -Tpdml | pdml2flow +json | jq
 ```
 
 Post-process flows using [FluentFlow]
 ```shell
-$ tshark -i interface -Tpdml | pdml2flow | fluentflow rules.js
+$ tshark -i interface -Tpdml | pdml2flow +json | fluentflow rules.js
 ```
 
 ## Plugins
