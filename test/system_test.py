@@ -81,22 +81,14 @@ def get_test(run, directory, test):
 
             # if no object loaded: do a raw comparison, line by line
             if len(run_objs) == 0 or len(expected_objs) == 0:
-                run_lines = stdout_raw.splitlines()
-                expected_lines = expected_raw.splitlines()
                 self.assertEqual(
-                    len(run_lines),
-                    len(expected_lines)
+                    sorted(
+                        stdout_raw.splitlines()
+                    ),
+                    sorted(
+                         expected_raw.splitlines()
+                    )
                 )
-                for e in expected_lines:
-                    self.assertIn(
-                        e,
-                        run_lines
-                    )
-                for r in run_lines:
-                    self.assertIn(
-                        r,
-                        expected_lines
-                    )
 
             try:
                 # try compare stderr
