@@ -140,8 +140,12 @@ def start_parser():
     for name, value in Conf.get().items():
         debug('{} : {}'.format(name, value))
 
+    handler = PdmlHandler()
     try:
-        xml.sax.parse(Conf.IN, PdmlHandler())
+        xml.sax.parse(
+            Conf.IN,
+            handler
+        )
     except xml.sax._exceptions.SAXParseException as e:
         # this might happen when a pdml file is malformed
         warning('Parser returned exception: {}'.format(e))

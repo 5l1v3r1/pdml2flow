@@ -37,9 +37,13 @@ def get_test(run, directory, test):
             io.StringIO() as f_stdout, \
             io.StringIO() as f_stderr:
 
-            # set stdin & stdout
+            # wire up io
             Conf.IN = f_stdin
             Conf.OUT = f_stdout
+            Conf.OUT_DEBUG = f_stderr
+            Conf.OUT_WARNING = f_stderr
+            Conf.OUT_ERROR = f_stderr
+
             try:
                 # try to load arguments
                 with open('{}/{}/args'.format(directory, test)) as f:
@@ -51,8 +55,10 @@ def get_test(run, directory, test):
             run()
 
             # compare stdout
-            objs_raw =f_stdout.getvalue()
-            objs = self.read_json(objs_raw)
+            stdout_raw = f_stdout.getvalue()
+            objs = self.read_json(stdout_raw)
+
+            stderr_raw = f_stderr.getvalue()
 
             with open('{}/{}/stdout'.format(directory, test)) as f:
                 expected_raw = f.read()
@@ -64,15 +70,25 @@ def get_test(run, directory, test):
 
             # if no object loaded, fall back to raw comparison
             if len(expected) == 0 or len(objs) == 0:
-                self.assertEqual(expected_raw, objs_raw)
+                self.assertEqual(
+                    expected_raw,
+                    stdout_raw
+                )
 
             try:
                 # try compare stderr
                 with open('{}/{}/stderr'.format(directory, test)) as f:
-                    expected = c_stdout.read()
-                self.assertEqual(expected, f_stderr.getvalue())
+                    expected_raw = f.read()
+                self.assertEqual(
+                    expected_raw,
+                    stderr_raw
+                )
             except FileNotFoundError:
-                pass
+                self.assertEqual(
+                    '',
+                    stderr_raw
+                )
+
     return system_test
 
 def add_tests(run, directory):
