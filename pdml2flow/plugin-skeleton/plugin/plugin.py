@@ -1,11 +1,23 @@
 # vim: set fenc=utf8 ts=4 sw=4 et :
-from os import environ
-from pdml2flow.plugin import Plugin1
+from pdml2flow.plugin import Plugin2
+from argparse import ArgumentParser
 
-CONFIGURATION = environ.get('CONFIGURATION', 'default value')
+argparser = ArgumentParser('A new plugin')
 
-class Plugin(Plugin1):
-    """Version 1 plugin interface."""
+class Plugin(Plugin2):
+
+    @staticmethod
+    def help():
+        """Return a help string."""
+        return argparser.format_help()
+
+    def __init__(self, *args):
+        """Called once during startup."""
+        argparser.parse_args(args)
+
+    def __deinit__(self):
+        """Called once during shutdown."""
+        pass
 
     def flow_new(self, flow, frame):
         """Called every time a new flow is opened."""
@@ -23,3 +35,5 @@ class Plugin(Plugin1):
         """Called for every new frame."""
         pass
 
+if __name__ == '__main__':
+    print(Plugin.help())

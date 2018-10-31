@@ -1,0 +1,4 @@
+[run]
+omit = 
+    # omit plugin skeleton
+    pdml2flow/plugin-skeleton/*

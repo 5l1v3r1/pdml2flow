@@ -1,1 +1,1 @@
--f frame.flowid -s
+-f frame.flowid -s +json

@@ -20,12 +20,18 @@ class TestLogging(TestCase):
             debug('test')
             self.assertIn('test', out.getvalue())
 
-
     def test_warning(self):
         with io.StringIO() as out:
             Conf.OUT_WARNING = out
 
             warning('test')
+            self.assertIn('test', out.getvalue())
+
+    def test_error(self):
+        with io.StringIO() as out:
+            Conf.OUT_ERROR = out
+
+            error('test')
             self.assertIn('test', out.getvalue())
 
 if __name__ == '__main__':

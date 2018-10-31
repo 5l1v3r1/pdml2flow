@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
-import functools
+from functools import reduce
 
 DEFAULT = object();
 
 class AutoVivification(dict):
 
     def clean_empty(self, d=DEFAULT):
-        """
-        Returns a copy of d without empty leaves
-        see: https://stackoverflow.com/questions/27973988/python-how-to-remove-all-empty-fields-in-a-nested-dict/35263074
+        """Returns a copy of d without empty leaves.
+
+        https://stackoverflow.com/questions/27973988/python-how-to-remove-all-empty-fields-in-a-nested-dict/35263074
         """
         if d is DEFAULT:
             d = self
@@ -55,9 +55,9 @@ class AutoVivification(dict):
         return d
 
     def merge(self, b, a=DEFAULT):
-        """
-        merges b into a recursively, if a is not given: merges into self
-        also merges lists and :
+        """Merges b into a recursively, if a is not given: merges into self.
+
+        also merges lists and:
             * merge({a:a},{a:b}) = {a:[a,b]}
             * merge({a:[a]},{a:b}) = {a:[a,b]}
             * merge({a:a},{a:[b]}) = {a:[a,b]}
@@ -83,13 +83,13 @@ class AutoVivification(dict):
         return a
 
     def __getitem__(self, item):
-        """
-        Implementation of perl's autovivification feature.
-        see: https://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python
+        """Implementation of perl's autovivification feature.
+
+        https://stackoverflow.com/questions/635483/what-is-the-best-way-to-implement-nested-dictionaries-in-python
         """
         # if the item is a list we autoexpand it
         if type(item) is list:
-            return functools.reduce(lambda d, k: d[k], item, self)
+            return reduce(lambda d, k: d[k], item, self)
         else:
             try:
                 return dict.__getitem__(self, item)

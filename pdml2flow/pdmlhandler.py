@@ -4,7 +4,7 @@ import xml.sax
 import functools
 
 from .autovivification import AutoVivification
-from .utils import autoconvert
+from .utils import autoconvert, call_plugin
 from .conf import Conf
 from .flow import Flow
 from .logging import *
@@ -54,7 +54,20 @@ class PdmlHandler(xml.sax.ContentHandler):
     def endElement(self, tag):
         if tag == 'packet':
             # advance time
-            Flow.newest_overall_frame_time = max(Flow.newest_overall_frame_time, self.__frame['frame']['time_epoch']['raw'][0])
+            try:
+                Flow.newest_overall_frame_time = max(
+                    Flow.newest_overall_frame_time,
+                    self.__frame[Conf.FRAME_TIME]
+                )
+            except TypeError:
+                warning(
+                    'Dropping frame because of invalid time ({}) in {}'.format(
+                        self.__frame[Conf.FRAME_TIME],
+                        Conf.FRAME_TIME
+                    )
+                )
+                return
+
             # write out expired flows
             new_flows = {}
             for (flowid, flow) in self.__flows.items():
@@ -62,7 +75,6 @@ class PdmlHandler(xml.sax.ContentHandler):
                     new_flows[flowid] = flow
                 else:
                     flow.expired()
-                    print(flow, file=Conf.OUT, end=('\n' if not Conf.PRINT_0 else '\n\0'))
             self.__flows = new_flows
             # the flow definition
             flowid = Flow.get_flow_id(self.__frame)
@@ -76,9 +88,21 @@ class PdmlHandler(xml.sax.ContentHandler):
                     # flow unknown add new flow
                     flow = self.__flows[flowid] = Flow(self.__frame)
                     debug('new flow: {}'.format(flowid))
+            else:
+                for plugin in Conf.PLUGINS:
+                    call_plugin(
+                        plugin,
+                        'frame_new',
+                        self.__frame.cast_dicts(dict),
+                        None
+                    )
 
     def endDocument(self):
-        # print all flows @ end
         for (flowid, flow) in self.__flows.items():
             flow.end()
-            print(flow, file=Conf.OUT, end=('\n' if not Conf.PRINT_0 else '\n\0'))
+
+        for plugin in Conf.PLUGINS:
+            call_plugin(
+                plugin,
+                '__deinit__'
+            )

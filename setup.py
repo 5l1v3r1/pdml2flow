@@ -21,7 +21,7 @@ except (OSError, ImportError):
 # Setup the project
 setup(
     name = 'pdml2flow',
-    keywords = 'wireshark pdml flow aggregation',
+    keywords = 'wireshark pdml flow aggregation plugins',
     version = '4.0',
     packages = find_packages(exclude=['test']),
     install_requires = [
@@ -31,10 +31,13 @@ setup(
     entry_points={
         'console_scripts': [
             'pdml2flow = pdml2flow:pdml2flow',
-            'pdml2json = pdml2flow:pdml2json',
-            'pdml2xml = pdml2flow:pdml2xml',
+            'pdml2frame = pdml2flow:pdml2frame',
             'pdml2flow-new-plugin = pdml2flow:pdml2flow_new_plugin',
         ],
+        'pdml2flow.plugins': [
+            'json = pdml2flow.plugins.json_output:JSONOutput',
+            'xml = pdml2flow.plugins.xml_output:XMLOutput',
+        ]
     },
     # metadata
     author = 'Mischa Lehmann',

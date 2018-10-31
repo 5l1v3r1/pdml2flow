@@ -27,6 +27,68 @@ class TestFlow(TestCase):
         })
         self.assertEqual(Flow.get_flow_id(frame), None)
 
+    def test__eq__(self):
+        Conf.FRAME_TIME = [ 't' ]
+        Conf.FLOW_DEF = [ ['def1'] ]
+        self.assertEqual(
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                })
+            ),
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                })
+            ),
+        )
+        self.assertNotEqual(
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                })
+            ),
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 2,
+                })
+            ),
+        )
+        self.assertEqual(
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                    'unimportant': 1,
+                })
+            ),
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                    'unimportant': 2,
+                })
+            ),
+        )
+
+    def test___hash__(self):
+        Conf.FRAME_TIME = [ 't' ]
+        Conf.FLOW_DEF = [ ['def1'], ['def2'] ]
+
+        frame = AutoVivification({
+            't' : 0,
+            'def1': 1,
+            'def2': 2,
+        })
+        self.assertEqual(
+            hash(Flow(frame)),
+            hash('[1, 2]')
+        )
+
     def test_not_expired(self):
         frame = AutoVivification({
             'frame': { 'time_epoch': { 'raw' : [123] } }

@@ -1,12 +1,12 @@
 #!/bin/bash
-TOPLEVEL=$(git rev-parse --show-toplevel)
+TOPLEVEL="$( cd "$(dirname "$0")" ; pwd -P )/../"
 
 # install pdml2flow
 sudo pip install --upgrade -e "${TOPLEVEL}"
 
 cat <<EOF > "${TOPLEVEL}/README.md"
 # pdml2flow [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow) 
-_Aggregates wireshark pdml to flows_
+_Aggregates wireshark pdml to flows, with plugins_
 
 | Branch  | Build  | Coverage |
 | ------- | ------ | -------- |
@@ -25,7 +25,7 @@ $( cat "${TOPLEVEL}/.travis.yml" |
 
 ## Installation
 \`\`\`shell
-    $ sudo pip install pdml2flow
+$ sudo pip install pdml2flow
 \`\`\`
 
 ## Usage
@@ -35,54 +35,47 @@ $(pdml2flow -h)
 \`\`\`
 
 ## Example
-Sniff from interface:
+Sniff from interface and write json:
 \`\`\`shell
-$ tshark -i interface -Tpdml | pdml2flow
-\`\`\`
-
-Write xml output
-\`\`\`shell
-$ tshark -i interface -Tpdml | pdml2flow -x
+$ tshark -i interface -Tpdml | pdml2flow +json
 \`\`\`
 
 Read a .pcap file
 \`\`\`shell
-$ tshark -r pcap_file -Tpdml | pdml2flow
+$ tshark -r pcap_file -Tpdml | pdml2flow +json
 \`\`\`
 
 Aggregate based on ethernet source and ethernet destination address
 \`\`\`shell
-$ tshark -i interface -Tpdml | pdml2flow -f eth.src -f eth.dst
+$ tshark -i interface -Tpdml | pdml2flow -f eth.src -f eth.dst +json
 \`\`\`
 
 Pretty print flows using [jq]
 \`\`\`shell
-$ tshark -i interface -Tpdml | pdml2flow | jq
+$ tshark -i interface -Tpdml | pdml2flow +json | jq
 \`\`\`
 
 Post-process flows using [FluentFlow]
 \`\`\`shell
-$ tshark -i interface -Tpdml | pdml2flow | fluentflow rules.js
+$ tshark -i interface -Tpdml | pdml2flow +json | fluentflow rules.js
 \`\`\`
+
+## Plugins
+
+### Create a New Plugin
+
+[![asciicast](https://asciinema.org/a/208963.png)](https://asciinema.org/a/208963)
 
 ## Utils
 
 The following utils are part of this project
 
-### pdml2json
-_Converts pdml to json_
+### pdml2frame
+_Wireshark pdml to frames, with plugins_
 
 \`\`\`shell
-$ pdml2json -h
-$(pdml2json -h)
-\`\`\`
-
-### pdml2xml
-_Converts pdml to xml_
-
-\`\`\`shell
-$ pdml2xml -h
-$(pdml2xml -h)
+$ pdml2frame -h
+$(pdml2frame -h)
 \`\`\`
 
 [python]: https://www.python.org/
