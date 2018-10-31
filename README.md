@@ -25,9 +25,9 @@ $ sudo pip install pdml2flow
 ## Usage
 ```shell
 $ pdml2flow -h
-usage: pdml2flow [-h] [--version] [+json [args]] [+xml [args]]
-                 [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME] [-l DATA_MAXLEN] [-s]
-                 [-c] [-a] [-m] [-d]
+usage: pdml2flow [-h] [--version] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME]
+                 [-l DATA_MAXLEN] [-s] [-c] [-a] [-m] [-d] [+json [args]]
+                 [+xml [args]]
 
 Aggregates wireshark pdml to flows
 
@@ -100,7 +100,7 @@ _Wireshark pdml to frames, with plugins_
 
 ```shell
 $ pdml2frame -h
-usage: pdml2frame [-h] [--version] [+json [args]] [+xml [args]] [-s] [-d]
+usage: pdml2frame [-h] [--version] [-s] [-d] [+json [args]] [+xml [args]]
 
 Converts wireshark pdml to frames
 
