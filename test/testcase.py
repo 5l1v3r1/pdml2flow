@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
+from shutil import rmtree
+from tempfile import mkdtemp
 import unittest
 
 from pdml2flow.conf import Conf
@@ -20,3 +22,12 @@ class TestCase(unittest.TestCase):
         Conf.set(self.__conf)
         Flow.newest_overall_frame_time = 0
 
+class TestCaseWithTestDir(TestCase):
+
+    def setUp(self):
+        super().setUp()
+        self.test_dir = mkdtemp()
+
+    def tearDown(self):
+        rmtree(self.test_dir)
+        super().tearDown()
