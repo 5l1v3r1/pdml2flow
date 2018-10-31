@@ -100,6 +100,8 @@ class Conf():
             help = 'Print version and exit'
         )
 
+        add_arguments_cb(argparser)
+
         # set up plugin argument argparser
         plugin_argparser = argparser.add_argument_group('Plugins')
 
@@ -131,8 +133,6 @@ class Conf():
                 plugins[name] = plugin
             else:
                 warning('Plugin not supported: {}'.format(name))
-
-        add_arguments_cb(argparser)
 
         conf = vars(
             argparser.parse_args([
