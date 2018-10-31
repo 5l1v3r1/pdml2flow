@@ -75,6 +75,14 @@ class PdmlHandler(xml.sax.ContentHandler):
                     # flow unknown add new flow
                     flow = self.__flows[flowid] = Flow(self.__frame)
                     debug('new flow: {}'.format(flowid))
+            else:
+                for plugin in Conf.PLUGINS:
+                    call_plugin(
+                        plugin,
+                        'frame_new',
+                        self.__frame.cast_dicts(dict),
+                        None
+                    )
 
     def endDocument(self):
         for (flowid, flow) in self.__flows.items():

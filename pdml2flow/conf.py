@@ -6,7 +6,7 @@ from shlex import split
 from base64 import b32encode, b32decode
 from pkg_resources import require, DistributionNotFound
 from argparse import ArgumentParser
-from pkg_resources import iter_entry_points, resource_filename
+from pkg_resources import iter_entry_points
 from inspect import isclass
 
 from .plugin import Plugin2

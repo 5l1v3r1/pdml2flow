@@ -6,6 +6,7 @@ import imp
 
 from os import path
 from shutil import copytree, ignore_patterns
+from pkg_resources import resource_filename
 from configparser import ConfigParser
 
 from .logging import *
