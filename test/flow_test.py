@@ -57,6 +57,54 @@ class TestFlow(TestCase):
             '{\'t\': 0, \'def1\': 1, \'def2\': 2}'
         )
 
+    def test__eq__(self):
+        Conf.FRAME_TIME = [ 't' ]
+        Conf.FLOW_DEF = [ ['def1'] ]
+        self.assertEqual(
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                })
+            ),
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                })
+            ),
+        )
+        self.assertNotEqual(
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                })
+            ),
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 2,
+                })
+            ),
+        )
+        self.assertEqual(
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                    'unimportant': 1,
+                })
+            ),
+            Flow(
+                AutoVivification({
+                    't' : 0,
+                    'def1': 1,
+                    'unimportant': 2,
+                })
+            ),
+        )
+
     def test___hash__(self):
         Conf.FRAME_TIME = [ 't' ]
         Conf.FLOW_DEF = [ ['def1'], ['def2'] ]
