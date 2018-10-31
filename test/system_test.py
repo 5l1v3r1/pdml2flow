@@ -56,24 +56,47 @@ def get_test(run, directory, test):
 
             # compare stdout
             stdout_raw = f_stdout.getvalue()
-            objs = self.read_json(stdout_raw)
-
             stderr_raw = f_stderr.getvalue()
 
             with open('{}/{}/stdout'.format(directory, test)) as f:
                 expected_raw = f.read()
-                expected = self.read_json(expected_raw)
-            for e in expected:
-                self.assertIn(e, objs)
-            for o in objs:
-                self.assertIn(o, expected)
 
-            # if no object loaded, fall back to raw comparison
-            if len(expected) == 0 or len(objs) == 0:
-                self.assertEqual(
-                    expected_raw,
-                    stdout_raw
+            # Try parsing as json, and compare objects
+            run_objs = self.read_json(stdout_raw)
+            expected_objs = self.read_json(expected_raw)
+            self.assertEqual(
+                len(run_objs),
+                len(expected_objs)
+            )
+            for e in expected_objs:
+                self.assertIn(
+                    e,
+                    expected_objs
                 )
+            for o in run_objs:
+                self.assertIn(
+                    o,
+                    expected_objs
+                )
+
+            # if no object loaded: do a raw comparison, line by line
+            if len(run_objs) == 0 or len(expected_objs) == 0:
+                run_lines = stdout_raw.splitlines()
+                expected_lines = expected_raw.splitlines()
+                self.assertEqual(
+                    len(run_lines),
+                    len(expected_lines)
+                )
+                for e in expected_lines:
+                    self.assertIn(
+                        e,
+                        run_lines
+                    )
+                for r in run_lines:
+                    self.assertIn(
+                        r,
+                        expected_lines
+                    )
 
             try:
                 # try compare stderr
