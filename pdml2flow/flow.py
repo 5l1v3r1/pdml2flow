@@ -79,7 +79,11 @@ class Flow():
         if Conf.COMPRESS_DATA:
             self.__frames = self.__frames.compress()
 
-        debug('flow duration: {}'.format(self.__newest_frame_time - self.__first_frame_time))
+        debug(
+            'flow duration: {}'.format(
+                self.__newest_frame_time - self.__first_frame_time
+            )
+        )
 
         for plugin in Conf.PLUGINS:
             call_plugin(

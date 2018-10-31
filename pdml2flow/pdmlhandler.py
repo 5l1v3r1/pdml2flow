@@ -54,7 +54,20 @@ class PdmlHandler(xml.sax.ContentHandler):
     def endElement(self, tag):
         if tag == 'packet':
             # advance time
-            Flow.newest_overall_frame_time = max(Flow.newest_overall_frame_time, self.__frame[Conf.FRAME_TIME])
+            try:
+                Flow.newest_overall_frame_time = max(
+                    Flow.newest_overall_frame_time,
+                    self.__frame[Conf.FRAME_TIME]
+                )
+            except TypeError:
+                warning(
+                    'Dropping frame because of invalid time ({}) in {}'.format(
+                        self.__frame[Conf.FRAME_TIME],
+                        Conf.FRAME_TIME
+                    )
+                )
+                return
+
             # write out expired flows
             new_flows = {}
             for (flowid, flow) in self.__flows.items():
