@@ -120,6 +120,3 @@ class Flow():
                 self
             )
 
-    def get_frames(self):
-        return self.__frames
-
