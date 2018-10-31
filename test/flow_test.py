@@ -27,36 +27,6 @@ class TestFlow(TestCase):
         })
         self.assertEqual(Flow.get_flow_id(frame), None)
 
-    def test__repr__(self):
-        Conf.FRAME_TIME = [ 't' ]
-        self.assertEqual(
-            repr(
-                Flow(
-                    AutoVivification({
-                        't' : 0,
-                        'def1': 1,
-                        'def2': 2,
-                    })
-                )
-            ),
-            'Flow(frames={\'t\': 0, \'def1\': 1, \'def2\': 2})'
-        )
-
-    def test__str__(self):
-        Conf.FRAME_TIME = [ 't' ]
-        self.assertEqual(
-            str(
-                Flow(
-                    AutoVivification({
-                        't' : 0,
-                        'def1': 1,
-                        'def2': 2,
-                    })
-                )
-            ),
-            '{\'t\': 0, \'def1\': 1, \'def2\': 2}'
-        )
-
     def test__eq__(self):
         Conf.FRAME_TIME = [ 't' ]
         Conf.FLOW_DEF = [ ['def1'] ]

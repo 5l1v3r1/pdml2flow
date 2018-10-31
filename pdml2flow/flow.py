@@ -42,17 +42,6 @@ class Flow():
 
         self.add_frame(first_frame)
 
-    def __repr__(self):
-        return '{}(frames={})'.format(
-            self.__class__.__name__,
-            self.frames
-        )
-
-    def __str__(self):
-        return '{}'.format(
-            self.frames
-        )
-
     def __hash__(self):
         return hash(self.__id)
 
