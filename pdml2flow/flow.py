@@ -60,6 +60,18 @@ class Flow():
             return self.__dict__
         return self.__frames
 
+    @property
+    def first_frame_time(self):
+        return self.__first_frame_time
+
+    @property
+    def newest_frame_time(self):
+        return self.__newest_frame_time
+
+    @property
+    def framecount(self):
+        return self.__framecount
+
     def add_frame(self, frame):
         # check if frame expands flow length
         frame_time = frame[Conf.FRAME_TIME]
