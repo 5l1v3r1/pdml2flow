@@ -69,7 +69,7 @@ Plugins:
 | ---- | ---------- |
 | LOAD_PLUGINS | If set to `False`, skips loading of all plugins |
 
-## Example
+## Examples
 
 Sniff from interface and write json:
 ```shell
