@@ -10,7 +10,7 @@ cat <<EOF > "${TOPLEVEL}/README.md"
 # pdml2flow [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow) 
 _Aggregates wireshark pdml to flows, with plugins_
 
-When analyzing network traffic, it is sometimes helpful to group captured frames. For example by port numbers to obtain network flows or using MAC addresses for hardware flows. Doing this in [Wireshark][wireshark] or [tshark] is difficult. [pdml2flow] was designed to solve this use case. [pdml2flow] reads [tshark] output using the [Packet Description Markup Language][pdml] and writes flows either in \`JSON\` or \`xml\`. These flows are also accessible from a python plugin interface. If flow aggregation is not needed, [pdml2frame] can be be used to process [pdml] with plugins.
+When analyzing network traffic, it is sometimes helpful to group captured frames. For example by port numbers to obtain network flows or using MAC addresses for hardware flows. Doing this in [Wireshark][wireshark] or [tshark] is difficult. \`pdml2flow\` was designed to solve this use case. \`pdml2flow\` reads [tshark] output using the [Packet Description Markup Language][pdml] and writes flows either in JSON or XML. These flows are also accessible from a python plugin interface. If flow aggregation is not needed, \`pdml2frame\` can be be used to process [pdml] with plugins.
 
 | Branch  | Build  | Coverage |
 | ------- | ------ | -------- |
@@ -104,8 +104,6 @@ $(LOAD_PLUGINS=False pdml2frame -h)
 [python]: https://www.python.org/
 [wireshark]: https://www.wireshark.org/
 [tshark]: https://www.wireshark.org/docs/man-pages/tshark.html
-[pdml2flow]: /#
-[pdml2frame]: /#pdml2frame
 [dict2xml]: https://github.com/delfick/python-dict2xml
 [jq]: https://stedolan.github.io/jq/
 [FluentFlow]: https://github.com/t-moe/FluentFlow
