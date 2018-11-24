@@ -7,6 +7,7 @@ _Aggregates wireshark pdml to flows, with plugins_
 | develop  | [![Build Status develop]](https://travis-ci.org/Enteee/pdml2flow) | [![Coverage Status develop]](https://coveralls.io/github/Enteee/pdml2flow?branch=develop) |
 
 ## Prerequisites
+
 * [python]:
   - 3.4
   - 3.5
@@ -18,15 +19,17 @@ _Aggregates wireshark pdml to flows, with plugins_
 * [pip](https://pypi.python.org/pypi/pip)
 
 ## Installation
+
 ```shell
 $ sudo pip install pdml2flow
 ```
 
 ## Usage
+
 ```shell
 $ pdml2flow -h
 usage: pdml2flow [-h] [--version] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME]
-                 [-l DATA_MAXLEN] [-s] [-c] [-a] [-m] [-d] [+json [args]]
+                 [-l DATA_MAXLEN] [-s] [-c] [-a] [-d] [+json [args]]
                  [+xml [args]]
 
 Aggregates wireshark pdml to flows
@@ -47,7 +50,6 @@ optional arguments:
                        preserve order of leaves [default: False]
   -a                   Instead of merging the frames will append them to an
                        array [default: False]
-  -m                   Appends flow metadata [default: False]
   -d                   Debug mode [default: False]
 
 Plugins:
@@ -60,6 +62,7 @@ Plugins:
 ```
 
 ## Example
+
 Sniff from interface and write json:
 ```shell
 $ tshark -i interface -Tpdml | pdml2flow +json
@@ -89,6 +92,44 @@ $ tshark -i interface -Tpdml | pdml2flow +json | fluentflow rules.js
 
 * [Elasticsearch](https://github.com/Enteee/pdml2flow-elasticsearch)
 * see [pdml2flow/plugins/](pdml2flow/plugins/) for a full list of supported plugins
+
+### Interface
+
+```python
+# vim: set fenc=utf8 ts=4 sw=4 et :
+
+class Plugin2(object): # pragma: no cover
+    """Version 2 plugin interface."""
+
+    @staticmethod
+    def help():
+        """Return a help string."""
+        pass
+
+    def __init__(self, *args):
+        """Called once during startup."""
+        pass
+
+    def __deinit__(self):
+        """Called once during shutdown."""
+        pass
+
+    def flow_new(self, flow, frame):
+        """Called every time a new flow is opened."""
+        pass
+
+    def flow_expired(self, flow):
+        """Called every time a flow expired, before printing the flow."""
+        pass
+
+    def flow_end(self, flow):
+        """Called every time a flow ends, before printing the flow."""
+        pass
+
+    def frame_new(self, frame, flow):
+        """Called for every new frame."""
+        pass
+```
 
 ### Create a New Plugin
 

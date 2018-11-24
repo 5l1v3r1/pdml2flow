@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -exuo pipefail
+
 TOPLEVEL="$( cd "$(dirname "$0")" ; pwd -P )/../"
 
 # install pdml2flow
@@ -14,6 +16,7 @@ _Aggregates wireshark pdml to flows, with plugins_
 | develop  | [![Build Status develop]](https://travis-ci.org/Enteee/pdml2flow) | [![Coverage Status develop]](https://coveralls.io/github/Enteee/pdml2flow?branch=develop) |
 
 ## Prerequisites
+
 $( cat "${TOPLEVEL}/.travis.yml" | 
     sed -n -e '/# VERSION START/,/# VERSION END/ p' |
     sed -e '1d;$d' |
@@ -24,17 +27,20 @@ $( cat "${TOPLEVEL}/.travis.yml" |
 * [pip](https://pypi.python.org/pypi/pip)
 
 ## Installation
+
 \`\`\`shell
 $ sudo pip install pdml2flow
 \`\`\`
 
 ## Usage
+
 \`\`\`shell
 $ pdml2flow -h
 $(pdml2flow -h)
 \`\`\`
 
 ## Example
+
 Sniff from interface and write json:
 \`\`\`shell
 $ tshark -i interface -Tpdml | pdml2flow +json
@@ -61,6 +67,15 @@ $ tshark -i interface -Tpdml | pdml2flow +json | fluentflow rules.js
 \`\`\`
 
 ## Plugins
+
+* [Elasticsearch](https://github.com/Enteee/pdml2flow-elasticsearch)
+* see [pdml2flow/plugins/](pdml2flow/plugins/) for a full list of supported plugins
+
+### Interface
+
+\`\`\`python
+$(cat "${TOPLEVEL}/pdml2flow/plugin.py")
+\`\`\`
 
 ### Create a New Plugin
 
