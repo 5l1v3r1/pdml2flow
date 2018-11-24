@@ -4,6 +4,18 @@ from functools import reduce
 
 DEFAULT = object();
 
+def getitem_by_path(d, path):
+    """Access item in d using path.
+
+        a = { 0: { 1: 'item' } }
+        getitem_by_path(a, [0, 1]) == 'item'
+    """
+    return reduce(
+        lambda d, k: d[k],
+        path,
+        d
+    )
+
 class AutoVivification(dict):
 
     def clean_empty(self, d=DEFAULT):
@@ -89,7 +101,7 @@ class AutoVivification(dict):
         """
         # if the item is a list we autoexpand it
         if type(item) is list:
-            return reduce(lambda d, k: d[k], item, self)
+            return getitem_by_path(self, item)
         else:
             try:
                 return dict.__getitem__(self, item)
