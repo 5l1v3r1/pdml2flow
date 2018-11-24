@@ -29,7 +29,7 @@ $ sudo pip install pdml2flow
 ```shell
 $ pdml2flow -h
 usage: pdml2flow [-h] [--version] [-f FLOW_DEF_STR] [-t FLOW_BUFFER_TIME]
-                 [-l DATA_MAXLEN] [-s] [-c] [-a] [-d] [+json [args]]
+                 [-l DATA_MAXLEN] [-c] [-a] [-s] [-d] [+json [args]]
                  [+xml [args]]
 
 Aggregates wireshark pdml to flows
@@ -44,12 +44,12 @@ optional arguments:
                        packets [default: 180]
   -l DATA_MAXLEN       Maximum lenght of data in tshark pdml-field [default:
                        200]
-  -s                   Extract show names, every data leaf will now look like
-                       { raw : [] , show: [] } [default: False]
   -c                   Removes duplicate data when merging objects, will not
                        preserve order of leaves [default: False]
   -a                   Instead of merging the frames will append them to an
                        array [default: False]
+  -s                   Extract show names, every data leaf will now look like
+                       { raw : [] , show: [] } [default: False]
   -d                   Debug mode [default: False]
 
 Plugins:
@@ -60,6 +60,11 @@ Plugins:
                        --help show this help message and exit -0 Terminates
                        lines with null character
 ```
+
+### Environment Variables
+
+| Name | Descripton |
+| LOAD_PLUGINS | If set to `False`, skips loading of all plugins |
 
 ## Example
 

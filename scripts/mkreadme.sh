@@ -36,8 +36,13 @@ $ sudo pip install pdml2flow
 
 \`\`\`shell
 $ pdml2flow -h
-$(pdml2flow -h)
+$(LOAD_PLUGINS=False pdml2flow -h)
 \`\`\`
+
+### Environment Variables
+
+| Name | Descripton |
+| LOAD_PLUGINS | If set to \`False\`, skips loading of all plugins |
 
 ## Example
 
@@ -90,7 +95,7 @@ _Wireshark pdml to frames, with plugins_
 
 \`\`\`shell
 $ pdml2frame -h
-$(pdml2frame -h)
+$(LOAD_PLUGINS=False pdml2frame -h)
 \`\`\`
 
 [python]: https://www.python.org/

@@ -14,6 +14,24 @@ from .conf import Conf
 from .plugin import *
 from .pdmlhandler import PdmlHandler
 
+def _add_common_arguments(argparser):
+    argparser.add_argument(
+        '-s',
+        dest='EXTRACT_SHOW',
+        action='store_true',
+        help='Extract show names, every data leaf will now look like {{ raw : [] , show: [] }} [default: {}]'.format(
+            Conf.EXTRACT_SHOW
+        )
+    )
+    argparser.add_argument(
+        '-d',
+        dest='DEBUG',
+        action='store_true',
+        help='Debug mode [default: {}]'.format(
+            Conf.DEBUG
+        )
+    )
+
 def pdml2flow():
 
     def add_arguments_cb(argparser):
@@ -42,14 +60,6 @@ def pdml2flow():
             )
         )
         argparser.add_argument(
-            '-s',
-            dest='EXTRACT_SHOW',
-            action='store_true',
-            help='Extract show names, every data leaf will now look like {{ raw : [] , show: [] }} [default: {}]'.format(
-                Conf.EXTRACT_SHOW
-            )
-        )
-        argparser.add_argument(
             '-c',
             dest='COMPRESS_DATA',
             action='store_true',
@@ -65,14 +75,7 @@ def pdml2flow():
                 Conf.FRAMES_ARRAY
             )
         )
-        argparser.add_argument(
-            '-d',
-            dest='DEBUG',
-            action='store_true',
-            help='Debug mode [default: {}]'.format(
-                Conf.DEBUG
-            )
-        )
+        _add_common_arguments(argparser)
 
     def postprocess_conf_cb(conf):
         """Split each flowdef to a path."""
@@ -93,22 +96,7 @@ def pdml2flow():
 def pdml2frame():
 
     def add_arguments_cb(argparser):
-        argparser.add_argument(
-            '-s',
-            dest='EXTRACT_SHOW',
-            action='store_true',
-            help='Extract show names, every data leaf will now look like {{ raw : [] , show: [] }} [default: {}]'.format(
-                Conf.EXTRACT_SHOW
-            )
-        )
-        argparser.add_argument(
-            '-d',
-            dest='DEBUG',
-            action='store_true',
-            help='Debug mode [default: {}]'.format(
-                Conf.DEBUG
-            )
-        )
+        _add_common_arguments(argparser)
 
     def postprocess_conf_cb(conf):
         conf['DATA_MAXLEN'] = sys.maxsize

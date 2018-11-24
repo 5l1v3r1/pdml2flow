@@ -32,3 +32,14 @@ def call_plugin(plugin, f, *args, **kwargs):
         return getattr(plugin, f)(
             *args
         )
+
+def make_argparse_help_safe(s):
+    """Make strings safe for argparse's help.
+
+    Argparse probably uses internally python2 style string formatting.
+    Make user supplied strings safe for this.
+    """
+    try:
+        return s.replace('%', '%%').replace('%%%', '%%')
+    except AttributeError:
+        return s
