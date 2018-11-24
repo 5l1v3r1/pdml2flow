@@ -40,4 +40,4 @@ class JSONOutput(Plugin2):
         )
 
 if __name__ == '__main__':
-    print(Plugin.help())
+    print(JSONOutput.help())
