@@ -52,13 +52,19 @@ class Flow():
     def frames(self):
         # clean the frame data
         if Conf.FRAMES_ARRAY:
-            self.__frames = [ f.clean_empty() for f in self.__frames ]
+            self.__frames = [
+                f.clean_empty()
+                for f in self.__frames
+            ]
+            ret = [
+                f.cast_dicts(dict)
+                for f in self.__frames
+            ]
         else:
             self.__frames = self.__frames.clean_empty()
+            ret = self.__frames.cast_dicts(dict)
 
-        if Conf.METADATA:
-            return self.__dict__
-        return self.__frames
+        return ret
 
     @property
     def first_frame_time(self):

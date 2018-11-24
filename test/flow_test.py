@@ -117,6 +117,33 @@ class TestFlow(TestCase):
             f0.merge(f1)
         )
 
+    def test_frames_returns_copy(self):
+        Conf.FRAME_TIME = [ 't' ]
+        Conf.FLOW_DEF = [ ['def1'] ]
+        f = Flow(
+            AutoVivification({
+                't' : 0,
+                'def1': 1,
+                'unimportant': 1,
+            })
+        )
+        f.add_frame(
+            AutoVivification({
+                't' : 0,
+                'def1': 1,
+                'unimportant': 1,
+            })
+        )
+
+        frames_before_add = f.frames
+        f.frames['add'] = 'something'
+
+        self.assertEqual(
+            frames_before_add,
+            f.frames,
+        )
+
+
     def test_first_frame_time(self):
         Conf.FRAME_TIME = [ 't' ]
         Conf.FLOW_DEF = [ ['def1'] ]

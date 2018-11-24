@@ -66,14 +66,6 @@ def pdml2flow():
             )
         )
         argparser.add_argument(
-            '-m',
-            dest='METADATA',
-            action='store_true',
-            help='Appends flow metadata [default: {}]'.format(
-                Conf.METADATA
-            )
-        )
-        argparser.add_argument(
             '-d',
             dest='DEBUG',
             action='store_true',
