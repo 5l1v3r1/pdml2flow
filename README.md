@@ -87,6 +87,9 @@ $ tshark -i interface -Tpdml | pdml2flow +json | fluentflow rules.js
 
 ## Plugins
 
+* [Elasticsearch](https://github.com/Enteee/pdml2flow-elasticsearch)
+* see [pdml2flow/plugins/](pdml2flow/plugins/) for a full list of supported plugins
+
 ### Create a New Plugin
 
 [![asciicast](https://asciinema.org/a/208963.png)](https://asciinema.org/a/208963)
