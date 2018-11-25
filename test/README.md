@@ -4,7 +4,7 @@ Tests tests can be found in the ```test/``` directory. We distinguish between un
 
 ## Unit tests
 
-A true unit test is a unit test in the classical sense. They are normally a method inside one of the the *_test.py classes. For further information see the [documentation of the python unit testing framework](https://docs.python.org/3/library/unittest.html).
+Unit tests are normally a method inside one of the the *_test.py classes. For further information see the [documentation of the python unit testing framework](https://docs.python.org/3/library/unittest.html).
 
 ## System test
 
