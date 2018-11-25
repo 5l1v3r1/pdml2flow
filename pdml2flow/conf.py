@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
 import sys
-from os import path
+from os import path, environ
 from shlex import split
 from base64 import b32encode, b32decode
 from pkg_resources import require, DistributionNotFound
@@ -10,7 +10,7 @@ from pkg_resources import iter_entry_points
 from inspect import isclass
 
 from .plugin import Plugin2
-from .utils import call_plugin
+from .utils import call_plugin, make_argparse_help_safe, boolify
 
 DEFAULT = object()
 
@@ -58,10 +58,11 @@ class Conf():
     FRAMES_ARRAY = False
     FRAME_TIME = ['frame', 'time_epoch', 'raw', 0]
     DEBUG = False
-    METADATA = False
     PARSE_SOURCE = sys.stdin
     SUPPORTED_PLUGIN_INTERFACES = [Plugin2]
+    LOAD_PLUGINS = boolify(environ.get('LOAD_PLUGINS', 'True'))
     PLUGINS = []
+    PLUGIN_GROUP_BASE = 'pdml2flow.plugins.base'
     PLUGIN_GROUP = 'pdml2flow.plugins'
     PLUGIN_CONF_NAME = 'conf.ini'
 
@@ -106,33 +107,41 @@ class Conf():
         plugin_argparser = argparser.add_argument_group('Plugins')
 
         plugins = {}
-        for entry_point in iter_entry_points(group = Conf.PLUGIN_GROUP):
-            name = str(entry_point).split(' =',1)[0]
-            plugin = entry_point.load()
-            if isclass(plugin) \
-                and not plugin in Conf.SUPPORTED_PLUGIN_INTERFACES \
-                and any([
-                    issubclass(plugin, supported_plugin_interface)
-                    for supported_plugin_interface in Conf.SUPPORTED_PLUGIN_INTERFACES
-                ]):
+        def load_plugin_group(group):
+            """Load all plugins from the given plugin_group."""
+            for entry_point in iter_entry_points(group = group):
+                name = str(entry_point).split(' =',1)[0]
+                plugin = entry_point.load()
+                if isclass(plugin) \
+                    and not plugin in Conf.SUPPORTED_PLUGIN_INTERFACES \
+                    and any([
+                        issubclass(plugin, supported_plugin_interface)
+                        for supported_plugin_interface in Conf.SUPPORTED_PLUGIN_INTERFACES
+                    ]):
 
-                plugin_argparser.add_argument(
-                    '+{}'.format(name),
-                    dest = 'PLUGIN_{}'.format(name),
-                    type = str,
-                    nargs = '?',
-                    default = DEFAULT,
-                    metavar = 'args'.format(name),
-                    help = call_plugin(
-                        plugin,
-                        'help'
+                    plugin_argparser.add_argument(
+                        '+{}'.format(name),
+                        dest = 'PLUGIN_{}'.format(name),
+                        type = str,
+                        nargs = '?',
+                        default = DEFAULT,
+                        metavar = 'args'.format(name),
+                        help = make_argparse_help_safe(
+                            call_plugin(
+                                plugin,
+                                'help'
+                            )
+                        )
                     )
-                )
 
-                # register plugin
-                plugins[name] = plugin
-            else:
-                warning('Plugin not supported: {}'.format(name))
+                    # register plugin
+                    plugins[name] = plugin
+                else:
+                    warning('Plugin not supported: {}'.format(name))
+
+        load_plugin_group(Conf.PLUGIN_GROUP_BASE)
+        if Conf.LOAD_PLUGINS:
+            load_plugin_group(Conf.PLUGIN_GROUP)
 
         conf = vars(
             argparser.parse_args([

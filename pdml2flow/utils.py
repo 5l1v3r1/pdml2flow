@@ -32,3 +32,11 @@ def call_plugin(plugin, f, *args, **kwargs):
         return getattr(plugin, f)(
             *args
         )
+
+def make_argparse_help_safe(s):
+    """Make strings safe for argparse's help.
+
+    Argparse supports %{} - templates. This is sometimes not needed.
+    Make user supplied strings safe for this.
+    """
+    return s.replace('%', '%%').replace('%%%', '%%')

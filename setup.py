@@ -22,7 +22,7 @@ except (OSError, ImportError):
 setup(
     name = 'pdml2flow',
     keywords = 'wireshark pdml flow aggregation plugins',
-    version = '5.0',
+    version = '5.1',
     packages = find_packages(exclude=['test']),
     install_requires = [
         'dict2xml'
@@ -34,7 +34,7 @@ setup(
             'pdml2frame = pdml2flow:pdml2frame',
             'pdml2flow-new-plugin = pdml2flow:pdml2flow_new_plugin',
         ],
-        'pdml2flow.plugins': [
+        'pdml2flow.plugins.base': [
             'json = pdml2flow.plugins.json_output:JSONOutput',
             'xml = pdml2flow.plugins.xml_output:XMLOutput',
         ]

@@ -1,5 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -exuo pipefail
+
 TOPLEVEL="$( cd "$(dirname "$0")" ; pwd -P )/../"
+
+# install plugin
+sudo pip install --upgrade -e "${TOPLEVEL}"
 
 cat <<EOF > "${TOPLEVEL}/README.md"
 # pdml2flow-plugin-skeleton [![PyPI version](https://badge.fury.io/py/pdml2flow-plugin-skeleton.svg)](https://badge.fury.io/py/pdml2flow-plugin-skeleton) 
@@ -11,6 +16,7 @@ _[pdml2flow] plugin skeleton_
 | develop  | [![Build Status develop]](https://travis-ci.org/Username/pdml2flow-plugin-skeleton) | [![Coverage Status develop]](https://coveralls.io/github/Username/pdml2flow-plugin-skeleton?branch=develop) |
 
 ## Prerequisites
+
 $( cat "${TOPLEVEL}/.travis.yml" | 
     sed -n -e '/# VERSION START/,/# VERSION END/ p' |
     sed -e '1d;$d' |
@@ -21,11 +27,13 @@ $( cat "${TOPLEVEL}/.travis.yml" |
 * [pip](https://pypi.python.org/pypi/pip)
 
 ## Installation
+
 \`\`\`shell
 $ sudo pip install pdml2flow-plugin-skeleton
 \`\`\`
 
 ## Usage
+
 \`\`\`shell
 $(python "${TOPLEVEL}/plugin/plugin.py")
 \`\`\`

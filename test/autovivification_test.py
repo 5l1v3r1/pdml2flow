@@ -2,9 +2,16 @@
 # vim: set fenc=utf8 ts=4 sw=4 et :
 from .testcase import TestCase
 
-from pdml2flow.autovivification import AutoVivification
+from pdml2flow.autovivification import *
 
 class TestAutoVivification(TestCase):
+
+    def test_getitem_by_path(self):
+        a = { 0: { 1: 'item' } }
+        self.assertEqual(
+            getitem_by_path(a, [0, 1]),
+            'item'
+        )
 
     def test_clean_empty(self):
         # sutff not to clean
