@@ -101,6 +101,17 @@ $ pdml2frame -h
 $(LOAD_PLUGINS=False pdml2frame -h)
 \`\`\`
 
+## Testing
+
+* [Test documentation](test/README.md)
+
+running the tests:
+
+\`\`\`shell
+$ python setup.py test
+\`\`\`
+
+
 [python]: https://www.python.org/
 [wireshark]: https://www.wireshark.org/
 [tshark]: https://www.wireshark.org/docs/man-pages/tshark.html
