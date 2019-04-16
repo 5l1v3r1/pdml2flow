@@ -4,7 +4,7 @@ set -exuo pipefail
 TOPLEVEL="$( cd "$(dirname "$0")" ; pwd -P )/../"
 
 # install pdml2flow
-sudo pip install --upgrade -e "${TOPLEVEL}"
+pip install --upgrade -e "${TOPLEVEL}"
 
 cat <<EOF > "${TOPLEVEL}/README.md"
 # pdml2flow [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow) 
@@ -76,7 +76,8 @@ $ tshark -i interface -Tpdml | pdml2flow +json | fluentflow rules.js
 
 ## Plugins
 
-* [Elasticsearch](https://github.com/Enteee/pdml2flow-elasticsearch)
+* [Elasticsearch](https://github.com/Enteee/pdml2flow-elasticsearch#readme)
+* [base64-strings](https://github.com/Enteee/pdml2flow-base64strings#readme)
 * see [pdml2flow/plugins/](pdml2flow/plugins/) for a full list of supported plugins
 
 ### Interface
