@@ -5,6 +5,7 @@ import xml.sax
 import imp
 
 from os import path
+from signal import signal, SIGINT
 from shutil import copytree, ignore_patterns
 from pkg_resources import resource_filename
 from configparser import ConfigParser
@@ -122,6 +123,12 @@ def start_parser():
         debug('{} : {}'.format(name, value))
 
     handler = PdmlHandler()
+
+    def sigint_handler(sig, frame):
+        handler.endDocument()
+        sys.exit(0)
+    signal(SIGINT, sigint_handler)
+
     try:
         xml.sax.parse(
             Conf.IN,
