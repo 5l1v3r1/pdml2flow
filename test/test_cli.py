@@ -11,7 +11,7 @@ class TestCli(TestCaseWithTestDir):
     def test_pdml2flow_new_plugin(self):
         Conf.ARGS = [
             path.join(
-                self.test_dir, 
+                self.test_dir,
                 'new-plugin'
             )
         ]

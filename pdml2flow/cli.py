@@ -159,7 +159,7 @@ def pdml2flow_new_plugin():
             'plugin_name': plugin_name
         })
         copytree(
-            resource_filename(__name__, '/plugin-skeleton'),
+            resource_filename(__name__, 'plugin-skeleton'),
             dst,
             ignore=ignore_patterns('__pycache__')
         )
