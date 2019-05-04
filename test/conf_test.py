@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
 import io
 
@@ -49,6 +48,3 @@ class TestConf(TestCase):
                 self.assertFalse(name.startswith("_"))
                 self.assertFalse(name.startswith("__"))
                 self.assertTrue(name.isupper())
-
-if __name__ == '__main__':
-    unittest.main()

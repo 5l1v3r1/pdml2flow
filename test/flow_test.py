@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
 from .testcase import TestCase
 
@@ -232,6 +231,3 @@ class TestFlow(TestCase):
         self.assertEqual(flow.not_expired(), True)
         Flow.newest_overall_frame_time = 123 + Conf.FLOW_BUFFER_TIME
         self.assertEqual(flow.not_expired(), False)
-
-if __name__ == '__main__':
-    unittest.main()
