@@ -1,3 +1,0 @@
-[submodule "pdml2flow/plugins/pdml2flow-elasticsearch"]
-	path = pdml2flow/plugins/pdml2flow-elasticsearch
-	url = https://github.com/Enteee/pdml2flow-elasticsearch.git
