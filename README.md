@@ -98,8 +98,10 @@ $ tshark -i interface -Tpdml | pdml2flow +json | fluentflow rules.js
 
 ## Plugins
 
-* [Elasticsearch](https://github.com/Enteee/pdml2flow-elasticsearch)
-* see [pdml2flow/plugins/](pdml2flow/plugins/) for a full list of supported plugins
+* [elasticsearch](https://github.com/Enteee/pdml2flow-elasticsearch#readme): Saves pdml2flow output in Elasticsearch
+* [base64-strings](https://github.com/Enteee/pdml2flow-base64strings#readme): Extract strings encoded in base64
+* [frame-inter-arrival-time](https://github.com/Enteee/pdml2flow-frame-inter-arrival-time): Calculate frame inter arrival times
+* [pdml2flow/plugins/](pdml2flow/plugins/): Plugins shipped by default
 
 ### Interface
 

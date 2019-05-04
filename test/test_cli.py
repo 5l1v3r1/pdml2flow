@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
 from os import path
 
@@ -12,11 +11,8 @@ class TestCli(TestCaseWithTestDir):
     def test_pdml2flow_new_plugin(self):
         Conf.ARGS = [
             path.join(
-                self.test_dir, 
+                self.test_dir,
                 'new-plugin'
             )
         ]
         pdml2flow_new_plugin()
-
-if __name__ == '__main__':
-    unittest.main()

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
 import os
 import io
@@ -118,6 +117,3 @@ def add_tests(run, directory):
 # Add tests
 add_tests(pdml2flow.pdml2flow, TEST_DIR_PDML2FLOW)
 add_tests(pdml2flow.pdml2frame, TEST_DIR_PDML2FRAME)
-
-if __name__ == '__main__':
-    unittest.main()
