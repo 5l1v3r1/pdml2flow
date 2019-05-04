@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # vim: set fenc=utf8 ts=4 sw=4 et :
 import sys
+import typing
 from os import path, environ
 from shlex import split
 from base64 import b32encode, b32decode
@@ -39,13 +40,13 @@ class Conf():
 
     FLOW_DEF_NESTCHAR = '.'
     FLOW_DEF_STR = [
-                'vlan{}id'.format(FLOW_DEF_NESTCHAR),
-                'ip{}src'.format(FLOW_DEF_NESTCHAR),
-                'ip{}dst'.format(FLOW_DEF_NESTCHAR),
-                'ipv6{}src'.format(FLOW_DEF_NESTCHAR),
-                'ipv6{}dst'.format(FLOW_DEF_NESTCHAR),
-                'udp{}stream'.format(FLOW_DEF_NESTCHAR),
-                'tcp{}stream'.format(FLOW_DEF_NESTCHAR),
+        'vlan{}id'.format(FLOW_DEF_NESTCHAR),
+        'ip{}src'.format(FLOW_DEF_NESTCHAR),
+        'ip{}dst'.format(FLOW_DEF_NESTCHAR),
+        'ipv6{}src'.format(FLOW_DEF_NESTCHAR),
+        'ipv6{}dst'.format(FLOW_DEF_NESTCHAR),
+        'udp{}stream'.format(FLOW_DEF_NESTCHAR),
+        'tcp{}stream'.format(FLOW_DEF_NESTCHAR),
     ]
     FLOW_DEF = get_real_paths.__func__(FLOW_DEF_STR, FLOW_DEF_NESTCHAR)
     DATA_MAXLEN = 200
@@ -61,6 +62,7 @@ class Conf():
     PARSE_SOURCE = sys.stdin
     SUPPORTED_PLUGIN_INTERFACES = [Plugin2]
     LOAD_PLUGINS = boolify(environ.get('LOAD_PLUGINS', 'True'))
+    LOAD_PLUGINS_CLI_PREFIX = '+'
     PLUGINS = []
     PLUGIN_GROUP_BASE = 'pdml2flow.plugins.base'
     PLUGIN_GROUP = 'pdml2flow.plugins'
@@ -143,12 +145,55 @@ class Conf():
         if Conf.LOAD_PLUGINS:
             load_plugin_group(Conf.PLUGIN_GROUP)
 
+        def escape_plugin_arguments(in_arguments: typing.List[str]) -> typing.List[str]:
+            """Sponge up plugin arguments and encode them as base32.
+
+            Note: Base32 was chosen because it does not
+            contain '-', '+'.
+
+            Example:
+                -a arg1 -b -c +plugin -h -d +plugin2 -k test
+            returns:
+                [
+                    '-a' ,'arg1', '-b'
+                    '+plugin', 'base32encode(-h -d)'
+                    '+plugin2', 'base32encode(-k test)
+                ]
+            """
+
+            arguments = []
+            plugin_args = ''
+            sponge_plugin_args = False
+            for v in in_arguments:
+                if v[0] == Conf.LOAD_PLUGINS_CLI_PREFIX:
+                    # plugin load detected, everything
+                    # from here are plugin args. Start
+                    # sponging them up.
+                    if plugin_args:
+                        # but first, store previous plugin args
+                        arguments.append(
+                            b32encode(plugin_args.encode()).decode()
+                        )
+                    plugin_args = ''
+                    sponge_plugin_args = True
+                    arguments.append(v)
+                elif sponge_plugin_args:
+                    plugin_args += ' ' + v
+                else:
+                    # normal argument
+                    arguments.append(v)
+            if plugin_args:
+                arguments.append(
+                    b32encode(plugin_args.encode()).decode()
+                )
+            return arguments
+
         conf = vars(
-            argparser.parse_args([
-                v if i == 0 or v[0] == '+' or Conf.ARGS[i-1][0] != '+'
-                else b32encode(v.encode()).decode()
-                for i, v in enumerate(Conf.ARGS)
-            ])
+            argparser.parse_args(
+                escape_plugin_arguments(
+                    Conf.ARGS
+                )
+            )
         )
 
         postprocess_conf_cb(conf)
