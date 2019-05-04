@@ -25,6 +25,7 @@ setup(
     version = '5.2',
     packages = find_packages(exclude=['test']),
     install_requires = [
+        'typing',
         'dict2xml'
     ],
     # other arguments here...
