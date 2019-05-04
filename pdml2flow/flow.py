@@ -48,6 +48,10 @@ class Flow():
         return self.__id == other.__id
 
     @property
+    def id(self):
+        return self.__id
+
+    @property
     def frames(self):
         # clean the frame data
         if Conf.FRAMES_ARRAY:
