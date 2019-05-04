@@ -26,6 +26,28 @@ class TestFlow(TestCase):
         })
         self.assertEqual(Flow.get_flow_id(frame), None)
 
+    def test_id(self):
+        Conf.FRAME_TIME = [ 't' ]
+        Conf.FLOW_DEF = [ ['def1'] ]
+
+        frame = AutoVivification({
+            't' : 0,
+            'def1': 1,
+        })
+        self.assertEqual(
+            Flow(frame).id,
+            Flow.get_flow_id(frame),
+        )
+
+        frame2 = AutoVivification({
+            't' : 0,
+            'def1': 2,
+        })
+        self.assertNotEqual(
+            Flow(frame2).id,
+            Flow.get_flow_id(frame),
+        )
+
     def test__eq__(self):
         Conf.FRAME_TIME = [ 't' ]
         Conf.FLOW_DEF = [ ['def1'] ]
