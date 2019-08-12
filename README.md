@@ -1,7 +1,22 @@
 # pdml2flow [![PyPI version](https://badge.fury.io/py/pdml2flow.svg)](https://badge.fury.io/py/pdml2flow) 
-_Aggregates wireshark pdml to flows, with plugins_
 
-When analyzing network traffic, it is sometimes helpful to group captured frames. For example by port numbers to obtain network flows or using MAC addresses for hardware flows. Doing this in [Wireshark][wireshark] or [tshark] is difficult. `pdml2flow` was designed to solve this use case. `pdml2flow` reads [tshark] output using the [Packet Description Markup Language][pdml] and writes flows either in JSON or XML. These flows are also accessible from a python plugin interface. If flow aggregation is not needed, `pdml2frame` can be be used to process [pdml] with plugins.
+When analyzing network traffic, we can either inspect each frame individually
+or analyze groups of captured frames. Such groups of frames are called flows.
+For example, grouping by port numbers gives us network flows. Network flows
+are helpful if we want to analyze communication behavior between applications.
+On the other hand if we group by MAC addresses, we obtain hardware flows. Those
+are interesting for debugging switching and trunking.
+
+Doing this in Wireshark or tshark is difficult. `pdml2flow` was designed to
+solve this use case. `pdml2flow` reads `tshark` output using the Packet
+Description Markup Language and writes flows either in JSON or XML. Using the
+[`-f` option](https://github.com/Enteee/pdml2flow#usage), one can simply change
+the flow definition. Furthermore, [plugins written in python](https://github.com/Enteee/pdml2flow#plugins)
+do have access to the frames and flows and implement custom flow processing logic.
+With [`pdml2flow-new-plugin`](https://github.com/Enteee/pdml2flow#create-a-new-plugin)
+bootstrapping a new plugin is only a matter of seconds. If flow aggregation is
+not needed, [`pdml2frame`](https://github.com/Enteee/pdml2flow#pdml2frame)
+enables python powered frame processing.
 
 | Branch  | Build  | Coverage |
 | ------- | ------ | -------- |
@@ -184,6 +199,18 @@ running the tests:
 $ python setup.py test
 ```
 
+## Similar Software
+
+* `tshark -T json`: Out of the box frame as JSON output. Use this in conjunction
+with a JSON stream parser to replicate the functionality of `pdml2frame`.
+* [PyShark](https://kiminewt.github.io/pyshark/): Python wrapper for tshark, allowing
+python packet parsing using wireshark dissectors. An excellent tool for packet
+processing in python. Does not support flow aggregation out of the box.
+* [dpkt](https://dpkt.readthedocs.io/en/latest/): A python module for fast, simple
+packet creation and parsing, with definitions for the basic TCP/IP protocols. Does
+not support all protocols implemented in wireshark.
+* [Scapy](https://scapy.net/): Packet crafting/parsing in python. Focuses on packet
+crafting.
 
 [python]: https://www.python.org/
 [wireshark]: https://www.wireshark.org/
